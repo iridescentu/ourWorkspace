@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./Home";
 import { Universe } from "./Universe";
 import { Login } from "./Login";
@@ -8,6 +8,7 @@ import { Register } from "./Register";
 import { Archive } from "./Archive";
 import { Bin } from "./Bin";
 import { NavBar } from "./NavBar";
+import { FullScreen } from "react-full-screen";
 
 const GlobalStyle = createGlobalStyle`
 *{
