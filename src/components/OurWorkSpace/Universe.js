@@ -16,14 +16,20 @@ export function Universe() {
   return (
     <>
       <Container>
-        <UniverseWindow />
-        {/* <h2>universe</h2>
+        {/* <UniverseWindow /> */}
+        <h2>universe</h2>
         <NavLink to="/universe/login">
-          <button>Login</button>
+          <button>Go to Login</button>
         </NavLink>
         <NavLink to="/universe/register">
-          <button>Register</button>
-        </NavLink> */}
+          <button>Go to Register</button>
+        </NavLink>
+        <NavLink to="/universe/archive">
+          <button>Go to Archive</button>
+        </NavLink>
+        <NavLink to="/universe/Bin">
+          <button>Go to Bin</button>
+        </NavLink>
       </Container>
     </>
   );

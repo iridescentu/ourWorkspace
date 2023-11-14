@@ -11,7 +11,7 @@ const Topbar = styled.div`
   width: 100%;
   height: 30px;
 `;
-
+const Tabs = styled.div``;
 export function UniverseWindow() {
   return (
     <>
