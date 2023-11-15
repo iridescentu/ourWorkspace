@@ -56,7 +56,7 @@ export function NavBar({ toggleFullScreen }) {
         <Nav>
           <NavSection>
             <Logo>
-              <p>아이콘과 로고</p>
+              <p>아이콘 OurWorkSpace</p>
             </Logo>
           </NavSection>
           <NavSection>

@@ -7,29 +7,13 @@ const Container = styled.div`
   /* NavBar height 50px */
   height: calc(100vh - 50px);
   background-color: black;
-  & h2 {
-    color: white;
-  }
 `;
 
 export function Universe() {
   return (
     <>
       <Container>
-        {/* <UniverseWindow /> */}
-        <h2>universe</h2>
-        <NavLink to="/universe/login">
-          <button>Go to Login</button>
-        </NavLink>
-        <NavLink to="/universe/register">
-          <button>Go to Register</button>
-        </NavLink>
-        <NavLink to="/universe/archive">
-          <button>Go to Archive</button>
-        </NavLink>
-        <NavLink to="/universe/Bin">
-          <button>Go to Bin</button>
-        </NavLink>
+        <UniverseWindow />
       </Container>
     </>
   );

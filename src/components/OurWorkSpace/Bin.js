@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { UniverseWindow } from "./UniverseWindow";
 
 const Container = styled.div`
   width: 100%;
@@ -9,7 +10,9 @@ const Container = styled.div`
 export function Bin() {
   return (
     <>
-      <Container></Container>
+      <Container>
+        <UniverseWindow />
+      </Container>
     </>
   );
 }
