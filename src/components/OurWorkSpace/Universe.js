@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { UniverseWindow } from "./UniverseWindow";
 
@@ -7,6 +6,9 @@ const Container = styled.div`
   /* NavBar height 50px */
   height: calc(100vh - 50px);
   background-color: black;
+  & h1 {
+    color: white;
+  }
 `;
 
 export function Universe() {
@@ -14,6 +16,7 @@ export function Universe() {
     <>
       <Container>
         <UniverseWindow />
+        <h1>Universe Contents</h1>
       </Container>
     </>
   );

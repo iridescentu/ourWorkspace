@@ -7,8 +7,6 @@ const Container = styled.div`
   height: 300px;
   border: 2px solid gray;
   position: absolute;
-  /* top: 70%; 
-  left: 70%; */
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
   transform: translate(-50%, -50%);
@@ -78,6 +76,8 @@ export function OurProject({ onOurProjectHide }) {
   const [position, setPosition] = useState({ top: 500, left: 500 });
 
   const mouseDown = (e) => {
+    // 기본 drag 동작 방지
+    e.preventDefault();
     setDragging(true);
   };
   const mouseUp = (e) => {

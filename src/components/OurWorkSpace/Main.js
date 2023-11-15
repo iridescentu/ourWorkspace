@@ -68,6 +68,11 @@ export function Main() {
     // setIsPopup((prev) => !prev);
   };
 
+  // 디스코드 창 새로 띄우기
+  const openDiscordServer = () => {
+    window.open("https://discord.gg/8hGq5fsv");
+  };
+
   return (
     <>
       <Container>
@@ -97,7 +102,7 @@ export function Main() {
           </figure>
           <IconTitle>Music</IconTitle>
         </Icon>
-        <Icon>
+        <Icon onClick={openDiscordServer}>
           <figure>
             <IconImg src={DiscordIcon} />
           </figure>

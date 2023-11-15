@@ -152,7 +152,7 @@ export function UniverseWindow() {
               <div className="circle" id="yellow"></div>
               <div className="circle" id="green"></div>
             </div>
-            <p>logout 하면 home으로 갑니다 그렇다면 확인 아니면 취소~</p>
+            <p>Logout 하면 Home으로 갑니다 그렇다면 확인 아니면 취소~</p>
             <button onClick={handleConfirm}>Confirm</button>
             <button onClick={handleCancel}>Cancel</button>
           </Alerts>

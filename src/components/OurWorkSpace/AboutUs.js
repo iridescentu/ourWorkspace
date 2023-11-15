@@ -7,11 +7,8 @@ const Container = styled.div`
   height: 300px;
   border: 2px solid gray;
   position: absolute;
-  /* top: 50%; */
-  /* left: 50%; */
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
-  transform: translate(-50%, -50%);
 `;
 const PopupBox = styled.div`
   width: 100%;
@@ -84,9 +81,15 @@ export function AboutUs({ onAboutUsHide }) {
 
   // PopupNavBar로 드래그 하기 위해
   const [dragging, setDragging] = useState(false);
-  const [position, setPosition] = useState({ top: 500, left: 500 });
-
+  const [position, setPosition] = useState({
+    top: window.innerHeight / 2 - 150,
+    left: window.innerWidth / 2 - 150,
+    // ( top: 50%;, left: 50% === /2 ) => 같은 메커니즘: 가운데 오게 하고,
+    // ( transform: translate(-50%,-50%) === -150px ) => 같은 메커니즘: container가 300px이기 때문에
+  });
   const mouseDown = (e) => {
+    // 기본 drag 동작 방지
+    e.preventDefault();
     setDragging(true);
   };
   const mouseUp = (e) => {

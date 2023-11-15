@@ -11,6 +11,7 @@ export function Archive() {
     <>
       <Container>
         <UniverseWindow />
+        <h1>Archive Contents</h1>
       </Container>
     </>
   );

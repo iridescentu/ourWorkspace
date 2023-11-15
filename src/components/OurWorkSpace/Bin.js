@@ -12,6 +12,7 @@ export function Bin() {
     <>
       <Container>
         <UniverseWindow />
+        <h1>Bin Contents</h1>
       </Container>
     </>
   );
