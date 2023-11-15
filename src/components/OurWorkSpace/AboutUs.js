@@ -102,6 +102,21 @@ export function AboutUs({ onAboutUsHide }) {
         left: prev.left + e.movementX,
       }));
     }
+    // dragging 화면 제한하기
+    // if (dragging) {
+    //   const containerWidth = 300;
+    //   const containerHeight = 300;
+
+    //   const newTop = Math.min(
+    //     Math.max(position.top + e.movementY, 0),
+    //     window.innerHeight - containerHeight
+    //   );
+    //   const newLeft = Math.min(
+    //     Math.max(position.left + e.movementX, 0),
+    //     window.innerWidth - containerWidth
+    //   );
+    //   setPosition({ left: newLeft, top: newTop });
+    // }
   };
   useEffect(() => {
     document.addEventListener("mouseup", mouseUp);
