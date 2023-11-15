@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 import { Screen } from "./Screen";
 import { Outlet } from "react-router-dom";
 

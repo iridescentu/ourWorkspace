@@ -32,10 +32,8 @@ export function OurWorkSpace() {
   const toggleFullScreen = () => {
     if (isFullScreen) {
       handle.exit();
-      console.log("exit");
     } else {
       handle.enter();
-      console.log("enter");
     }
     setIsFullScreen(!isFullScreen);
   };

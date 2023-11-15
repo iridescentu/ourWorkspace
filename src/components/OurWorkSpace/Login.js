@@ -10,8 +10,8 @@ const Container = styled.div`
   justify-content: center;
 `;
 const LoginBox = styled.div`
-  width: 500px;
-  height: 500px;
+  width: 50%;
+  height: 70%;
   background-color: gold;
   display: flex;
   flex-direction: column;
@@ -31,6 +31,7 @@ const LoginBox = styled.div`
 `;
 const Header = styled.h2`
   background-color: aliceblue;
+  margin-bottom: 10%;
 `;
 const LoginBtn = styled.button``;
 const LoginInfo = styled.p``;
