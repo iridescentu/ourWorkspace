@@ -9,7 +9,6 @@ const Container = styled.div`
   position: absolute;
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
-  z-index: ${({ type, zIndexMap }) => zIndexMap[type] || 0};
 `;
 const PopupBox = styled.div`
   width: 100%;

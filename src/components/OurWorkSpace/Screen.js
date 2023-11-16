@@ -8,7 +8,6 @@ import { Setting } from "./Setting";
 import { useState } from "react";
 
 const Container = styled.div`
-  background-color: beige;
   width: 100%;
   /* NavBar height 50px */
   height: calc(100% - 50px);

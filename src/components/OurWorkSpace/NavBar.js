@@ -14,12 +14,29 @@ const Nav = styled.div`
   grid-template-columns: 1fr 1fr;
 `;
 const NavSection = styled.div`
-  background-color: rgba(255, 110, 169);
   border: 1px solid black;
   width: 100%;
   height: 50px;
 `;
-const Logo = styled.div``;
+const Logo = styled.div`
+  width: 100%;
+  height: 100%;
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+  & h2 {
+    color: white;
+  }
+`;
+const LogoImgBox = styled.div`
+  margin-top: 8px;
+  width: 60px;
+`;
+const LogoImg = styled.img`
+  width: 100%;
+`;
 const NavItem = styled.div`
   color: white;
   display: grid;
@@ -56,7 +73,13 @@ export function NavBar({ toggleFullScreen }) {
         <Nav>
           <NavSection>
             <Logo>
-              <p>아이콘 OurWorkSpace</p>
+              <LogoImgBox>
+                <LogoImg
+                  src={`${process.env.PUBLIC_URL}/Logo03.png`}
+                  alt="Logo"
+                />
+              </LogoImgBox>
+              <h2>Our Workspace</h2>
             </Logo>
           </NavSection>
           <NavSection>

@@ -3,7 +3,6 @@ import { Screen } from "./Screen";
 import { Outlet } from "react-router-dom";
 
 const Container = styled.div`
-  background-color: darkblue;
   width: 100vw;
   height: 100vh;
 `;

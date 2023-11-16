@@ -48,6 +48,8 @@ const IconTitle = styled.p`
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 0 5px;
+  font-family: "Silkscreen";
+  letter-spacing: -1px;
 `;
 export function Main() {
   // isPopupVisible 상태 변수를 선언하고 초기값 false로 설정
