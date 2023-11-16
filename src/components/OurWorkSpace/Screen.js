@@ -23,11 +23,6 @@ export function Screen() {
     <>
       <Container>
         <Main />
-        {/* Main에서 클릭에 따라 보여지고 안보여지고 */}
-        {/* <AboutUs /> */}
-        {/* <OurProject /> */}
-        <Music />
-        <Setting />
       </Container>
     </>
   );

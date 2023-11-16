@@ -74,7 +74,7 @@ export function AboutUs({ onAboutUsHide }) {
   //  container 클릭했을 때 z-index값을 최상위로 하기 위해
   //  const [zIndex, setZIndex] = useState(1);
   //  const toFront = () =>{
-  //  setZIndex((prev)=> prev+1)
+  //  setZIndex((prev)=> prev+1)ㄴ
   //  };
   //  Container에 style={{zIndex}} 부여하고 mouseDown 함수에 toFront() 기능 넣어주면
   //  클릭에 따라 z-inex 값이 증가하면서 원하는 화면이 구현되지만 클릭 수에 의존하여 다른 방법 모색
@@ -128,10 +128,6 @@ export function AboutUs({ onAboutUsHide }) {
     };
   }, [dragging]);
 
-  const XBtnClick = () => {
-    onAboutUsHide();
-  };
-
   return (
     <>
       <Container top={position.top} left={position.left}>
@@ -143,7 +139,7 @@ export function AboutUs({ onAboutUsHide }) {
               </LogoImg>
               <p>AboutUs</p>
             </Logo>
-            <XBtn onClick={XBtnClick}>X</XBtn>
+            <XBtn onClick={onAboutUsHide}>X</XBtn>
           </PopupNavBar>
           <PopupHome>
             <Title>About Us</Title>

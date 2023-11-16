@@ -9,7 +9,7 @@ const Container = styled.div`
   position: absolute;
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
-  transform: translate(-50%, -50%);
+  z-index: ${({ type, zIndexMap }) => zIndexMap[type] || 0};
 `;
 const PopupBox = styled.div`
   width: 100%;
@@ -71,9 +71,12 @@ const Content = styled.p`
 const Btn = styled.button`
   cursor: pointer;
 `;
-export function OurProject({ onOurProjectHide }) {
+export function OurProject({ onOurProjectHide, type, zIndexMap }) {
   const [dragging, setDragging] = useState(false);
-  const [position, setPosition] = useState({ top: 500, left: 500 });
+  const [position, setPosition] = useState({
+    top: window.innerHeight / 2 - 150,
+    left: window.innerWidth / 2 - 150,
+  });
 
   const mouseDown = (e) => {
     // 기본 drag 동작 방지
@@ -101,13 +104,14 @@ export function OurProject({ onOurProjectHide }) {
     };
   }, [dragging]);
 
-  const XBtnClick = () => {
-    onOurProjectHide();
-  };
-
   return (
     <>
-      <Container top={position.top} left={position.left}>
+      <Container
+        top={position.top}
+        left={position.left}
+        zIndexMap={zIndexMap}
+        type={type}
+      >
         <PopupBox>
           <PopupNavBar onMouseDown={mouseDown}>
             <Logo>
@@ -116,7 +120,7 @@ export function OurProject({ onOurProjectHide }) {
               </LogoImg>
               <p>OurProject</p>
             </Logo>
-            <XBtn onClick={XBtnClick}>X</XBtn>
+            <XBtn onClick={onOurProjectHide}>X</XBtn>
           </PopupNavBar>
           <PopupHome>
             <Title>OurProject</Title>
