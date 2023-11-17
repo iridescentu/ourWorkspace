@@ -2,6 +2,7 @@ import styled from "styled-components";
 import FullScreenIcon from "./IconImage/FullScreen.png";
 import { OpenWeather } from "./OpenWeather";
 import { Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Container = styled.div`
   background-color: orange;
@@ -68,6 +69,26 @@ const Btn = styled.button`
 `;
 
 export function NavBar({ toggleFullScreen }) {
+  // 날짜, 시각 표시
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  const formattedDate = currentDateTime
+    .toLocaleDateString()
+    .split(".")
+    .slice(0, 3)
+    .join(" -");
+  const formattedTime = currentDateTime.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  const amPm = currentDateTime.getHours() >= 12 ? "PM " : "AM ";
+
   return (
     <>
       <Container>
@@ -90,7 +111,9 @@ export function NavBar({ toggleFullScreen }) {
                   <IconImg src={FullScreenIcon} />
                 </figure>
                 <Btn>
-                  오전 대충 시간 <br /> 2023-날-짜
+                  {amPm} {formattedTime}
+                  <br />
+                  {formattedDate}
                 </Btn>
               </NavItemSection>
               <NavItemSection>

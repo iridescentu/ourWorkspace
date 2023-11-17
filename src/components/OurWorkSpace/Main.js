@@ -5,7 +5,7 @@ import UniverseIcon from "./IconImage/Universe.png";
 import MusicIcon from "./IconImage/Music.png";
 import DiscordIcon from "./IconImage/Discord.png";
 import SettingIcon from "./IconImage/Setting.png";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AboutUs } from "./AboutUs";
 import { OurProject } from "./OurProject";
 import { Music } from "./Music";
@@ -102,6 +102,11 @@ export function Main() {
   // 디스코드 창 새로 띄우기
   const openDiscordServer = () => {
     window.open("https://discord.gg/8hGq5fsv");
+  };
+
+  const popupRef = useRef(null);
+  const bringToFront = () => {
+    popupRef.current.style.order = -1;
   };
 
   return (
