@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import MusicIcon from "./IconImage/Music.png";
+import YouTube from "react-youtube";
 
 const Container = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 560px;
+  /* Youtube video 16:9, PopupNavBar height 30px */
+  height: calc(315px + 30px);
   border: 2px solid gray;
   position: absolute;
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
+  transform: translate(10%, -70%);
 `;
 const PopupBox = styled.div`
   width: 100%;
@@ -48,27 +51,6 @@ const XBtn = styled.button`
   width: 30px;
   height: 100%;
 `;
-const PopupHome = styled.div`
-  background-color: red;
-  width: 100%;
-  /* PopupNavBar height 30px */
-  height: calc(100% - 30px);
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`;
-const Title = styled.h2`
-  background-color: pink;
-`;
-const Content = styled.p`
-  background-color: gold;
-  /* p 태그의 text는 크기에 상관없이 글자가 튀어져 나감 때문에 word-wrap의 break-word 속성 부여 */
-  word-wrap: break-word;
-`;
-const Btn = styled.button`
-  cursor: pointer;
-`;
 
 export function Music({ onMusicHide, type, zIndexMap }) {
   const [dragging, setDragging] = useState(false);
@@ -102,6 +84,8 @@ export function Music({ onMusicHide, type, zIndexMap }) {
     };
   }, [dragging]);
 
+  const videoId = "cyN5nJylCj0";
+
   return (
     <>
       <Container
@@ -120,13 +104,21 @@ export function Music({ onMusicHide, type, zIndexMap }) {
             </Logo>
             <XBtn onClick={onMusicHide}>X</XBtn>
           </PopupNavBar>
-          <PopupHome>
-            <Title>Music</Title>
-            <Content>
-              zzzzzzzzzzzzzzzzzzzzzsljdglsjdgljsgdzzzzzzzzzzzzzlsdjgljsgljzzzzzzzdsfsfd32ljzzzz
-            </Content>
-            <Btn>Button</Btn>
-          </PopupHome>
+          <YouTube
+            videoId={videoId}
+            opts={{
+              width: "100%",
+              height: "310",
+              playerVars: {
+                autoplay: 1,
+                color: "white",
+                rel: 0,
+                loop: 1,
+                // 전체화면 없앰
+                fs: 0,
+              },
+            }}
+          />
         </PopupBox>
       </Container>
     </>

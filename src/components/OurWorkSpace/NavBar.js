@@ -28,6 +28,7 @@ const Logo = styled.div`
   gap: 10px;
   & h2 {
     color: white;
+    font-family: Black + Ops + One;
   }
 `;
 const LogoImgBox = styled.div`
