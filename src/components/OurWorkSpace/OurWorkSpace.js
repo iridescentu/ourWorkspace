@@ -10,7 +10,6 @@ import { Bin } from "./Bin";
 import { NavBar } from "./NavBar";
 import { useState } from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { UniverseWindow } from "./UniverseWindow";
 const GlobalStyle = createGlobalStyle`
 *{
   padding: 0;
@@ -50,6 +49,7 @@ export function OurWorkSpace() {
   return (
     <>
       <GlobalStyle />
+
       <BrowserRouter>
         <FullScreen handle={handle}>
           <Routes>

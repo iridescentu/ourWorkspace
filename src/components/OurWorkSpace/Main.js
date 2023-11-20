@@ -32,6 +32,7 @@ const Icon = styled.div`
   align-items: center;
   justify-content: center;
   gap: 5px;
+  cursor: pointer;
   & figure {
     width: 60px;
     height: 60px;

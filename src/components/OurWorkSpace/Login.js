@@ -1,5 +1,8 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { useState } from "react";
+import { login } from "./api";
+import { Icon } from "@iconify/react";
 
 const Container = styled.div`
   width: 100vw;
@@ -36,7 +39,23 @@ const Header = styled.h2`
 const LoginBtn = styled.button``;
 const LoginInfo = styled.p``;
 const SignUpButton = styled.button``;
+const StyledIcon = styled(Icon)``;
+
 export function Login() {
+  // login
+  const [loginId, setLoginId] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  // 로그인 시도를 위해 입력된 user의 정보를 담고 있는 state
+  const [userLogin, setUserLogin] = useState(null);
+  const [loggingIn, setLoggingIn] = useState(false);
+  // const { loginState, setLoginState } = useContext(UserContext);
+
+  // Password 보이거나 안보이게
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisible = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <>
       <Container>
@@ -45,8 +64,21 @@ export function Login() {
           <form>
             <label>ID</label>
             <input type="text" placeholder="Enter your Id." />
-            <label>PW</label>
-            <input type="text" placeholder="Enter your Password." />
+            <label>
+              PW
+              <StyledIcon
+                icon={
+                  showPassword
+                    ? "basil:eye-outline"
+                    : "basil:eye-closed-outline"
+                }
+                onClick={togglePasswordVisible}
+              />
+            </label>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your Password."
+            />
           </form>
           <LoginBtn type="submit">Login</LoginBtn>
           <LoginInfo>

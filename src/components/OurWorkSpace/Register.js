@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import { UniverseWindow } from "./UniverseWindow";
+import MyDatePicker from "./DatePicker";
+import { Icon } from "@iconify/react";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -21,7 +25,7 @@ const RegisterBox = styled.div`
   gap: 10%;
   & form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
     background-color: orange;
     text-align: center;
     & input {
@@ -49,17 +53,71 @@ const RegisterBox = styled.div`
 `;
 const Header = styled.h2`
   background-color: aliceblue;
-  margin-bottom: 10%;
 `;
 const LoginBtn = styled.button``;
 const LoginInfo = styled.p``;
 const SignUpButton = styled.button``;
+const StyledIcon = styled(Icon)`
+  width: 30px;
+  height: 30px;
+`;
 
 export function Register() {
+  // 출생연월일 선택
+  const years = [];
+  const months = [];
+  const days = [];
+  const currentYear = new Date().getFullYear();
+  for (let year = currentYear; year >= 1923; year--) {
+    years.push(
+      <option key={year} value={year}>
+        {year}
+      </option>
+    );
+  }
+  for (let month = 1; month <= 12; month++) {
+    months.push(
+      <option key={month} value={month}>
+        {month}
+      </option>
+    );
+  }
+  for (let day = 1; day <= 31; day++) {
+    days.push(
+      <option key={day} value={day}>
+        {day}
+      </option>
+    );
+  }
+
+  // email domain 직접 입력 또는 자동 완성
+  const [selectedDomain, setSelectedDomain] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const handleDomainChange = (e) => {
+    const value = e.target.value;
+    setSelectedDomain(value);
+    if (value !== "type") {
+      setInputValue(value);
+    } else {
+      setInputValue("");
+    }
+  };
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+    setSelectedDomain("type");
+  };
+
+  // Password 보이거나 안보이게
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisible = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <>
       <UniverseWindow />
       <Container>
+        <MyDatePicker />
         <RegisterBox>
           <Header>Register</Header>
           <form>
@@ -73,14 +131,83 @@ export function Register() {
               <label>Man</label>
               <input type="radio" name="sex" />
             </div>
+            {/* 생년월일 입력 */}
             <label>Birthdate</label>
-            <input type="text" />
+            <div>
+              <select>
+                <option disabled selected>
+                  출생 연도
+                </option>
+                {years.map((year) => (
+                  <option>{year}</option>
+                ))}
+              </select>
+              <select>
+                <option disabled selected>
+                  월
+                </option>
+                {months.map((month) => (
+                  <option>{month}</option>
+                ))}
+              </select>
+              <select>
+                <option disabled selected>
+                  일
+                </option>
+                {days.map((day) => (
+                  <option>{day}</option>
+                ))}
+              </select>
+            </div>
+            {/* 이메일 입력 */}
+            <label>E-mail</label>
+            <div>
+              <input type="text" placeholder="이메일 입력" />
+              <input
+                type="text"
+                placeholder="domain select"
+                value={inputValue}
+                onChange={handleInputChange}
+              />
+              <select value={selectedDomain} onChange={handleDomainChange}>
+                <option value={"type"}>직접 입력</option>
+                <option className="domainList" value={"naver.com"}>
+                  naver.com
+                </option>
+                <option className="domainList" value={"google.com"}>
+                  google.com
+                </option>
+                <option className="domainList" value={"nate.com"}>
+                  nate.com
+                </option>
+                <option className="domainList" value={"kakao.com"}>
+                  kakao.com
+                </option>
+              </select>
+            </div>
+            {/* 닉네임 입력 */}
             <label>Nickname</label>
             <input type="text" />
+            {/* ID 입력 */}
             <label>ID</label>
-            <input type="text" />
-            <label>Password</label>
-            <input type="text" />
+            <input type="text" placeholder="Enter your Id." />
+            {/* Password 입력 */}
+            <label>
+              Password
+              {/* input 태그 안에 아이콘 넣기 */}
+              <StyledIcon
+                icon={
+                  showPassword
+                    ? "basil:eye-outline"
+                    : "basil:eye-closed-outline"
+                }
+                onClick={togglePasswordVisible}
+              />
+            </label>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password."
+            />
           </form>
           <LoginBtn type="submit">Sign up</LoginBtn>
         </RegisterBox>

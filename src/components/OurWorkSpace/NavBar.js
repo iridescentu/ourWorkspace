@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import FullScreenIcon from "./IconImage/FullScreen.png";
 import { OpenWeather } from "./OpenWeather";
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Container = styled.div`
@@ -27,10 +27,13 @@ const Logo = styled.div`
   align-items: center;
   justify-content: start;
   gap: 10px;
-  & h2 {
-    color: white;
-    font-family: Black + Ops + One;
-  }
+`;
+const StyledNavLink = styled(NavLink)`
+  color: white;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 2rem;
+  cursor: pointer;
 `;
 const LogoImgBox = styled.div`
   margin-top: 8px;
@@ -101,7 +104,7 @@ export function NavBar({ toggleFullScreen }) {
                   alt="Logo"
                 />
               </LogoImgBox>
-              <h2>Our Workspace</h2>
+              <StyledNavLink to={"/"}>Our Workspace</StyledNavLink>
             </Logo>
           </NavSection>
           <NavSection>
