@@ -71,14 +71,6 @@ const Btn = styled.button`
   cursor: pointer;
 `;
 export function AboutUs({ onAboutUsHide }) {
-  //  container 클릭했을 때 z-index값을 최상위로 하기 위해
-  //  const [zIndex, setZIndex] = useState(1);
-  //  const toFront = () =>{
-  //  setZIndex((prev)=> prev+1)ㄴ
-  //  };
-  //  Container에 style={{zIndex}} 부여하고 mouseDown 함수에 toFront() 기능 넣어주면
-  //  클릭에 따라 z-inex 값이 증가하면서 원하는 화면이 구현되지만 클릭 수에 의존하여 다른 방법 모색
-
   // PopupNavBar로 드래그 하기 위해
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({
@@ -102,21 +94,6 @@ export function AboutUs({ onAboutUsHide }) {
         left: prev.left + e.movementX,
       }));
     }
-    // dragging 화면 제한하기
-    // if (dragging) {
-    //   const containerWidth = 300;
-    //   const containerHeight = 300;
-
-    //   const newTop = Math.min(
-    //     Math.max(position.top + e.movementY, 0),
-    //     window.innerHeight - containerHeight
-    //   );
-    //   const newLeft = Math.min(
-    //     Math.max(position.left + e.movementX, 0),
-    //     window.innerWidth - containerWidth
-    //   );
-    //   setPosition({ left: newLeft, top: newTop });
-    // }
   };
   useEffect(() => {
     document.addEventListener("mouseup", mouseUp);

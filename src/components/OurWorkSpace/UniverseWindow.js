@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 
@@ -158,6 +158,7 @@ export function UniverseWindow() {
           </Alerts>
         )}
       </Container>
+      <Outlet />
     </>
   );
 }

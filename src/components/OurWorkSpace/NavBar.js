@@ -3,6 +3,7 @@ import FullScreenIcon from "./IconImage/FullScreen.png";
 import { OpenWeather } from "./OpenWeather";
 import { NavLink, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useTheme } from "./ThemeContext";
 
 const Container = styled.div`
   background-color: orange;
@@ -92,9 +93,16 @@ export function NavBar({ toggleFullScreen }) {
   });
   const amPm = currentDateTime.getHours() >= 12 ? "PM " : "AM ";
 
+  // Theme
+  const { navBarBackgroundColor } = useTheme();
+
   return (
     <>
-      <Container>
+      <Container
+        style={{
+          backgroundColor: navBarBackgroundColor,
+        }}
+      >
         <Nav>
           <NavSection>
             <Logo>

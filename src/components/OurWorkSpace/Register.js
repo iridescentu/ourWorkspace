@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import { UniverseWindow } from "./UniverseWindow";
 import MyDatePicker from "./DatePicker";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -115,7 +113,6 @@ export function Register() {
 
   return (
     <>
-      <UniverseWindow />
       <Container>
         <MyDatePicker />
         <RegisterBox>

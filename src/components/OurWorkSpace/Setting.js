@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import SettingIcon from "./IconImage/Setting.png";
+import { useTheme } from "./ThemeContext";
 
 const Container = styled.div`
   width: 300px;
@@ -9,7 +10,6 @@ const Container = styled.div`
   position: absolute;
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
-  z-index: ${({ type, zIndexMap }) => zIndexMap[type] || 0};
 `;
 const PopupBox = styled.div`
   width: 100%;
@@ -70,7 +70,7 @@ const Content = styled.p`
 const Btn = styled.button`
   cursor: pointer;
 `;
-export function Setting({ onSettingHide, type, zIndexMap }) {
+export function Setting({ onSettingHide }) {
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({
     top: window.innerHeight / 2 - 150,
@@ -102,14 +102,18 @@ export function Setting({ onSettingHide, type, zIndexMap }) {
     };
   }, [dragging]);
 
+  // Theme setting
+  const { changeTheme } = useTheme();
+  const handleThemeChange = () => {
+    changeTheme(
+      "beige",
+      'url("https://cdn.discordapp.com/attachments/1172066053451423844/1172067976866959380/departing-07-EXPORT.gif?ex=656832dd&is=6555bddd&hm=c4a7d1f3c6d9f5a6bf13f03c47a7b75209668b9597ae21ac40f5edf100087d22&")'
+    );
+  };
+
   return (
     <>
-      <Container
-        top={position.top}
-        left={position.left}
-        zIndexMap={zIndexMap}
-        type={type}
-      >
+      <Container top={position.top} left={position.left}>
         <PopupBox>
           <PopupNavBar onMouseDown={mouseDown}>
             <Logo>
@@ -125,7 +129,13 @@ export function Setting({ onSettingHide, type, zIndexMap }) {
             <Content>
               zzzzzzzzzzzzzzzzzzzzzsljdglsjdgljsgdzzzzzzzzzzzzzlsdjgljsgljzzzzzzzdsfsfd32ljzzzz
             </Content>
-            <Btn>Button</Btn>
+            <div>
+              <Btn>default테마</Btn>
+              <Btn onClick={handleThemeChange}>테마1</Btn>
+              <Btn>테마2</Btn>
+              <Btn>테마3</Btn>
+              <Btn>테마4</Btn>
+            </div>
           </PopupHome>
         </PopupBox>
       </Container>

@@ -9,7 +9,6 @@ const Container = styled.div`
   position: absolute;
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
-  z-index: ${({ type, zIndexMap }) => zIndexMap[type] || 0};
 `;
 const PopupBox = styled.div`
   width: 100%;
@@ -71,7 +70,7 @@ const Content = styled.p`
 const Btn = styled.button`
   cursor: pointer;
 `;
-export function OurProject({ onOurProjectHide, type, zIndexMap }) {
+export function OurProject({ onOurProjectHide }) {
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({
     top: window.innerHeight / 2 - 150,
@@ -106,12 +105,7 @@ export function OurProject({ onOurProjectHide, type, zIndexMap }) {
 
   return (
     <>
-      <Container
-        top={position.top}
-        left={position.left}
-        zIndexMap={zIndexMap}
-        type={type}
-      >
+      <Container top={position.top} left={position.left}>
         <PopupBox>
           <PopupNavBar onMouseDown={mouseDown}>
             <Logo>

@@ -5,7 +5,7 @@ import UniverseIcon from "./IconImage/Universe.png";
 import MusicIcon from "./IconImage/Music.png";
 import DiscordIcon from "./IconImage/Discord.png";
 import SettingIcon from "./IconImage/Setting.png";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { AboutUs } from "./AboutUs";
 import { OurProject } from "./OurProject";
 import { Music } from "./Music";
@@ -53,43 +53,14 @@ const IconTitle = styled.p`
   letter-spacing: -1px;
 `;
 export function Main() {
-  // isPopupVisible 상태 변수를 선언하고 초기값 false로 설정
-  //  setIsPopupVisible은 isPopupVisible 상태 변수를 업데이트하는 함수
-  // const [isAboutUsVisible, setIsAboutUsVisible] = useState(false);
-  // const [isOurProjectVisible, setIsOurProjectVisible] = useState(false);
-  // const popupClick = () => {
-  //   if (!isAboutUsVisible) {
-  //     setIsAboutUsVisible(true);
-  //   } else if (!isOurProjectVisible) {
-  //     setIsOurProjectVisible(true);
-  //   }
-  // 처음 한번만 띄우기
-  // setIsPopup(true);
-  // toggle로 사용하기
-  // setIsPopupVisible(!isPopupVisible);
-  // setIsPopup((prev) => !prev);
-  // };
-
-  // 팝업과 클릭 시 위로 뜨게 하는 것까지 한번에 구현
   const [modalStack, setModalStack] = useState([]);
-  const [zIndexMap, setZIndexMap] = useState({});
   const openModal = (type) => {
     if (!modalStack.includes(type)) {
-      // 팝업 열 때 최상단으로 열기
-      const newZIndexMap = { ...zIndexMap };
-      newZIndexMap[type] = Object.keys(zIndexMap).length + 1;
-      setZIndexMap(newZIndexMap);
-
       setModalStack((prev) => [
         ...prev.filter((item) => item.type !== type),
         { type, id: Date.now() },
       ]);
     } else {
-      // 열려 있는 팝업을 클릭하면 zIndex 조정하여 최상위로 올리기
-      const newZIndexMap = { ...zIndexMap };
-      newZIndexMap[type] = Object.keys(zIndexMap).length;
-      setZIndexMap(newZIndexMap);
-
       setModalStack((prev) => [
         ...prev.filter((item) => item.type !== type),
         { type, id: Date.now() },
@@ -100,14 +71,9 @@ export function Main() {
     setModalStack((prev) => prev.filter((item) => item.id !== id));
   };
 
-  // 디스코드 창 새로 띄우기
+  // 디스코드 서버 링크
   const openDiscordServer = () => {
     window.open("https://discord.gg/8hGq5fsv");
-  };
-
-  const popupRef = useRef(null);
-  const bringToFront = () => {
-    popupRef.current.style.order = -1;
   };
 
   return (
@@ -152,49 +118,17 @@ export function Main() {
           <IconTitle>Setting</IconTitle>
         </Icon>
       </Container>
-      {/* {isAboutUsVisible && (
-        <AboutUs onAboutUsHide={() => setIsAboutUsVisible(false)} />
-      )}
-      {isOurProjectVisible && (
-        <OurProject onOurProjectHide={() => setIsOurProjectVisible(false)} />
-      )} */}
       {modalStack.map(({ type, id }) => {
         if (type === "aboutUs") {
-          return (
-            <AboutUs
-              key={id}
-              onAboutUsHide={() => closeModal(id)}
-              zIndexMap={zIndexMap}
-              type={type}
-            />
-          );
+          return <AboutUs key={id} onAboutUsHide={() => closeModal(id)} />;
         } else if (type === "ourProject") {
           return (
-            <OurProject
-              key={id}
-              onOurProjectHide={() => closeModal(id)}
-              zIndexMap={zIndexMap}
-              type={type}
-            />
+            <OurProject key={id} onOurProjectHide={() => closeModal(id)} />
           );
         } else if (type === "music") {
-          return (
-            <Music
-              key={id}
-              onMusicHide={() => closeModal(id)}
-              zIndexMap={zIndexMap}
-              type={type}
-            />
-          );
+          return <Music key={id} onMusicHide={() => closeModal(id)} />;
         } else if (type === "setting") {
-          return (
-            <Setting
-              key={id}
-              onSettingHide={() => closeModal(id)}
-              zIndexMap={zIndexMap}
-              type={type}
-            />
-          );
+          return <Setting key={id} onSettingHide={() => closeModal(id)} />;
         }
         return null;
       })}
