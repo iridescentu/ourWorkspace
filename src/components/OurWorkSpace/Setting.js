@@ -106,8 +106,8 @@ export function Setting({ onSettingHide }) {
   const { changeTheme } = useTheme();
   const handleThemeChange = () => {
     changeTheme(
-      "beige",
-      'url("https://cdn.discordapp.com/attachments/1172066053451423844/1172067976866959380/departing-07-EXPORT.gif?ex=656832dd&is=6555bddd&hm=c4a7d1f3c6d9f5a6bf13f03c47a7b75209668b9597ae21ac40f5edf100087d22&")'
+      "#162354",
+      'url("https://openseauserdata.com/files/e96084d648812c87be57cb30661e685a.gif")'
     );
   };
 
@@ -131,7 +131,7 @@ export function Setting({ onSettingHide }) {
             </Content>
             <div>
               <Btn>default테마</Btn>
-              <Btn onClick={handleThemeChange}>테마1</Btn>
+              <Btn onClick={handleThemeChange}>rocket</Btn>
               <Btn>테마2</Btn>
               <Btn>테마3</Btn>
               <Btn>테마4</Btn>
