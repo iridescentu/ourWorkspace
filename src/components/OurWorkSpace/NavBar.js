@@ -20,11 +20,11 @@ const NavSection = styled.div`
 const Logo = styled.div`
   width: 100%;
   height: 100%;
-  margin-left: 30px;
+  margin-left: 5%;
   display: flex;
   align-items: center;
   justify-content: start;
-  gap: 10px;
+  gap: 3%;
 `;
 const StyledNavLink = styled(NavLink)`
   color: white;
@@ -34,7 +34,7 @@ const StyledNavLink = styled(NavLink)`
   cursor: pointer;
 `;
 const LogoImgBox = styled.div`
-  margin-top: 8px;
+  padding-top: 8px;
   width: 60px;
 `;
 const LogoImg = styled.img`
@@ -59,6 +59,9 @@ const NavItemSection = styled.div`
     width: 20px;
     height: 20px;
   }
+`;
+const StyledIcon = styled(Icon)`
+  font-size: 1.3rem;
 `;
 const IconImg = styled.img`
   width: 100%;
@@ -120,7 +123,7 @@ export function NavBar({ toggleFullScreen }) {
               {/* <figure>
                 <IconImg src={FullScreenIcon} />
               </figure> */}
-              <Icon icon="mingcute:time-line" />
+              <StyledIcon icon="mingcute:time-line" />
               <Btn>
                 {amPm} {formattedTime}
                 <br />
@@ -134,7 +137,7 @@ export function NavBar({ toggleFullScreen }) {
               {/* <figure>
                 <IconImg src={FullScreenIcon} />
               </figure> */}
-              <Icon icon="mingcute:fullscreen-fill" />
+              <StyledIcon icon="mingcute:fullscreen-fill" />
               <Btn onClick={toggleFullScreen}>FullScreen</Btn>
             </NavItemSection>
           </NavItem>

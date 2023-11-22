@@ -50,6 +50,7 @@ const IconTitle = styled.p`
   font-family: "Silkscreen";
   letter-spacing: -1px;
 `;
+
 export function Main() {
   const [modalStack, setModalStack] = useState([]);
   const openModal = (type) => {
