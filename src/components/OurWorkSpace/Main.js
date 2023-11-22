@@ -14,8 +14,8 @@ import { NavLink } from "react-router-dom";
 
 const Container = styled.div`
   /* width + gap / height + 2gap */
-  width: 220px;
-  height: 340px;
+  width: 280px;
+  height: 440px;
   display: grid;
   gap: 20px;
   grid-template-columns: 1fr 1fr;
@@ -23,13 +23,14 @@ const Container = styled.div`
 `;
 const IconBox = styled.div`
   background-color: rgba(255, 255, 255, 0.1);
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 5px;
+  border-radius: 5px;
   cursor: pointer;
   & figure {
     width: 60px;
@@ -49,6 +50,7 @@ const IconTitle = styled.p`
   padding: 0 5px;
   font-family: "Silkscreen";
   letter-spacing: -1px;
+  text-align: center;
 `;
 
 export function Main() {

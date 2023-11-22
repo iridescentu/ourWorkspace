@@ -69,6 +69,17 @@ const Content = styled.p`
 `;
 const Btn = styled.button`
   cursor: pointer;
+  padding: 5px 15px;
+  border: 0;
+  color: white;
+  background-color: darkgrey;
+  margin: 1px;
+  &.defaultTheme {
+    background-color: #162354;
+  }
+  &.blackTheme {
+    background-color: black;
+  }
 `;
 export function Setting({ onSettingHide }) {
   const [dragging, setDragging] = useState(false);
@@ -104,9 +115,17 @@ export function Setting({ onSettingHide }) {
 
   // Theme setting
   const { changeTheme } = useTheme();
-  const handleThemeChange = () => {
+  const handleThemeChangeToDefault = () => {
+    changeTheme(
+      "#162354",
+      "white",
+      'url("https://openseauserdata.com/files/e96084d648812c87be57cb30661e685a.gif")'
+    );
+  };
+  const handleThemeChangeToBlack = () => {
     changeTheme(
       "black",
+      "white",
       'url("https://cdnb.artstation.com/p/assets/images/images/054/768/341/original/pxsprite-dreamspace-chaos.gif?1665334885")'
     );
   };
@@ -130,11 +149,18 @@ export function Setting({ onSettingHide }) {
               zzzzzzzzzzzzzzzzzzzzzsljdglsjdgljsgdzzzzzzzzzzzzzlsdjgljsgljzzzzzzzdsfsfd32ljzzzz
             </Content>
             <div>
-              <Btn>default테마</Btn>
-              <Btn onClick={handleThemeChange}>black</Btn>
-              <Btn>테마2</Btn>
-              <Btn>테마3</Btn>
-              <Btn>테마4</Btn>
+              <Btn
+                className="defaultTheme"
+                onClick={handleThemeChangeToDefault}
+              >
+                Default
+              </Btn>
+              <Btn className="blackTheme" onClick={handleThemeChangeToBlack}>
+                To black
+              </Btn>
+              <Btn>To 테마</Btn>
+              <Btn>To 추가</Btn>
+              <Btn>To 예정</Btn>
             </div>
           </PopupHome>
         </PopupBox>

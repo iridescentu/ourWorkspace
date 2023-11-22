@@ -47,10 +47,6 @@ const NavItem = styled.div`
   height: 100%;
 `;
 const NavItemSection = styled.div`
-  /* border-right: 1px solid white;
-  &:last-child {
-    border-right: 0;
-  } */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,7 +93,7 @@ export function NavBar({ toggleFullScreen }) {
   const amPm = currentDateTime.getHours() >= 12 ? "PM " : "AM ";
 
   // Theme
-  const { navBarBackgroundColor } = useTheme();
+  const { navBarBackgroundColor, navBarFontColor } = useTheme();
 
   return (
     <>
@@ -114,7 +110,9 @@ export function NavBar({ toggleFullScreen }) {
                 alt="Logo"
               />
             </LogoImgBox>
-            <StyledNavLink to={"/"}>Our Workspace</StyledNavLink>
+            <StyledNavLink to={"/"} style={{ color: navBarFontColor }}>
+              Our Workspace
+            </StyledNavLink>
           </Logo>
         </NavSection>
         <NavSection>

@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100vw;
-  /* NavBar height 50px */
-  height: calc(100vh - 50px);
+  /* NavBar 50px UniverseWindow 23px */
+  height: calc(100vh - 73px);
   background-color: black;
   & h1 {
     color: white;
