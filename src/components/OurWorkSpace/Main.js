@@ -13,7 +13,6 @@ import { Setting } from "./Setting";
 import { NavLink } from "react-router-dom";
 
 const Container = styled.div`
-  background-color: blue;
   /* width + gap / height + 2gap */
   width: 220px;
   height: 340px;
@@ -22,9 +21,8 @@ const Container = styled.div`
   grid-template-columns: 1fr 1fr;
   /* margin: 70px; */
 `;
-const Icon = styled.div`
-  background-color: green;
-  border: 1px solid black;
+const IconBox = styled.div`
+  background-color: rgba(255, 255, 255, 0.1);
   width: 100px;
   height: 100px;
   display: flex;
@@ -38,7 +36,7 @@ const Icon = styled.div`
     height: 60px;
   }
   &:hover {
-    background-color: gold;
+    background-color: rgba(255, 255, 255, 0.3);
   }
 `;
 const IconImg = styled.img`
@@ -79,44 +77,44 @@ export function Main() {
   return (
     <>
       <Container>
-        <Icon onClick={() => openModal("aboutUs")}>
+        <IconBox onClick={() => openModal("aboutUs")}>
           <figure>
             <IconImg src={AboutUsIcon} />
           </figure>
           <IconTitle>AboutUs</IconTitle>
-        </Icon>
-        <Icon onClick={() => openModal("ourProject")}>
+        </IconBox>
+        <IconBox onClick={() => openModal("ourProject")}>
           <figure>
             <IconImg src={OurProjectIcon} />
           </figure>
           <IconTitle>OurProject</IconTitle>
-        </Icon>
+        </IconBox>
         <NavLink to="/universe">
-          <Icon>
+          <IconBox>
             <figure>
               <IconImg src={UniverseIcon} />
             </figure>
-            <IconTitle>Universe</IconTitle>
-          </Icon>
+            <IconTitle className="universe">Universe</IconTitle>
+          </IconBox>
         </NavLink>
-        <Icon onClick={() => openModal("music")}>
+        <IconBox onClick={() => openModal("music")}>
           <figure>
             <IconImg src={MusicIcon} />
           </figure>
           <IconTitle>Music</IconTitle>
-        </Icon>
-        <Icon onClick={openDiscordServer}>
+        </IconBox>
+        <IconBox onClick={openDiscordServer}>
           <figure>
             <IconImg src={DiscordIcon} />
           </figure>
           <IconTitle>Discord</IconTitle>
-        </Icon>
-        <Icon onClick={() => openModal("setting")}>
+        </IconBox>
+        <IconBox onClick={() => openModal("setting")}>
           <figure>
             <IconImg src={SettingIcon} />
           </figure>
           <IconTitle>Setting</IconTitle>
-        </Icon>
+        </IconBox>
       </Container>
       {modalStack.map(({ type, id }) => {
         if (type === "aboutUs") {
