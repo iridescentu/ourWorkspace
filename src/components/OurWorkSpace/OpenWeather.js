@@ -9,21 +9,21 @@ const Container = styled.div`
   justify-content: center;
 `;
 const Weather = styled.div`
-  background-color: gray;
+  padding-right: 10px;
+  font-weight: 400;
 `;
-// const Info = styled.div``;
 const Icon = styled.div`
   width: 45px;
   height: 45px;
-  background-color: gold;
+  /* background-color: gold; */
   img {
     width: 100%;
   }
 `;
-
-const Location = styled.div``;
+// const Location = styled.div``;
 const Temp = styled.div``;
 const City = styled.div``;
+const Info = styled.div``;
 
 export function OpenWeather({ cityName }) {
   const API_KEY = "b353ec7a9a2f1026b55dc52fc9d679bf";
@@ -32,7 +32,7 @@ export function OpenWeather({ cityName }) {
   const [icon, setIcon] = useState(null);
   const [temp, setTemp] = useState(0);
   const [city, setCity] = useState("");
-  // const [weather, setWeather] = useState("");
+  const [weather, setWeather] = useState("");
 
   useEffect(() => {
     if (cityName) {
@@ -72,7 +72,7 @@ export function OpenWeather({ cityName }) {
         setIcon(data.weather[0].icon);
         setTemp(parseInt(data.main.temp));
         setCity(data.name);
-        // setWeather(data.weather[0].main);
+        setWeather(data.weather[0].main);
       })
       .catch((error) => {
         console.log("요청이 실패했습니다.", error);
@@ -87,14 +87,12 @@ export function OpenWeather({ cityName }) {
         <Icon>
           <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} />
         </Icon>
-        {/* <Info>{weather}</Info> */}
-        <Weather>
-          <City>{city}</City>
-          <Temp>
-            {temp}
-            <i className="ti ti-temperature-celsius"></i>
-          </Temp>
+        <Weather className="city">{city}</Weather>
+        <Weather className="temp">
+          {temp}
+          <i className="ti ti-temperature-celsius"></i>
         </Weather>
+        <Weather className="info">{weather}</Weather>
       </Container>
     </>
   );
