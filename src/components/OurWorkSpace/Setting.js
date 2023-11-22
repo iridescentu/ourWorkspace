@@ -106,8 +106,8 @@ export function Setting({ onSettingHide }) {
   const { changeTheme } = useTheme();
   const handleThemeChange = () => {
     changeTheme(
-      "#162354",
-      'url("https://openseauserdata.com/files/e96084d648812c87be57cb30661e685a.gif")'
+      "black",
+      'url("https://cdnb.artstation.com/p/assets/images/images/054/768/341/original/pxsprite-dreamspace-chaos.gif?1665334885")'
     );
   };
 
@@ -131,7 +131,7 @@ export function Setting({ onSettingHide }) {
             </Content>
             <div>
               <Btn>default테마</Btn>
-              <Btn onClick={handleThemeChange}>rocket</Btn>
+              <Btn onClick={handleThemeChange}>black</Btn>
               <Btn>테마2</Btn>
               <Btn>테마3</Btn>
               <Btn>테마4</Btn>
