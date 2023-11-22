@@ -5,12 +5,9 @@ import { Icon } from "@iconify/react";
 
 const Container = styled.div`
   width: 100%;
-  /* height 100% 하면 Universe.js 내용때문에 크기 달라짐 */
-  /* height: 100%; */
-  /* border: 10px solid darkgray; */
+  background-color: #162354;
 `;
 const Topbar = styled.div`
-  background-color: darkgray;
   width: 100%;
   /* Tab의 text크기에 따라 맞춘 다음 padding으로 height 조절하는 게 나을듯 */
   /* height: 30px; */
@@ -19,8 +16,9 @@ const Topbar = styled.div`
 `;
 const Tabs = styled.div`
   width: 100%;
-  background-color: transparent;
   display: flex;
+  gap: 5px;
+  text-align: center;
 `;
 // const Tab = styled(NavLink)``; 함수 안에 써줌
 const Control = styled.div`

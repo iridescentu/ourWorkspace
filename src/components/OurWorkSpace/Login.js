@@ -6,16 +6,21 @@ import { Icon } from "@iconify/react";
 
 const Container = styled.div`
   width: 100vw;
-  height: calc(100vh - 50px);
-  background-color: blue;
+  height: calc(100vh - 73px);
+  background: radial-gradient(
+    circle,
+    rgba(7, 17, 54, 1) 0%,
+    rgba(22, 35, 84, 1) 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 const LoginBox = styled.div`
-  width: 50%;
-  height: 70%;
-  background-color: gold;
+  width: 70%;
+  height: 90%;
+  border-radius: 20px;
+  box-shadow: 1px 1px 20px 10px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
