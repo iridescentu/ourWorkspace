@@ -75,10 +75,16 @@ const Btn = styled.button`
   background-color: darkgrey;
   margin: 1px;
   &.defaultTheme {
-    background-color: #162354;
+    background-color: rgb(27, 36, 71);
   }
   &.blackTheme {
     background-color: black;
+  }
+  &.purpleTheme {
+    background-color: rgb(82, 57, 135);
+  }
+  &.greenTheme {
+    background-color: rgb(34, 50, 48);
   }
 `;
 export function Setting({ onSettingHide }) {
@@ -117,16 +123,34 @@ export function Setting({ onSettingHide }) {
   const { changeTheme } = useTheme();
   const handleThemeChangeToDefault = () => {
     changeTheme(
-      "#162354",
+      `${process.env.PUBLIC_URL}/Logo03.png`,
+      "rgb(27,36,71)",
       "white",
       'url("https://openseauserdata.com/files/e96084d648812c87be57cb30661e685a.gif")'
     );
   };
   const handleThemeChangeToBlack = () => {
     changeTheme(
+      `${process.env.PUBLIC_URL}/Logo01.png`,
       "black",
       "white",
       'url("https://cdnb.artstation.com/p/assets/images/images/054/768/341/original/pxsprite-dreamspace-chaos.gif?1665334885")'
+    );
+  };
+  const handleThemeChangeToPurple = () => {
+    changeTheme(
+      `${process.env.PUBLIC_URL}/Logo03.png`,
+      "rgb(82,57,135)",
+      "white",
+      'url("https://i.pinimg.com/originals/0f/d3/fc/0fd3fcc6ba35a9015aa7f0017d96a079.gif")'
+    );
+  };
+  const handleThemeChangeToGreen = () => {
+    changeTheme(
+      `${process.env.PUBLIC_URL}/Logo02.png`,
+      "rgb(34,50,48)",
+      "white",
+      'url("https://i.pinimg.com/originals/43/e9/16/43e9164cfe2537bb9d6746b4d053d032.gif")'
     );
   };
 
@@ -158,9 +182,13 @@ export function Setting({ onSettingHide }) {
               <Btn className="blackTheme" onClick={handleThemeChangeToBlack}>
                 To black
               </Btn>
-              <Btn>To 테마</Btn>
-              <Btn>To 추가</Btn>
-              <Btn>To 예정</Btn>
+              <Btn className="purpleTheme" onClick={handleThemeChangeToPurple}>
+                To purple
+              </Btn>
+              <Btn className="greenTheme" onClick={handleThemeChangeToGreen}>
+                To Green
+              </Btn>
+              <Btn>예시 테마들</Btn>
             </div>
           </PopupHome>
         </PopupBox>

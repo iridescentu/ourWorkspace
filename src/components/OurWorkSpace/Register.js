@@ -5,8 +5,8 @@ import { useState } from "react";
 
 const Container = styled.div`
   width: 100%;
-  /* NavBar 50px UniverseWindow 23px */
-  height: calc(100vh - 73px);
+  /* NavBar 60px UniverseWindow 30px */
+  height: calc(100vh - 90px);
   background-color: darkred;
   display: flex;
   align-items: center;

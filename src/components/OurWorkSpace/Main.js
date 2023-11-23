@@ -84,13 +84,13 @@ export function Main() {
           <figure>
             <IconImg src={AboutUsIcon} />
           </figure>
-          <IconTitle>AboutUs</IconTitle>
+          <IconTitle>About Us</IconTitle>
         </IconBox>
         <IconBox onClick={() => openModal("ourProject")}>
           <figure>
             <IconImg src={OurProjectIcon} />
           </figure>
-          <IconTitle>OurProject</IconTitle>
+          <IconTitle>Our Project</IconTitle>
         </IconBox>
         <NavLink to="/universe">
           <IconBox>

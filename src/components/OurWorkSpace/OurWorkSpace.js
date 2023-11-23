@@ -11,6 +11,7 @@ import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Screen } from "./Screen";
 import { UniverseWindow } from "./UniverseWindow";
 import { ThemeProvider } from "./ThemeContext";
+import { Dashboard } from "./Dashboard";
 
 export function OurWorkSpace() {
   // NavBar toggleFullScreen Btn 눌렀을 때 FullScreen
@@ -43,6 +44,7 @@ export function OurWorkSpace() {
                   <Route path="register" element={<Register />} />
                   <Route path="archive" element={<Archive />} />
                   <Route path="bin" element={<Bin />} />
+                  <Route path="dashboard" element={<Dashboard />} />
                 </Route>
               </Route>
             </Routes>

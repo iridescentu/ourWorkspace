@@ -6,7 +6,8 @@ import { Icon } from "@iconify/react";
 
 const Container = styled.div`
   width: 100vw;
-  height: calc(100vh - 73px);
+  /* NavBar 60px UniverseWindow 30px */
+  height: calc(100vh - 90px);
   background: radial-gradient(
     circle,
     rgba(7, 17, 54, 1) 0%,

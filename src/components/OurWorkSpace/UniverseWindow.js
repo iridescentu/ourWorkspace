@@ -5,24 +5,53 @@ import { Icon } from "@iconify/react";
 
 const Container = styled.div`
   width: 100%;
-  background-color: #162354;
+  height: 30px;
+  display: flex;
 `;
 const Topbar = styled.div`
   width: 100%;
-  /* Tab의 text크기에 따라 맞춘 다음 padding으로 height 조절하는 게 나을듯 */
-  /* height: 30px; */
+  height: 100%;
   display: grid;
-  grid-template-columns: 9fr 1fr;
+  grid-template-columns: 2fr 1fr;
+  gap: 10%;
 `;
 const Tabs = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
-  gap: 5px;
   text-align: center;
 `;
 // const Tab = styled(NavLink)``; 함수 안에 써줌
-const Control = styled.div`
+const MyAccount = styled.div`
   width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: green;
+`;
+const DashboardNavLink = styled(NavLink)`
+  background-color: red;
+  text-decoration: none;
+  color: black;
+`;
+const StyledIcon = styled(Icon)`
+  font-size: 1.3rem;
+`;
+
+const Search = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: blue;
+`;
+const SearchInput = styled.input``;
+const SearchBtn = styled.button`
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
 `;
 const Alerts = styled.div`
   opacity: ${({ isAlertsVisible }) =>
@@ -87,26 +116,29 @@ const Alerts = styled.div`
     margin-left: 40px;
   }
 `;
+const StyledOutlet = styled(Outlet)``;
 export function UniverseWindow() {
   // 해당 경로일 때 스타일링을 위해
   const location = useLocation();
   const Tab = styled(NavLink)`
     width: 20%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     background-color: ${({ to }) =>
-      location.pathname === to ? "khaki" : "darkkhaki"};
+      location.pathname === to ? "rgb(27, 36, 71)" : "white"};
+    color: ${({ to }) => (location.pathname === to ? "white" : "black")};
     font-weight: ${({ to }) => (location.pathname === to ? 600 : 400)};
-    border: 1px solid beige;
+
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
     text-decoration: none;
-    color: black;
+    /* 박스 폰트 정렬 */
+    padding-top: 3px;
     &:hover {
       /* 폰트까지 opacity 적용됨 */
       /* opacity: 0.5; */
       /* rgba로 배경에만 opacity 부여 */
-      background-color: rgba(189, 183, 107, 0.5);
+      background-color: rgba(27, 36, 71, 0.8);
       cursor: pointer;
       font-weight: 600;
+      color: white;
     }
   `;
 
@@ -132,11 +164,24 @@ export function UniverseWindow() {
             <Tab to="/universe">Universe</Tab>
             <Tab to="/universe/archive">Archive</Tab>
             <Tab to="/universe/bin">Bin</Tab>
-            <Tab to="/universe/register">Register</Tab>
             <Tab onClick={onClickLogout}>Logout</Tab>
           </Tabs>
-          <Control></Control>
+          <Tabs className="control">
+            <Search>
+              <SearchInput placeholder="Search by Nickname" />
+              <SearchBtn>
+                <StyledIcon icon="pixelarticons:search" />
+              </SearchBtn>
+            </Search>
+            <MyAccount>
+              <DashboardNavLink to="/universe/dashboard">
+                <StyledIcon icon="pixelarticons:user" />
+                Eyhadk님
+              </DashboardNavLink>
+            </MyAccount>
+          </Tabs>
         </Topbar>
+
         {isAlertsVisible && (
           <Alerts>
             <div>
@@ -156,7 +201,7 @@ export function UniverseWindow() {
           </Alerts>
         )}
       </Container>
-      <Outlet />
+      <StyledOutlet />
     </>
   );
 }

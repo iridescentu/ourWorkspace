@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import FullScreenIcon from "./IconImage/FullScreen.png";
 import { OpenWeather } from "./OpenWeather";
 import { NavLink, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -8,8 +7,9 @@ import { Icon } from "@iconify/react";
 
 const Container = styled.div`
   width: 100%;
-  height: 50px;
+  height: 60px;
   display: grid;
+  align-items: center;
   grid-template-columns: 1fr 1fr;
 `;
 const NavSection = styled.div`
@@ -34,7 +34,7 @@ const StyledNavLink = styled(NavLink)`
   cursor: pointer;
 `;
 const LogoImgBox = styled.div`
-  padding-top: 8px;
+  padding-top: 10px;
   width: 60px;
 `;
 const LogoImg = styled.img`
@@ -57,12 +57,7 @@ const NavItemSection = styled.div`
   }
 `;
 const StyledIcon = styled(Icon)`
-  font-size: 1.3rem;
-`;
-const IconImg = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  font-size: 1.5rem;
 `;
 const Btn = styled.button`
   background-color: transparent;
@@ -93,7 +88,8 @@ export function NavBar({ toggleFullScreen }) {
   const amPm = currentDateTime.getHours() >= 12 ? "PM " : "AM ";
 
   // Theme
-  const { navBarBackgroundColor, navBarFontColor } = useTheme();
+  const { navBarLogoImage, navBarBackgroundColor, navBarFontColor } =
+    useTheme();
 
   return (
     <>
@@ -105,10 +101,7 @@ export function NavBar({ toggleFullScreen }) {
         <NavSection>
           <Logo>
             <LogoImgBox>
-              <LogoImg
-                src={`${process.env.PUBLIC_URL}/Logo03.png`}
-                alt="Logo"
-              />
+              <LogoImg src={navBarLogoImage} alt="Logo" />
             </LogoImgBox>
             <StyledNavLink to={"/"} style={{ color: navBarFontColor }}>
               Our Workspace
@@ -118,10 +111,7 @@ export function NavBar({ toggleFullScreen }) {
         <NavSection>
           <NavItem>
             <NavItemSection>
-              {/* <figure>
-                <IconImg src={FullScreenIcon} />
-              </figure> */}
-              <StyledIcon icon="mingcute:time-line" />
+              <StyledIcon icon="pixelarticons:clock" />
               <Btn>
                 {amPm} {formattedTime}
                 <br />
@@ -132,10 +122,7 @@ export function NavBar({ toggleFullScreen }) {
               <OpenWeather />
             </NavItemSection>
             <NavItemSection>
-              {/* <figure>
-                <IconImg src={FullScreenIcon} />
-              </figure> */}
-              <StyledIcon icon="mingcute:fullscreen-fill" />
+              <StyledIcon icon="pixelarticons:aspect-ratio" />
               <Btn onClick={toggleFullScreen}>FullScreen</Btn>
             </NavItemSection>
           </NavItem>
@@ -145,3 +132,5 @@ export function NavBar({ toggleFullScreen }) {
     </>
   );
 }
+// icon="mingcute:time-line"
+// icon="mingcute:fullscreen-fill"
