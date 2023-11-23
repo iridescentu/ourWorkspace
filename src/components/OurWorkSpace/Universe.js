@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import test from "./IconImage/test.png";
+import test1 from "./IconImage/AboutUs.png";
+import test2 from "./IconImage/Discord.png";
+import test3 from "./IconImage/FullScreen.png";
+import test4 from "./IconImage/Music.png";
 const Container = styled.div`
   width: 100vw;
   /* NavBar 60px UniverseWindow 30px */
@@ -52,6 +56,12 @@ const MyUniverseSection = styled.div`
     }
   }
 `;
+const imageList = [test, test1, test2, test3, test4];
+function getRandomImage() {
+  // 무작위 이미지 선택
+  const randomIndex = Math.floor(Math.random() * imageList.length);
+  return imageList[randomIndex];
+}
 
 export function Universe() {
   return (
@@ -63,12 +73,20 @@ export function Universe() {
         <MyUniverse>
           <MyUniverseSection className="section1">
             <div>
-              <img src={test} />
+              <img src={getRandomImage()} alt="RandomImage" />
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div>
+              <img src={getRandomImage()} alt="RandomImage" />
+            </div>
+            <div>
+              <img src={getRandomImage()} alt="RandomImage" />
+            </div>
+            <div>
+              <img src={getRandomImage()} alt="RandomImage" />
+            </div>
+            <div>
+              <img src={getRandomImage()} alt="RandomImage" />
+            </div>
           </MyUniverseSection>
           <MyUniverseSection className="section2">
             <div></div>
