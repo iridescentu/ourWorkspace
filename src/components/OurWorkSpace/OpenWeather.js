@@ -57,7 +57,7 @@ export function OpenWeather({ cityName }) {
     } else {
       navigator.geolocation.getCurrentPosition(geoOK, geoError);
     }
-  });
+  }, []);
 
   function geoOK(position) {
     const lat = position.coords.latitude;

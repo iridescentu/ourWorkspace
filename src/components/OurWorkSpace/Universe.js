@@ -1,105 +1,156 @@
 import styled from "styled-components";
-import test from "./IconImage/test.png";
-import test1 from "./IconImage/AboutUs.png";
-import test2 from "./IconImage/Discord.png";
-import test3 from "./IconImage/FullScreen.png";
-import test4 from "./IconImage/Music.png";
+import Earth from "./IconImage/image-removebg-preview.png";
+import Moon from "./IconImage/image-removebg-preview (1).png";
+import Sun from "./IconImage/image-removebg-preview (2).png";
+import Mercury from "./IconImage/image-removebg-preview (3).png";
+import Venus from "./IconImage/image-removebg-preview (4).png";
+import Mars from "./IconImage/image-removebg-preview (5).png";
+import Jupiter from "./IconImage/image-removebg-preview (6).png";
+import Uranus from "./IconImage/image-removebg-preview (7).png";
+
+import { useEffect } from "react";
+import { useRef } from "react";
+import { UniverseModal } from "./UniverseModal";
+import { useState } from "react";
+
 const Container = styled.div`
   width: 100vw;
   /* NavBar 60px UniverseWindow 30px */
   height: calc(100vh - 90px);
+  position: relative;
+  color: white;
+`;
+const FilterOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url("https://i.gifer.com/WBVk.gif");
   background-size: auto;
   background-position: center;
   filter: grayscale(100%);
-  color: white;
-  position: relative;
+  z-index: -10;
 `;
 const Signal = styled.h1`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   font-family: "Silkscreen";
   text-align: center;
   font-size: 2rem;
   font-weight: 400;
-  & .number {
-    font-size: 3rem;
+  grid-column: span 3;
+  /* 세로 정렬하기 위해 height값이 지정되어 있어서 가능함 */
+  margin: auto 0;
+  & .signalCount {
+    font-size: 5rem;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 const MyUniverse = styled.div`
   width: 100%;
   height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 `;
-const MyUniverseSection = styled.div`
-  width: 100%;
-  height: calc(100% / 3);
-  border: 1px solid white;
-  &.section1,
-  &.section3 {
-    display: flex;
-    & div {
-      width: 100%;
-      border: 1px solid white;
-      & img {
-        width: 120px;
-      }
-    }
-  }
-  &.section2 {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    & div {
-      border: 1px solid white;
-    }
-  }
-`;
-const imageList = [test, test1, test2, test3, test4];
-function getRandomImage() {
-  // 무작위 이미지 선택
-  const randomIndex = Math.floor(Math.random() * imageList.length);
-  return imageList[randomIndex];
-}
 
+const UniverseSection = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+const ImgBox = styled.div`
+  width: 40%;
+  position: absolute;
+  top: ${(props) => Math.floor(Math.random() * 45)}%;
+  left: ${(props) => Math.floor(Math.random() * 60)}%;
+`;
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+`;
 export function Universe() {
+  // position fetch
+  // 실제 ImgBox의 top과 left값과 전송하는 top과 left값이 맞는 확인 필요
+  const imgBoxRefs = useRef([]);
+  useEffect(() => {
+    imgBoxRefs.current.forEach((boxRef, index) => {
+      if (boxRef && boxRef.current) {
+        const { top, left } = boxRef.current.getBoundingClientRect();
+        console.log(`ImgBox ${index} - Top: ${top}, Left: ${left}`);
+        sendDataToBackend({ top, left }); // 백엔드로 데이터를 전송하는 함수 호출
+      }
+    });
+  }, []);
+
+  // 백엔드로 데이터를 전송하는 함수
+  const sendDataToBackend = (data) => {
+    fetch("YOUR_BACKEND_API_URL", {
+      method: "POST", // GET 또는 POST 방식 선택
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data), // 전송할 데이터 형태에 맞게 수정
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Data sent to backend:", data);
+      })
+      .catch((error) => {
+        console.error("Error sending data to backend:", error);
+      });
+  };
+
+  const imageList = [Earth, Moon, Sun, Mercury, Venus, Mars, Jupiter, Uranus];
+  function getRandomImage() {
+    const randomIndex = Math.floor(Math.random() * imageList.length);
+    return imageList[randomIndex];
+  }
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState("");
+  const handleModalOpen = (imageSrc) => {
+    if (!isModalOpen) {
+      setIsModalOpen(true);
+      setModalImage(imageSrc);
+    } else {
+      setIsModalOpen(false);
+      setModalImage("");
+    }
+  };
+
   return (
     <>
       <Container>
-        <Signal>
-          <span className="number">15</span> New Signals have been detected !
-        </Signal>
+        <FilterOverlay />
+        {isModalOpen && <UniverseModal imageSrc={modalImage} />}
         <MyUniverse>
-          <MyUniverseSection className="section1">
-            <div>
-              <img src={getRandomImage()} alt="RandomImage" />
-            </div>
-            <div>
-              <img src={getRandomImage()} alt="RandomImage" />
-            </div>
-            <div>
-              <img src={getRandomImage()} alt="RandomImage" />
-            </div>
-            <div>
-              <img src={getRandomImage()} alt="RandomImage" />
-            </div>
-            <div>
-              <img src={getRandomImage()} alt="RandomImage" />
-            </div>
-          </MyUniverseSection>
-          <MyUniverseSection className="section2">
-            <div></div>
-            <div></div>
-            <div></div>
-          </MyUniverseSection>
-          <MyUniverseSection className="section3">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </MyUniverseSection>
+          {Array.from({ length: 6 }, (_, index) => (
+            <UniverseSection key={index}>
+              <ImgBox>
+                <Img
+                  src={Earth}
+                  alt={`universeSignalIcon${index}`}
+                  onClick={handleModalOpen}
+                />
+              </ImgBox>
+            </UniverseSection>
+          ))}
+          <Signal>
+            <span className="signalCount">12</span> New Signals have been
+            detected !
+          </Signal>
+          {Array.from({ length: 6 }, (_, index) => (
+            <UniverseSection key={index}>
+              <ImgBox>
+                <Img src={Uranus} alt={`universeSignalIcon${index}`} />
+              </ImgBox>
+            </UniverseSection>
+          ))}
         </MyUniverse>
       </Container>
     </>
