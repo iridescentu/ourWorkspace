@@ -65,6 +65,7 @@ const Alerts = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 100;
   & div {
     width: 100%;
     height: 25px;

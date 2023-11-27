@@ -1,17 +1,11 @@
 import styled from "styled-components";
 import Earth from "./IconImage/image-removebg-preview.png";
-import Moon from "./IconImage/image-removebg-preview (1).png";
-import Sun from "./IconImage/image-removebg-preview (2).png";
-import Mercury from "./IconImage/image-removebg-preview (3).png";
-import Venus from "./IconImage/image-removebg-preview (4).png";
-import Mars from "./IconImage/image-removebg-preview (5).png";
-import Jupiter from "./IconImage/image-removebg-preview (6).png";
 import Uranus from "./IconImage/image-removebg-preview (7).png";
-
 import { useEffect } from "react";
 import { useRef } from "react";
 import { UniverseModal } from "./UniverseModal";
 import { useState } from "react";
+import { useMemo } from "react";
 
 const Container = styled.div`
   width: 100vw;
@@ -105,38 +99,29 @@ export function Universe() {
       });
   };
 
-  const imageList = [Earth, Moon, Sun, Mercury, Venus, Mars, Jupiter, Uranus];
-  function getRandomImage() {
-    const randomIndex = Math.floor(Math.random() * imageList.length);
-    return imageList[randomIndex];
-  }
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalImage, setModalImage] = useState("");
-  const handleModalOpen = (imageSrc) => {
-    if (!isModalOpen) {
-      setIsModalOpen(true);
-      setModalImage(imageSrc);
-    } else {
-      setIsModalOpen(false);
-      setModalImage("");
-    }
+  const [modalOpen, setModalOpen] = useState(false);
+  const imagePositions = useMemo(() => {
+    return Array.from({ length: 12 }, () => ({
+      top: `${Math.floor(Math.random() * 45)}%`,
+      left: `${Math.floor(Math.random() * 60)}%`,
+    }));
+  }, []);
+  const handleImageClick = () => {
+    setModalOpen(true);
   };
 
   return (
     <>
       <Container>
         <FilterOverlay />
-        {isModalOpen && <UniverseModal imageSrc={modalImage} />}
         <MyUniverse>
-          {Array.from({ length: 6 }, (_, index) => (
+          {imagePositions.slice(0, 6).map((position, index) => (
             <UniverseSection key={index}>
-              <ImgBox>
-                <Img
-                  src={Earth}
-                  alt={`universeSignalIcon${index}`}
-                  onClick={handleModalOpen}
-                />
+              <ImgBox
+                onClick={handleImageClick}
+                style={{ top: position.top, left: position.left }}
+              >
+                <Img src={Earth} alt={`universeSignalIcon${index}`} />
               </ImgBox>
             </UniverseSection>
           ))}
@@ -144,15 +129,19 @@ export function Universe() {
             <span className="signalCount">12</span> New Signals have been
             detected !
           </Signal>
-          {Array.from({ length: 6 }, (_, index) => (
+          {imagePositions.slice(0, 6).map((position, index) => (
             <UniverseSection key={index}>
-              <ImgBox>
+              <ImgBox
+                onClick={handleImageClick}
+                style={{ top: position.top, left: position.left }}
+              >
                 <Img src={Uranus} alt={`universeSignalIcon${index}`} />
               </ImgBox>
             </UniverseSection>
           ))}
         </MyUniverse>
       </Container>
+      {modalOpen && <UniverseModal closeModal={() => setModalOpen(false)} />}
     </>
   );
 }
