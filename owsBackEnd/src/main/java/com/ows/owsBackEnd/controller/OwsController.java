@@ -40,7 +40,7 @@ public class OwsController {
     
     // 내가 작성한 Content 보기
     @GetMapping("/content/mypost/{authorId}")
-    public ResponseEntity<List<Content>> getMyContentsByLoginId(@PathVariable String authorId) {
+    public ResponseEntity<List<Content>> getMyContentsByAuthorId(@PathVariable String authorId) {
         List<Content> myContents = owsService.getMyContentsByAuthorId(authorId);
         return new ResponseEntity<>(myContents, HttpStatus.OK);
     }
