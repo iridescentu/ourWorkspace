@@ -12,6 +12,8 @@ import { Screen } from "./Screen";
 import { UniverseWindow } from "./UniverseWindow";
 import { ThemeProvider } from "./ThemeContext";
 import { Dashboard } from "./Dashboard";
+import { Search } from "./Search";
+import { Signal } from "./Signal";
 
 export function OurWorkSpace() {
   // NavBar toggleFullScreen Btn 눌렀을 때 FullScreen
@@ -45,6 +47,8 @@ export function OurWorkSpace() {
                   <Route path="archive" element={<Archive />} />
                   <Route path="bin" element={<Bin />} />
                   <Route path="dashboard" element={<Dashboard />} />
+                  <Route path="search" element={<Search />} />
+                  <Route path="signal" element={<Signal />} />
                 </Route>
               </Route>
             </Routes>

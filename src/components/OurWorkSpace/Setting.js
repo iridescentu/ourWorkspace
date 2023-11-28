@@ -5,8 +5,11 @@ import { useTheme } from "./ThemeContext";
 
 const Container = styled.div`
   width: 300px;
-  height: 300px;
-  border: 2px solid gray;
+  height: 400px;
+  border-top: 3px solid gray;
+  border-left: 3px solid gray;
+  border-bottom: 3px solid rgb(27, 36, 71);
+  border-right: 3px solid rgb(27, 36, 71);
   position: absolute;
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
@@ -18,15 +21,15 @@ const PopupBox = styled.div`
 const PopupNavBar = styled.div`
   width: 100%;
   height: 30px;
-  background-color: white;
+  background-color: rgb(27, 36, 71);
   position: relative;
   cursor: grab;
 `;
 const Logo = styled.div`
   width: 100px;
   height: 100%;
-  background-color: aqua;
   display: flex;
+  color: white;
   align-items: center;
   justify-content: center;
   gap: 5px;
@@ -37,6 +40,7 @@ const Logo = styled.div`
 `;
 const LogoImg = styled.div`
   width: 1.5rem;
+  /* img 가운데 정렬하기 위해 flex 줘 봤는데 됨 이유는 모름 나중에 보기 */
   display: flex;
   & img {
     width: 100%;
@@ -50,7 +54,7 @@ const XBtn = styled.button`
   height: 100%;
 `;
 const PopupHome = styled.div`
-  background-color: red;
+  background-color: darkgray;
   width: 100%;
   /* PopupNavBar height 30px */
   height: calc(100% - 30px);
@@ -59,32 +63,32 @@ const PopupHome = styled.div`
   flex-direction: column;
   gap: 30px;
 `;
-const Title = styled.h2`
-  background-color: pink;
-`;
-const Content = styled.p`
-  background-color: gold;
-  /* p 태그의 text는 크기에 상관없이 글자가 튀어져 나감 때문에 word-wrap의 break-word 속성 부여 */
-  word-wrap: break-word;
+const Title = styled.h3``;
+const BtnBox = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
 `;
 const Btn = styled.button`
   cursor: pointer;
-  padding: 5px 15px;
   border: 0;
   color: white;
-  background-color: darkgrey;
-  margin: 1px;
+  padding: 50px 0;
   &.defaultTheme {
     background-color: rgb(27, 36, 71);
+    border-top-left-radius: 50%;
   }
   &.blackTheme {
     background-color: black;
+    border-top-right-radius: 50%;
   }
   &.purpleTheme {
     background-color: rgb(82, 57, 135);
+    border-bottom-left-radius: 50%;
   }
   &.greenTheme {
     background-color: rgb(34, 50, 48);
+    border-bottom-right-radius: 50%;
   }
 `;
 export function Setting({ onSettingHide }) {
@@ -168,11 +172,8 @@ export function Setting({ onSettingHide }) {
             <XBtn onClick={onSettingHide}>X</XBtn>
           </PopupNavBar>
           <PopupHome>
-            <Title>Setting</Title>
-            <Content>
-              zzzzzzzzzzzzzzzzzzzzzsljdglsjdgljsgdzzzzzzzzzzzzzlsdjgljsgljzzzzzzzdsfsfd32ljzzzz
-            </Content>
-            <div>
+            <Title>Choose your theme color!</Title>
+            <BtnBox>
               <Btn
                 className="defaultTheme"
                 onClick={handleThemeChangeToDefault}
@@ -188,8 +189,7 @@ export function Setting({ onSettingHide }) {
               <Btn className="greenTheme" onClick={handleThemeChangeToGreen}>
                 To Green
               </Btn>
-              <Btn>예시 테마들</Btn>
-            </div>
+            </BtnBox>
           </PopupHome>
         </PopupBox>
       </Container>

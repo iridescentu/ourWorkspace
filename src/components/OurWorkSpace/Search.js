@@ -10,7 +10,7 @@ const Container = styled.div`
   padding-left: 5%; */
 `;
 
-const ArchiveContainer = styled.div`
+const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
   /* align-items: center;
@@ -21,7 +21,7 @@ const ArchiveContainer = styled.div`
   background-color: navy;
 `;
 
-const Archives = styled.div`
+const SearchContent = styled.div`
   width: 90vw;
   height: 10vh; // 나중에 삭제하기 (내용물에 따라 높이가 늘어나거나 줄어들도록 하기 위해)
   border-radius: 10px;
@@ -41,7 +41,7 @@ const MyPostNickname = styled.h1`
 
 const MyPostContent = styled.h3``;
 
-export function Archive() {
+export function Search() {
   const MyPostAvatarUrl =
     "https://source.boringavatars.com/beam/60/zzZ?colors=1F1F20,2B4C7E,567EBB,606D80,DCE0E6";
   // 각각의 닉네임/ID에 아바타를 부여하기 위해서는 120/닉네임?colors= 이런 식으로 닉네임 자리에 닉네임이든 ID든 값을 부여하면 됨
@@ -50,31 +50,31 @@ export function Archive() {
   return (
     <>
       <Container>
-        <h1>Archive</h1>
-        <ArchiveContainer>
-          <Archives>
+        <h1>Search</h1>
+        <SearchContainer>
+          <SearchContent>
             <MyPostAvatarIcon src={MyPostAvatarUrl} alt="Avatar" />
             <MyPostNickname>zzZ</MyPostNickname>
             <MyPostContent>
               우리 프로젝트 다음 주까지 끝낼 수 있을까
             </MyPostContent>
-          </Archives>
-          <Archives>
+          </SearchContent>
+          <SearchContent>
             <MyPostAvatarIcon src={MyPostAvatarUrl} alt="Avatar" />
             <MyPostNickname>zzZ</MyPostNickname>
             <MyPostContent>슬슬 배고픈데 점심시간 언제쯤</MyPostContent>
-          </Archives>
-          <Archives>
+          </SearchContent>
+          <SearchContent>
             <MyPostAvatarIcon src={MyPostAvatarUrl} alt="Avatar" />
             <MyPostNickname>zzZ</MyPostNickname>
             <MyPostContent>헐... 집에 가고 싶음</MyPostContent>
-          </Archives>
-          <Archives>
+          </SearchContent>
+          <SearchContent>
             <MyPostAvatarIcon src={MyPostAvatarUrl} alt="Avatar" />
             <MyPostNickname>zzZ</MyPostNickname>
             <MyPostContent>아싸 이따가 붕어빵 먹는다</MyPostContent>
-          </Archives>
-        </ArchiveContainer>
+          </SearchContent>
+        </SearchContainer>
       </Container>
     </>
   );

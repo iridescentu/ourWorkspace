@@ -48,7 +48,7 @@ const Search = styled.div`
   background-color: blue;
 `;
 const SearchInput = styled.input``;
-const SearchBtn = styled.button`
+const SearchBtn = styled(NavLink)`
   background-color: transparent;
   border: 0;
   cursor: pointer;
@@ -170,7 +170,7 @@ export function UniverseWindow() {
           <Tabs className="control">
             <Search>
               <SearchInput placeholder="Search by Nickname" />
-              <SearchBtn>
+              <SearchBtn to="/universe/search">
                 <StyledIcon icon="pixelarticons:search" />
               </SearchBtn>
             </Search>

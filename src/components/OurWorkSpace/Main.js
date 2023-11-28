@@ -40,6 +40,9 @@ const IconBox = styled.div`
     background-color: rgba(255, 255, 255, 0.3);
   }
 `;
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+`;
 const IconImg = styled.img`
   width: 100%;
   /* object-fit: cover; */
@@ -92,14 +95,14 @@ export function Main() {
           </figure>
           <IconTitle>Our Project</IconTitle>
         </IconBox>
-        <NavLink to="/universe">
+        <StyledNavLink to="/universe">
           <IconBox>
             <figure>
               <IconImg src={UniverseIcon} />
             </figure>
             <IconTitle className="universe">Universe</IconTitle>
           </IconBox>
-        </NavLink>
+        </StyledNavLink>
         <IconBox onClick={() => openModal("music")}>
           <figure>
             <IconImg src={MusicIcon} />

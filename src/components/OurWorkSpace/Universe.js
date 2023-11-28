@@ -1,12 +1,29 @@
-import styled from "styled-components";
-import Earth from "./IconImage/image-removebg-preview.png";
+import { styled, keyframes } from "styled-components";
+import Earth from "./IconImage/Earth.png";
 import Uranus from "./IconImage/image-removebg-preview (7).png";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { UniverseModal } from "./UniverseModal";
 import { useState } from "react";
 import { useMemo } from "react";
+import { NavLink } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Keyboard, Pagination, Navigation } from "swiper/modules";
 
+const SignalBtnAnimation = keyframes`
+  0%{
+    border: 2px solid red;
+  }
+  50%{
+    border: 2px solid green;
+  }
+  100%{
+    border: 2px solid blue;
+  }
+`;
 const Container = styled.div`
   width: 100vw;
   /* NavBar 60px UniverseWindow 30px */
@@ -26,20 +43,38 @@ const FilterOverlay = styled.div`
   filter: grayscale(100%);
   z-index: -10;
 `;
-const Signal = styled.h1`
+const Signal = styled.div`
+  width: 100%;
+  height: 100%;
   font-family: "Silkscreen";
   text-align: center;
   font-size: 2rem;
   font-weight: 400;
   grid-column: span 3;
-  /* 세로 정렬하기 위해 height값이 지정되어 있어서 가능함 */
-  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   & .signalCount {
     font-size: 5rem;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  }
+`;
+const SignalNavLink = styled(NavLink)`
+  width: 200px;
+  background-color: transparent;
+  color: white;
+  text-decoration: none;
+  border: 1px solid white;
+  font-family: "Silkscreen";
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  animation: ${SignalBtnAnimation} 3s linear infinite alternate;
+  &:hover {
+    opacity: 0.8;
   }
 `;
 const MyUniverse = styled.div`
@@ -110,38 +145,194 @@ export function Universe() {
     setModalOpen(true);
   };
 
+  const slides = useMemo(() => {
+    const slideCount = Math.ceil(imagePositions.length / 12); // 12개 이상의 이미지 박스는 새로운 슬라이드로
+    const slidesArray = [];
+
+    for (let i = 0; i < slideCount; i++) {
+      const start = i * 12;
+      const end = Math.min((i + 1) * 12, imagePositions.length);
+      const slideImages = imagePositions.slice(start, end);
+
+      slidesArray.push(
+        <SwiperSlide key={`slide-${i}`}>
+          <Container>
+            <FilterOverlay />
+            <MyUniverse>
+              {slideImages.map((position, index) => (
+                <UniverseSection key={start + index}>
+                  <ImgBox
+                    onClick={handleImageClick}
+                    style={{ top: position.top, left: position.left }}
+                  >
+                    <Img
+                      src={Earth}
+                      alt={`universeSignalIcon${start + index}`}
+                    />
+                  </ImgBox>
+                </UniverseSection>
+              ))}
+              <Signal>
+                <p className="signalCount">12</p>
+                <p>New Signals have been detected !</p>
+                <SignalNavLink to={"/universe/signal"}>
+                  Send a Signal
+                </SignalNavLink>
+              </Signal>
+              {slideImages.map((position, index) => (
+                <UniverseSection key={start + index}>
+                  <ImgBox
+                    onClick={handleImageClick}
+                    style={{ top: position.top, left: position.left }}
+                  >
+                    <Img
+                      src={Uranus}
+                      alt={`universeSignalIcon${start + index}`}
+                    />
+                  </ImgBox>
+                </UniverseSection>
+              ))}
+            </MyUniverse>
+          </Container>
+          {modalOpen && (
+            <UniverseModal closeModal={() => setModalOpen(false)} />
+          )}
+        </SwiperSlide>
+      );
+    }
+
+    return slidesArray;
+  }, [imagePositions, handleImageClick, modalOpen]);
+
   return (
     <>
-      <Container>
-        <FilterOverlay />
-        <MyUniverse>
-          {imagePositions.slice(0, 6).map((position, index) => (
-            <UniverseSection key={index}>
-              <ImgBox
-                onClick={handleImageClick}
-                style={{ top: position.top, left: position.left }}
-              >
-                <Img src={Earth} alt={`universeSignalIcon${index}`} />
-              </ImgBox>
-            </UniverseSection>
-          ))}
-          <Signal>
-            <span className="signalCount">12</span> New Signals have been
-            detected !
-          </Signal>
-          {imagePositions.slice(0, 6).map((position, index) => (
-            <UniverseSection key={index}>
-              <ImgBox
-                onClick={handleImageClick}
-                style={{ top: position.top, left: position.left }}
-              >
-                <Img src={Uranus} alt={`universeSignalIcon${index}`} />
-              </ImgBox>
-            </UniverseSection>
-          ))}
-        </MyUniverse>
-      </Container>
-      {modalOpen && <UniverseModal closeModal={() => setModalOpen(false)} />}
+      <Swiper
+        slidesPerView={1}
+        // 넘어갈 때 선보여서
+        spaceBetween={-1}
+        keyboard={{
+          enabled: true,
+        }}
+        pagination={{
+          clickable: true,
+          el: ".swiper-pagination",
+        }}
+        navigation={true}
+        modules={[Keyboard, Pagination, Navigation]}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <Container>
+            <FilterOverlay />
+            <MyUniverse>
+              {imagePositions.slice(0, 6).map((position, index) => (
+                <UniverseSection key={index}>
+                  <ImgBox
+                    onClick={handleImageClick}
+                    style={{ top: position.top, left: position.left }}
+                  >
+                    <Img src={Earth} alt={`universeSignalIcon${index}`} />
+                  </ImgBox>
+                </UniverseSection>
+              ))}
+              <Signal>
+                <p className="signalCount">12</p>
+                <p>New Signals have been detected !</p>
+                <SignalNavLink to={"/universe/signal"}>
+                  Send a Signal
+                </SignalNavLink>
+              </Signal>
+              {imagePositions.slice(0, 6).map((position, index) => (
+                <UniverseSection key={index}>
+                  <ImgBox
+                    onClick={handleImageClick}
+                    style={{ top: position.top, left: position.left }}
+                  >
+                    <Img src={Uranus} alt={`universeSignalIcon${index}`} />
+                  </ImgBox>
+                </UniverseSection>
+              ))}
+            </MyUniverse>
+          </Container>
+          {modalOpen && (
+            <UniverseModal closeModal={() => setModalOpen(false)} />
+          )}
+        </SwiperSlide>
+        <SwiperSlide>
+          <Container>
+            <FilterOverlay />
+            <MyUniverse>
+              {imagePositions.slice(0, 6).map((position, index) => (
+                <UniverseSection key={index}>
+                  <ImgBox
+                    onClick={handleImageClick}
+                    style={{ top: position.top, left: position.left }}
+                  >
+                    <Img src={Earth} alt={`universeSignalIcon${index}`} />
+                  </ImgBox>
+                </UniverseSection>
+              ))}
+              <Signal>
+                <p className="signalCount">12</p>
+                <p>New Signals have been detected !</p>
+                <SignalNavLink to={"/universe/signal"}>
+                  Send a Signal
+                </SignalNavLink>
+              </Signal>
+              {imagePositions.slice(0, 6).map((position, index) => (
+                <UniverseSection key={index}>
+                  <ImgBox
+                    onClick={handleImageClick}
+                    style={{ top: position.top, left: position.left }}
+                  >
+                    <Img src={Uranus} alt={`universeSignalIcon${index}`} />
+                  </ImgBox>
+                </UniverseSection>
+              ))}
+            </MyUniverse>
+          </Container>
+          {modalOpen && (
+            <UniverseModal closeModal={() => setModalOpen(false)} />
+          )}
+        </SwiperSlide>
+        <SwiperSlide>
+          <Container>
+            <FilterOverlay />
+            <MyUniverse>
+              {imagePositions.slice(0, 6).map((position, index) => (
+                <UniverseSection key={index}>
+                  <ImgBox
+                    onClick={handleImageClick}
+                    style={{ top: position.top, left: position.left }}
+                  >
+                    <Img src={Earth} alt={`universeSignalIcon${index}`} />
+                  </ImgBox>
+                </UniverseSection>
+              ))}
+              <Signal>
+                <p className="signalCount">12</p>
+                <p>New Signals have been detected !</p>
+                <SignalNavLink to={"/universe/signal"}>
+                  Send a Signal
+                </SignalNavLink>
+              </Signal>
+              {imagePositions.slice(0, 6).map((position, index) => (
+                <UniverseSection key={index}>
+                  <ImgBox
+                    onClick={handleImageClick}
+                    style={{ top: position.top, left: position.left }}
+                  >
+                    <Img src={Uranus} alt={`universeSignalIcon${index}`} />
+                  </ImgBox>
+                </UniverseSection>
+              ))}
+            </MyUniverse>
+          </Container>
+          {modalOpen && (
+            <UniverseModal closeModal={() => setModalOpen(false)} />
+          )}
+        </SwiperSlide>
+      </Swiper>
     </>
   );
 }

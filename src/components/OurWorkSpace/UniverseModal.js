@@ -42,6 +42,8 @@ const ModalBar = styled.div`
   justify-content: center;
   gap: 10px;
 `;
+const ImgBox = styled.div``;
+const Img = styled.img``;
 const Btn = styled.button``;
 const Content = styled.p`
   width: 100%;
@@ -62,8 +64,9 @@ export function UniverseModal({ closeModal }) {
       <Backdrop />
       <Container>
         <ModalBar>
-          <Btn className="likeBtn">좋아요</Btn>
-          <Btn className="favoriteBtn">즐찾</Btn>
+          <ImgBox>
+            <Img />
+          </ImgBox>
           <Btn className="closeBtn" onClick={closeModal}>
             닫기
           </Btn>
@@ -82,6 +85,8 @@ export function UniverseModal({ closeModal }) {
             했는데 언제 해줄지 모르겠다. 내가 아는 채영이는 가상 세계 인물이고
             집에 가서 컴퓨터를 켜야 현실 세계로 들어가는 애 같다.
           </Text>
+          <Btn className="likeBtn">좋아요</Btn>
+          <Btn className="favoriteBtn">즐찾</Btn>
         </Content>
       </Container>
     </>

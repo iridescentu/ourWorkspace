@@ -5,7 +5,10 @@ import { useEffect, useState } from "react";
 const Container = styled.div`
   width: 300px;
   height: 300px;
-  border: 2px solid gray;
+  border-top: 3px solid gray;
+  border-left: 3px solid gray;
+  border-bottom: 3px solid rgb(27, 36, 71);
+  border-right: 3px solid rgb(27, 36, 71);
   position: absolute;
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
@@ -17,15 +20,15 @@ const PopupBox = styled.div`
 const PopupNavBar = styled.div`
   width: 100%;
   height: 30px;
-  background-color: white;
+  background-color: rgb(27, 36, 71);
   position: relative;
   cursor: grab;
 `;
 const Logo = styled.div`
   width: 100px;
   height: 100%;
-  background-color: aqua;
   display: flex;
+  color: white;
   align-items: center;
   justify-content: center;
   gap: 5px;
@@ -50,7 +53,7 @@ const XBtn = styled.button`
   height: 100%;
 `;
 const PopupHome = styled.div`
-  background-color: red;
+  background-color: darkgray;
   width: 100%;
   /* PopupNavBar height 30px */
   height: calc(100% - 30px);
@@ -114,7 +117,7 @@ export function AboutUs({ onAboutUsHide }) {
               <LogoImg>
                 <img src={AboutUsIcon} />
               </LogoImg>
-              <p>AboutUs</p>
+              <p>About Us</p>
             </Logo>
             <XBtn onClick={onAboutUsHide}>X</XBtn>
           </PopupNavBar>
