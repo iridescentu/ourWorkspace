@@ -58,14 +58,14 @@ public class OwsServiceImpl implements OwsService {
         return contentRepository.save(content);
     }
 
-    // 모든 Content를 불러온다
+    //모든 Content를 불러온다.(관리자)
     @Override
-    public List<Content> getAllContent() {
-        // contentRepository를 사용하여 모든 컨텐츠를 가져옴.
-        return contentRepository.findAll();
+    public List<Content> getAllContentAdmin(){
+    	// contentRepository를 사용하여 모든 컨텐츠를 가져옴.
+    	return contentRepository.findAll();
     }
     
-    // contentRepository를 사용하여 모든 컨텐츠를 가져옴.
+    // contentRepository를 사용하여 모든 컨텐츠를 가져옴.(사용자)
     @Override
     public List<Content> getAllContent(String targetId) {
     	   //login된 Id의 content list만 불러오기

@@ -33,8 +33,8 @@ public class OwsController {
     
     // Content 전체 조회 (관리자 권한)
     @GetMapping("/content/admin")
-    public ResponseEntity<List<Content>> getAllContent() {
-    	List<Content> allContents = owsService.getAllContent();
+    public ResponseEntity<List<Content>> getAllContentAdmin() {
+    	List<Content> allContents = owsService.getAllContentAdmin();
     	return new ResponseEntity<>(allContents, HttpStatus.OK);
     }
     

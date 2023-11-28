@@ -22,13 +22,11 @@ public interface OwsService {
     // 로그인된 사용자의 loginId에 해당하는 모든 컨텐츠를 조회하여 리스트로 반환
     List<Content> getAllContent(String targetId);
     
-//    // 모든 Content를 불러온다
-    List<Content> getAllContent();
-    
     //내가 작성한 모든 게시글을 조회할 수 있도록 함.
     List<Content> getMyContentsByAuthorId(String authorId);
     
-//    List<Content> getAllContents();
+    //모든 Contents를 불러온다.(관리자)
+    List<Content> getAllContentAdmin();
 
     // ContentId를 사용하여 특정 Content를 조회한다.
     Content getContentById(long id);
@@ -92,6 +90,8 @@ public interface OwsService {
 
     // 관리자 권한으로 Bin에서 모든 항목을 전체 영구 삭제한다 (전체 삭제) (Bin, Content, Archive DB에서도 완전한 삭제)
     void deleteAllBinsAdmin();
+
+	
 
 
 
