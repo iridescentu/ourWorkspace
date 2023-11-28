@@ -116,10 +116,15 @@ public class OwsController {
 
     //(관리자 권한) 즐겨찾기 항목 전체 조회
     @GetMapping("/archive/admin")  //관리자 권한 모든 archive에 접근 가능
-    
     public ResponseEntity<List<Archive>> getAllArchive() {
     	List<Archive> allArchives = owsService.getAllArchives();
     	return new ResponseEntity<>(allArchives, HttpStatus.OK);
+    }
+    //(관리자 권한) 즐겨찾기 항목 ArchiveID로 선택적으로 해제  //관리자 권한 모든 archive에 접근하여 archiveID로 선택적 해제 가능
+    @DeleteMapping("/archive/admin/{archiveId}") 
+    public ResponseEntity<String> removeArchiveAdmin(@PathVariable long archiveId) {
+    	owsService.removeArchiveAdmin(archiveId);
+    	return new ResponseEntity<>("Successfully removed from Archive!", HttpStatus.OK);
     }
     
     //(관리자 권한) 즐겨찾기 항목 NickName으로 선택적 조회 //관리자 권한 모든 archive에 접근 가능
@@ -129,19 +134,12 @@ public class OwsController {
     	return new ResponseEntity<>(archivesByNickName, HttpStatus.OK);
     }
     
-    //(관리자 권한) 즐겨찾기 항목 ArchiveID로 선택적으로 해제  //관리자 권한 모든 archive에 접근하여 archiveID로 선택적 해제 가능
-    @DeleteMapping("/archive/admin/{id}") 
-    
-    public ResponseEntity<String> removeArchiveAdmin(@PathVariable long archiveId) {
-    	owsService.removeArchiveAdmin(archiveId);
-    	return new ResponseEntity<>("Successfully removed from Archive!", HttpStatus.OK);
-    }
     
 
     // ----- Bin 부분 -----
 
     
-    //(사용자) 자신의 Bin의 모든 항목을 조회 //동일한 게시물을 중복으로 삭제할 수 있는 상태임... 그래서 Bin에서 같은 ContentID로 두개의 데이터 베이스 존재
+    //(사용자) 자신의 Bin의 모든 항목을 조회
     @GetMapping("/bin/{loginId}")
     public ResponseEntity<List<Bin>> getAllBinsByUser(@PathVariable String loginId) {
     	List<Bin> binByLoginId = owsService.getAllBinsByUser(loginId);
@@ -176,15 +174,15 @@ public class OwsController {
     	
     }
     
-    // (관리자 권한) BinID로 숨김처리 항목 선택하여 복구(숨김처리 해제, binDB에서는 삭제됨)
-    @PutMapping("/bin/admin/restore/{id}")
+    // (관리자 권한) contentID로 숨김처리 항목 선택하여 복구(숨김처리 해제, binDB에서는 삭제됨)
+    @PutMapping("/bin/admin/restore/{contentId}")
     public ResponseEntity<String> restoreContentByIdAdmin(@PathVariable long contentId) {
     	owsService.restoreContentByIdAdmin(contentId);
     	return new ResponseEntity<>("Successfully restored from Bin!", HttpStatus.OK);
     }
     
-    // (관리자 권한) BinID로 숨김처리 항목 선택하여 영구삭제(bin DB와 ContentDB에서 모두 삭제, archiveDB도 contentDB에 따라 자동적으로 삭제)
-    @DeleteMapping("/bin/admin/{id}")
+    // (관리자 권한) contentID로 숨김처리 항목 선택하여 영구삭제(bin DB와 ContentDB에서 모두 삭제, archiveDB도 contentDB에 따라 자동적으로 삭제)
+    @DeleteMapping("/bin/admin/{contentId}")
     public ResponseEntity<String> permanentlyDeleteContentAdmin(@PathVariable long contentId) {
     	owsService.permanentlyDeleteContentAdmin(contentId);
     	return new ResponseEntity<>("Successfully deleted from Bin!", HttpStatus.OK);
