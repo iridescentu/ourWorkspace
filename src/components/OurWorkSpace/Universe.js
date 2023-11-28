@@ -1,6 +1,10 @@
 import { styled, keyframes } from "styled-components";
 import Earth from "./IconImage/Earth.png";
-import Uranus from "./IconImage/image-removebg-preview (7).png";
+import Uranus from "./IconImage/Uranus.png";
+import Alien1 from "./IconImage/Alien1.png";
+import Rocket from "./IconImage/Rocket.png";
+import Meteor from "./IconImage/Meteor.png";
+import Sun from "./IconImage/Sun.png";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { UniverseModal } from "./UniverseModal";
@@ -24,6 +28,20 @@ const SignalBtnAnimation = keyframes`
     border: 2px solid blue;
   }
 `;
+const SignalBtnHoverAnimation = keyframes`
+  0%{
+    border: 2px solid red;
+    transform: scale(1);
+  }
+  50%{ 
+    border: 2px solid green;
+    transform: scale(1.05);
+  }
+  100%{  
+    border: 2px solid blue;
+    transform: scale(1);
+  }
+`;
 const Container = styled.div`
   width: 100vw;
   /* NavBar 60px UniverseWindow 30px */
@@ -39,7 +57,6 @@ const FilterOverlay = styled.div`
   height: 100%;
   background-image: url("https://i.gifer.com/WBVk.gif");
   background-size: auto;
-  background-position: center;
   filter: grayscale(100%);
   z-index: -10;
 `;
@@ -66,7 +83,6 @@ const SignalNavLink = styled(NavLink)`
   background-color: transparent;
   color: white;
   text-decoration: none;
-  border: 1px solid white;
   font-family: "Silkscreen";
   font-size: 1rem;
   padding: 10px 20px;
@@ -75,6 +91,7 @@ const SignalNavLink = styled(NavLink)`
   animation: ${SignalBtnAnimation} 3s linear infinite alternate;
   &:hover {
     opacity: 0.8;
+    animation: ${SignalBtnHoverAnimation} 1.5s infinite ease-in-out;
   }
 `;
 const MyUniverse = styled.div`
@@ -215,7 +232,6 @@ export function Universe() {
         }}
         pagination={{
           clickable: true,
-          el: ".swiper-pagination",
         }}
         navigation={true}
         modules={[Keyboard, Pagination, Navigation]}
@@ -231,7 +247,7 @@ export function Universe() {
                     onClick={handleImageClick}
                     style={{ top: position.top, left: position.left }}
                   >
-                    <Img src={Earth} alt={`universeSignalIcon${index}`} />
+                    <Img src={Alien1} alt={`universeSignalIcon${index}`} />
                   </ImgBox>
                 </UniverseSection>
               ))}
@@ -285,7 +301,7 @@ export function Universe() {
                     onClick={handleImageClick}
                     style={{ top: position.top, left: position.left }}
                   >
-                    <Img src={Uranus} alt={`universeSignalIcon${index}`} />
+                    <Img src={Meteor} alt={`universeSignalIcon${index}`} />
                   </ImgBox>
                 </UniverseSection>
               ))}
@@ -305,7 +321,7 @@ export function Universe() {
                     onClick={handleImageClick}
                     style={{ top: position.top, left: position.left }}
                   >
-                    <Img src={Earth} alt={`universeSignalIcon${index}`} />
+                    <Img src={Rocket} alt={`universeSignalIcon${index}`} />
                   </ImgBox>
                 </UniverseSection>
               ))}
@@ -322,7 +338,7 @@ export function Universe() {
                     onClick={handleImageClick}
                     style={{ top: position.top, left: position.left }}
                   >
-                    <Img src={Uranus} alt={`universeSignalIcon${index}`} />
+                    <Img src={Sun} alt={`universeSignalIcon${index}`} />
                   </ImgBox>
                 </UniverseSection>
               ))}

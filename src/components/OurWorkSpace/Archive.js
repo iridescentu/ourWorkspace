@@ -4,7 +4,7 @@ const Container = styled.div`
   width: 100vw;
   /* NavBar 60px UniverseWindow 30px */
   height: calc(100vh - 90px);
-  background-color: black;
+  background-image: url("https://i.gifer.com/WBVk.gif");
   color: white;
   /* padding-top: 15px;
   padding-left: 5%; */

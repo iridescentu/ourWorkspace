@@ -14,6 +14,7 @@ import { ThemeProvider } from "./ThemeContext";
 import { Dashboard } from "./Dashboard";
 import { Search } from "./Search";
 import { Signal } from "./Signal";
+import { Error } from "./Error";
 
 export function OurWorkSpace() {
   // NavBar toggleFullScreen Btn 눌렀을 때 FullScreen
@@ -51,6 +52,7 @@ export function OurWorkSpace() {
                   <Route path="signal" element={<Signal />} />
                 </Route>
               </Route>
+              <Route path="*" element={<Error />} />
             </Routes>
           </FullScreen>
         </BrowserRouter>

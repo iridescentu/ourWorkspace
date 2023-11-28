@@ -64,11 +64,18 @@ const PopupHome = styled.div`
 `;
 const Title = styled.h2`
   background-color: pink;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 `;
 const Content = styled.p`
   background-color: gold;
   /* p 태그의 text는 크기에 상관없이 글자가 튀어져 나감 때문에 word-wrap의 break-word 속성 부여 */
   word-wrap: break-word;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-weight: bold;
 `;
 const Btn = styled.button`
   cursor: pointer;
@@ -124,7 +131,10 @@ export function AboutUs({ onAboutUsHide }) {
           <PopupHome>
             <Title>About Us</Title>
             <Content>
-              zzzzzzzzzzzzzzzzzzzzzsljdglsjdgljsgdzzzzzzzzzzzzzlsdjgljsgljzzzzzzzdsfsfd32ljzzzz
+              <p>
+                Jihee Yoon<br></br>Dahye Kim<br></br>ChaeYoung Go<br></br>
+                Hyejeong Yeom
+              </p>
             </Content>
             <Btn>Button</Btn>
           </PopupHome>

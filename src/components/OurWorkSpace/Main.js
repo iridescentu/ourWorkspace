@@ -77,7 +77,7 @@ export function Main() {
 
   // 디스코드 서버 링크
   const openDiscordServer = () => {
-    window.open("https://discord.gg/8hGq5fsv");
+    window.open("https://discord.gg/6uVXvqUvwR");
   };
 
   return (

@@ -26,12 +26,11 @@ const Container = styled.div`
 const Backdrop = styled.div`
   width: 100vw;
   height: calc(100vh - 90px);
-  margin-top: 90px;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 5;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.2);
 `;
 const ModalBar = styled.div`
   width: 100%;
@@ -73,11 +72,9 @@ export function UniverseModal({ closeModal }) {
         </ModalBar>
         <Content>
           <Title>
-            Title 가운데 정렬
+            From: 닉네임
             <br />
             입력시간(날짜,시각)
-            <br />
-            닉네임 : 아무개
           </Title>
           <Text>
             저는 내용입니다. 고채영은 메이플을 좋아한다. 롤도 좋아하고

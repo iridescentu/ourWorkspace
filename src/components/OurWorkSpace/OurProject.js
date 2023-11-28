@@ -36,7 +36,11 @@ const Logo = styled.div`
   left: 50%;
   top: 0;
   transform: translateX(-50%);
+  & p {
+    width: 100%;
+  }
 `;
+
 const LogoImg = styled.div`
   width: 1.5rem;
   /* img 가운데 정렬하기 위해 flex 줘 봤는데 됨 이유는 모름 나중에 보기 */
@@ -64,11 +68,20 @@ const PopupHome = styled.div`
 `;
 const Title = styled.h2`
   background-color: pink;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const Content = styled.p`
   background-color: gold;
   /* p 태그의 text는 크기에 상관없이 글자가 튀어져 나감 때문에 word-wrap의 break-word 속성 부여 */
   word-wrap: break-word;
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
 `;
 const Btn = styled.button`
   cursor: pointer;
@@ -115,14 +128,17 @@ export function OurProject({ onOurProjectHide }) {
               <LogoImg>
                 <img src={OurProjectIcon} />
               </LogoImg>
-              <p>OurProject</p>
+              <p>Our Project</p>
             </Logo>
             <XBtn onClick={onOurProjectHide}>X</XBtn>
           </PopupNavBar>
           <PopupHome>
-            <Title>OurProject</Title>
+            <Title>Our Project</Title>
             <Content>
-              zzzzzzzzzzzzzzzzzzzzzsljdglsjdgljsgdzzzzzzzzzzzzzlsdjgljsgljzzzzzzzdsfsfd32ljzzzz
+              This project is a web page with the concept of space and retro. We
+              made efforts to design the desktop interface, and for the
+              frontend, we developed the website using React, while Java served
+              as the backend language.
             </Content>
             <Btn>Button</Btn>
           </PopupHome>
