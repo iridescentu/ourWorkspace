@@ -4,12 +4,22 @@ const Container = styled.div`
   width: 100vw;
   /* NavBar 60px UniverseWindow 30px */
   height: calc(100vh - 90px);
-  background-image: url("https://i.gifer.com/WBVk.gif");
   color: white;
+  position: relative;
   /* padding-top: 15px;
   padding-left: 5%; */
 `;
-
+const FilterOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://i.gifer.com/WBVk.gif");
+  background-size: auto;
+  filter: grayscale(100%);
+  z-index: -10;
+`;
 const BinContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -50,6 +60,7 @@ export function Bin() {
   return (
     <>
       <Container>
+        <FilterOverlay />
         <h1>Bin Contents</h1>
         <BinContainer>
           <BinContent>

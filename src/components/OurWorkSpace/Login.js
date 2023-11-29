@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import { login } from "./api";
 import { Icon } from "@iconify/react";
+import { useNavigate } from "react-router-dom";
+import { getAllContent } from "./api";
 
 const Container = styled.div`
   width: 100vw;
@@ -103,11 +105,89 @@ const RegisterTxt = styled.div`
   justify-content: center;
 `;
 
+//{ setLogin }
 export function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisible = () => {
     setShowPassword(!showPassword);
   };
+
+  // const [loginId, setLoginId] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [userLogin, setUserLogin] = useState(null);
+  // const [loggingIn, setLoggingIn] = useState(false);
+  // const { loginState, setLoginState } = useContext(contentsContext);
+  const navigate = useNavigate();
+  const [user, setUser] = useState({ loginId: "", Password: "" });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const memberLoginDto = {
+        loginId: user.loginId, // 'userId'를 'loginId'로 변경
+        password: user.Password,
+      };
+
+      // 로그인 처리 로직
+      const userData = await login(memberLoginDto);
+
+      if (
+        userData &&
+        userData.resultCode === "SUCCESS" &&
+        userData.data &&
+        userData.data.targetId
+      ) {
+        const targetId = userData.data.targetId;
+
+        // 여기서 getAllContent 함수를 호출하여 컨텐츠를 받아옵니다.
+        const contentData = await getAllContent(targetId);
+
+        // 받아온 컨텐츠를 state에 저장하거나 필요한 작업을 수행합니다.
+        console.log("Content Data:", contentData);
+
+        // 예: 사용자를 홈 페이지로 리다이렉트
+        navigate(`/universe/${targetId}`);
+      } else {
+        // 로그인 실패 시 처리
+        console.error("로그인 실패:", userData.message);
+      }
+      // 예외 발생 시 전체 에러 객체를 출력
+    } catch (error) {
+      console.error("에러:", error);
+    }
+  };
+
+  //     // 로그인 처리 로직
+  //     const userData = await login(memberLoginDto);
+  //     // const userData = await loginId(memberLoginDto);
+  //     console.log(userData);
+  //     if (userData && userData.data && userData.data.targetId) {
+  //       const targetId = userData.data.targetId;
+  //       navigate(`/universe/${targetId}`);
+  //     } else {
+  //       // 로그인에 성공했지만 유효한 targetId가 없는 경우
+  //       console.error("로그인 성공, but 유효한 targetId가 없음");
+  //       // 또는 다른 처리 로직 추가
+  //     }
+  //     // userData에서 필요한 정보 추출
+  //     const targetId = userData.targetId; // 예시: 실제 반환되는 데이터 구조에 따라 수정
+
+  //     // 로그인 성공 시 로그인 상태를 true로 변경
+  //     // setLogin(true);
+  //     // 예: 사용자를 홈 페이지로 리다이렉트
+  //     navigate(`/universe/${targetId}`);
+  //   } catch (error) {
+  //     // 로그인 실패 시 처리 로직
+  //     // 예: 에러 메시지를 화면에 표시
+  //     alert("로그인에 실패했습니다: " + error.message);
+  //     console.log(error);
+  //   }
+  // };
+
   return (
     <>
       <Container>
@@ -127,7 +207,9 @@ export function Login() {
             }
             onClick={togglePasswordVisible}
           />
-          <Button>Login</Button>
+          <Button type="submit" onClick={handleSubmit}>
+            Login
+          </Button>
           <RegisterText>
             <p>
               Do you wanna hang out with us?

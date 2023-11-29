@@ -58,8 +58,8 @@ const FilterOverlay = styled.div`
 const PlanetContainer = styled.div`
   width: 55%;
   display: grid;
-  grid-template-columns: repeat(8, 1fr); // 가로로 다섯 칸
-  grid-template-rows: repeat(2, 1fr); // 세로로 세 칸
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 2rem;
   background-color: transparent;
 `;
@@ -109,10 +109,7 @@ const SignalNicknameContainer = styled.div`
   align-items: center;
 `;
 
-const SignalTo = styled.h2`
-  white-space: pre-line;
-`;
-
+const SignalTo = styled.h2``;
 const SignalNickname = styled.h2`
   font-weight: bold;
   display: inline;
@@ -271,7 +268,7 @@ export function Signal() {
           </SignalIcon>
           <SignalNicknameContainer>
             <SignalTo>
-              To.&nbsp;<SignalNickname>zzZ</SignalNickname>
+              To.&nbsp;<SignalNickname>nickname</SignalNickname>
             </SignalTo>
           </SignalNicknameContainer>
           <SignalTextarea

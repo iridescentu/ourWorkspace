@@ -2,6 +2,8 @@ import { useState } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
+import { Navigate } from "react-router-dom";
+import { Login } from "./Login";
 
 const Container = styled.div`
   width: 100%;
@@ -131,6 +133,9 @@ export function UniverseWindow() {
   // 경고창 확인 눌렀을 때 home으로 이동 취소 눌렀을 때 변화 x
   const navigate = useNavigate();
   const [isAlertsVisible, setIsAlertsVisible] = useState(false);
+
+  // const [login, setLogin] = useState(false);
+
   const onClickLogout = () => {
     setIsAlertsVisible(true);
   };
@@ -144,6 +149,11 @@ export function UniverseWindow() {
 
   return (
     <>
+      {/* {!login ? (
+        <Navigate to="/universe/login" />
+      ) : (
+        <Login setLogin={setLogin} />
+      )} */}
       <Container>
         <Topbar>
           <Tabs>

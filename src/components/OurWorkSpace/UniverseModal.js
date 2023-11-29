@@ -18,7 +18,7 @@ const Container = styled.div`
   width: 40%;
   height: 50%;
   background-color: white;
-  box-shadow: 0 0 100px 0 rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 100px 0 rgba(255, 255, 255, 0.2);
   z-index: 10;
   opacity: 0;
   animation: ${fadeIn} 0.5s ease forwards;
@@ -72,7 +72,7 @@ export function UniverseModal({ closeModal }) {
         </ModalBar>
         <Content>
           <Title>
-            From: 닉네임
+            From. 닉네임
             <br />
             입력시간(날짜,시각)
           </Title>

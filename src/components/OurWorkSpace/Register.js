@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // 추가
 
 const Container = styled.div`
   width: 100%;
@@ -23,7 +24,7 @@ const FilterOverlay = styled.div`
   filter: grayscale(100%);
   z-index: -10;
 `;
-const RegisterContainer = styled.div`
+const RegisterContainer = styled.form`
   width: 600px;
   height: 700px;
   background-color: rgba(26, 26, 26, 0.7);
@@ -86,8 +87,9 @@ const InnerRowBox = styled.div`
 
 const StyledIcon = styled(Icon)`
   position: absolute;
-  top: 0;
+  top: 2.7px;
   right: -290px;
+  cursor: pointer;
 `;
 const SignupBtn = styled.button`
   width: 60%;
@@ -123,53 +125,185 @@ export function Register() {
   //   setInputValue(e.target.value);
   //   setSelectedDomain("type");
   // };
-
+  const navigate = useNavigate(); // 추가
+  const [name, setName] = useState("");
+  const [gender, setGender] = useState("");
+  const [nickName, setNickName] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [email, setEmail] = useState("");
+  const [loginId, setLoginId] = useState("");
+  const [password, setPassword] = useState("");
   // Password 보이거나 안보이게
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisible = () => {
     setShowPassword(!showPassword);
   };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case "name":
+        setName(value);
+        break;
+      case "gender":
+        setGender(value);
+        break;
+      case "nickName":
+        setNickName(value);
+        break;
+      case "birthDate":
+        setBirthDate(value);
+        break;
+      case "email":
+        setEmail(value);
+        break;
+      case "loginId":
+        setLoginId(value);
+        break;
+      case "password":
+        setPassword(value);
+        break;
+      default:
+        break;
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const member = {
+      name,
+      gender,
+      birthDate,
+      email,
+      nickName,
+      loginId,
+      password,
+    };
+    console.log("Submitted Member Data:", member); // 데이터가 정상적으로 전달되는지 로그로 확인
+    fetch("http://localhost:8081/universe/member/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(member),
+    })
+      //     .then((response) => response.json())
+      // .then((data) => {
+      //   console.log(data); // 서버 응답 기록
+      // })
+      // .catch((error) => {
+      //   console.error("에러:", error);
+      //   setError("등록 중에 오류가 발생했습니다.");
+      // });
 
+      // .then((response) => response.json())
+      // .then((data) => console.log(data))
+      // .catch((error) => console.error("Error:", error));
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Server Response:", data);
+
+        if (data.resultCode === "SUCCESS") {
+          // 회원가입이 성공하면 로그인 페이지로 이동
+          navigate("/universe/login");
+        } else {
+          // 회원가입 실패 시 처리
+          console.error("회원가입 실패:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
   return (
     <>
       <Container>
         <FilterOverlay />
-        <RegisterContainer>
+        <RegisterContainer onSubmit={handleSubmit}>
           <Title>Register</Title>
           <NameAndGenderBox>
-            <InnerRowBox>
+            <InnerRowBox onSubmit={handleSubmit}>
               <Label>Name</Label>
-              <Input type="text" placeholder="Enter your name." />
+              <Input
+                type="text"
+                name="name"
+                value={name}
+                onChange={handleChange}
+                placeholder="Enter your name"
+              />
             </InnerRowBox>
-            <InnerRowBox>
+            <InnerRowBox onSubmit={handleSubmit}>
               <Label>Gender</Label>
               {/* <RadioBox> */}
               {/* <Label className="radioLabel">Woman</Label> */}
-              <Input
+              <Label>
+                <Input
+                  className="genderInput"
+                  type="radio"
+                  name="gender"
+                  value="WOMAN" // 수정: 문자열 값으로 설정
+                  checked={gender === "WOMAN"}
+                  onChange={handleChange}
+                />
+                <span>Woman</span>
+              </Label>
+              {/* <Input
                 // className="genderInput"
                 type="text"
-                placeholder="Enter Man or Woman."
-              />
-              {/* <Label className="radioLabel">Man</Label>
-                <Input className="genderInput" type="radio" name="gender" /> */}
+                name="gender"
+                value={gender}
+                onChange={handleChange}
+                placeholder="Enter MAN or WOMAN"
+                 /> */}
+              {/* <Label className="radioLabel">Man</Label> */}
+              <Label>
+                <Input
+                  className="genderInput"
+                  type="radio"
+                  name="gender"
+                  value="MAN" // 수정: 문자열 값으로 설정
+                  checked={gender === "MAN"}
+                  onChange={handleChange}
+                />
+                <span>Man</span>
+              </Label>
               {/* </RadioBox> */}
             </InnerRowBox>
           </NameAndGenderBox>
           <Box>
             <Label>Birth</Label>
-            <Input type="text" placeholder="ex) 1999-01-01" />
+            <Input
+              type="text"
+              name="birthDate"
+              value={birthDate}
+              onChange={handleChange}
+              placeholder="ex) 1999-01-01"
+            />
           </Box>
           <Box>
             <Label>Nickname</Label>
-            <Input type="text" placeholder="Enter your Nickname." />
+            <Input
+              type="text"
+              name="nickName"
+              value={nickName}
+              onChange={handleChange}
+              placeholder="Enter your Nickname"
+            />
           </Box>
 
           <Box>
             <Label>ID</Label>
             <Input
-              className="idInput"
+              id="loginIdInput"
+              className="IdInput"
               type="text"
-              placeholder="Enter your ID."
+              name="loginId"
+              value={loginId}
+              onChange={handleChange}
+              placeholder="Enter your ID"
             />
           </Box>
           <Box>
@@ -186,14 +320,25 @@ export function Register() {
             </Label>
             <Input
               type={showPassword ? "text" : "password"}
-              placeholder="Enter your Password."
+              value={password}
+              onChange={handleChange}
+              name="password"
+              placeholder="Enter yout Password"
             />
           </Box>
           <Box>
             <Label>E-mail</Label>{" "}
-            <Input type="text" placeholder="Enter your e-mail." />
+            <Input
+              type="text"
+              name="email"
+              value={email}
+              onChange={handleChange}
+              placeholder="Enter your e-mail"
+            />
           </Box>
-          <SignupBtn type="submit">Sign up</SignupBtn>
+          <SignupBtn type="submit" onClick={handleSubmit}>
+            Sign up
+          </SignupBtn>
         </RegisterContainer>
       </Container>
     </>
