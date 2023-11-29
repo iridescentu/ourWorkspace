@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import MyDatePicker from "./DatePicker";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 
@@ -7,103 +6,123 @@ const Container = styled.div`
   width: 100%;
   /* NavBar 60px UniverseWindow 30px */
   height: calc(100vh - 90px);
-  background-color: darkred;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
-const RegisterBox = styled.div`
-  width: 50%;
-  height: 70%;
-  background-color: gold;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const FilterOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://i.gifer.com/WBVk.gif");
+  background-size: auto;
+  filter: grayscale(100%);
+  z-index: -10;
+`;
+const RegisterContainer = styled.div`
+  width: 600px;
+  height: 700px;
+  background-color: rgba(26, 26, 26, 0.7);
+  display: grid;
   justify-content: center;
-  gap: 10%;
-  & form {
-    display: grid;
-    /* grid-template-columns: 1fr 1fr; */
-    background-color: orange;
-    text-align: center;
-    & input {
-      width: 300px;
-      height: 50px;
-    }
-    & div {
-      display: flex;
-      width: 300px;
-      height: 50px;
-      vertical-align: middle;
-      & label {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      & input {
-        width: 10%;
-        margin-right: 10%;
-      }
-    }
+  align-items: center;
+  grid-template-rows: 2fr repeat(6, 1fr) 1.5fr;
+  border-radius: 5px;
+  /* gap: 1.2rem; */
+`;
+const Title = styled.h1`
+  color: #fff;
+  text-align: center;
+`;
+const Label = styled.div`
+  font-size: 1.1rem;
+  font-weight: 600;
+  &.radioLabel {
+    font-weight: 400;
+    font-size: 1rem;
+  }
+  &.passwordLabel {
+    position: relative;
   }
 `;
-const Header = styled.h2`
-  background-color: aliceblue;
+const Input = styled.input`
+  background-color: #1a1a1a;
+  border: none;
+  border-bottom: 1px solid #555;
+  outline: none;
+  color: #fff;
+  padding: 5px;
+  width: 100%;
+  font-size: 16px;
+  &.genderInput {
+    width: 15px;
+  }
 `;
-const LoginBtn = styled.button``;
-const LoginInfo = styled.p``;
-const SignUpButton = styled.button``;
+const NameAndGenderBox = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+`;
+const Box = styled.div`
+  display: grid;
+  grid-template-columns: 30% 70%;
+  align-items: center;
+`;
+const InnerRowBox = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  gap: 0.7rem;
+`;
+
+// const RadioBox = styled.div`
+//   display: flex;
+//   gap: 1rem;
+// `;
+
 const StyledIcon = styled(Icon)`
-  width: 30px;
-  height: 30px;
+  position: absolute;
+  top: 0;
+  right: -290px;
+`;
+const SignupBtn = styled.button`
+  width: 60%;
+  background-color: #555;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px 20px;
+  margin: 0 auto;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: #666;
+  }
 `;
 
 export function Register() {
-  // 출생연월일 선택
-  const years = [];
-  const months = [];
-  const days = [];
-  const currentYear = new Date().getFullYear();
-  for (let year = currentYear; year >= 1923; year--) {
-    years.push(
-      <option key={year} value={year}>
-        {year}
-      </option>
-    );
-  }
-  for (let month = 1; month <= 12; month++) {
-    months.push(
-      <option key={month} value={month}>
-        {month}
-      </option>
-    );
-  }
-  for (let day = 1; day <= 31; day++) {
-    days.push(
-      <option key={day} value={day}>
-        {day}
-      </option>
-    );
-  }
-
   // email domain 직접 입력 또는 자동 완성
-  const [selectedDomain, setSelectedDomain] = useState("");
-  const [inputValue, setInputValue] = useState("");
-  const handleDomainChange = (e) => {
-    const value = e.target.value;
-    setSelectedDomain(value);
-    if (value !== "type") {
-      setInputValue(value);
-    } else {
-      setInputValue("");
-    }
-  };
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-    setSelectedDomain("type");
-  };
+  // const [selectedDomain, setSelectedDomain] = useState("");
+  // const [inputValue, setInputValue] = useState("");
+  // const handleDomainChange = (e) => {
+  //   const value = e.target.value;
+  //   setSelectedDomain(value);
+  //   if (value !== "type") {
+  //     setInputValue(value);
+  //   } else {
+  //     setInputValue("");
+  //   }
+  // };
+  // const handleInputChange = (e) => {
+  //   setInputValue(e.target.value);
+  //   setSelectedDomain("type");
+  // };
 
   // Password 보이거나 안보이게
   const [showPassword, setShowPassword] = useState(false);
@@ -114,84 +133,48 @@ export function Register() {
   return (
     <>
       <Container>
-        <MyDatePicker />
-        <RegisterBox>
-          <Header>Register</Header>
-          <form>
-            <label>Name</label>
-            <input type="text" />
-            <label>Gender</label>
-            <div>
-              <label>Woman</label>
-              {/* input - type - radio 단일 선택을 위해선 name 속성 부여해야 함 */}
-              <input type="radio" name="sex" checked />
-              <label>Man</label>
-              <input type="radio" name="sex" />
-            </div>
-            {/* 생년월일 입력 */}
-            <label>Birthdate</label>
-            <div>
-              <select>
-                <option disabled selected>
-                  출생 연도
-                </option>
-                {years.map((year) => (
-                  <option>{year}</option>
-                ))}
-              </select>
-              <select>
-                <option disabled selected>
-                  월
-                </option>
-                {months.map((month) => (
-                  <option>{month}</option>
-                ))}
-              </select>
-              <select>
-                <option disabled selected>
-                  일
-                </option>
-                {days.map((day) => (
-                  <option>{day}</option>
-                ))}
-              </select>
-            </div>
-            {/* 이메일 입력 */}
-            <label>E-mail</label>
-            <div>
-              <input type="text" placeholder="이메일 입력" />
-              <input
+        <FilterOverlay />
+        <RegisterContainer>
+          <Title>Register</Title>
+          <NameAndGenderBox>
+            <InnerRowBox>
+              <Label>Name</Label>
+              <Input type="text" placeholder="Enter your name." />
+            </InnerRowBox>
+            <InnerRowBox>
+              <Label>Gender</Label>
+              {/* <RadioBox> */}
+              {/* <Label className="radioLabel">Woman</Label> */}
+              <Input
+                // className="genderInput"
                 type="text"
-                placeholder="domain select"
-                value={inputValue}
-                onChange={handleInputChange}
+                placeholder="Enter Man or Woman."
               />
-              <select value={selectedDomain} onChange={handleDomainChange}>
-                <option value={"type"}>직접 입력</option>
-                <option className="domainList" value={"naver.com"}>
-                  naver.com
-                </option>
-                <option className="domainList" value={"google.com"}>
-                  google.com
-                </option>
-                <option className="domainList" value={"nate.com"}>
-                  nate.com
-                </option>
-                <option className="domainList" value={"kakao.com"}>
-                  kakao.com
-                </option>
-              </select>
-            </div>
-            {/* 닉네임 입력 */}
-            <label>Nickname</label>
-            <input type="text" />
-            {/* ID 입력 */}
-            <label>ID</label>
-            <input type="text" placeholder="Enter your Id." />
-            {/* Password 입력 */}
-            <label>
+              {/* <Label className="radioLabel">Man</Label>
+                <Input className="genderInput" type="radio" name="gender" /> */}
+              {/* </RadioBox> */}
+            </InnerRowBox>
+          </NameAndGenderBox>
+          <Box>
+            <Label>Birth</Label>
+            <Input type="text" placeholder="ex) 1999-01-01" />
+          </Box>
+          <Box>
+            <Label>Nickname</Label>
+            <Input type="text" placeholder="Enter your Nickname." />
+          </Box>
+
+          <Box>
+            <Label>ID</Label>
+            <Input
+              className="idInput"
+              type="text"
+              placeholder="Enter your ID."
+            />
+          </Box>
+          <Box>
+            <Label className="passwordLabel">
               Password
-              {/* input 태그 안에 아이콘 넣기 */}
               <StyledIcon
                 icon={
                   showPassword
@@ -200,14 +183,18 @@ export function Register() {
                 }
                 onClick={togglePasswordVisible}
               />
-            </label>
-            <input
+            </Label>
+            <Input
               type={showPassword ? "text" : "password"}
-              placeholder="Enter your password."
+              placeholder="Enter your Password."
             />
-          </form>
-          <LoginBtn type="submit">Sign up</LoginBtn>
-        </RegisterBox>
+          </Box>
+          <Box>
+            <Label>E-mail</Label>{" "}
+            <Input type="text" placeholder="Enter your e-mail." />
+          </Box>
+          <SignupBtn type="submit">Sign up</SignupBtn>
+        </RegisterContainer>
       </Container>
     </>
   );

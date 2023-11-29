@@ -35,10 +35,11 @@ const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 3rem;
-  padding-top: 3rem;
   font-family: "Silkscreen";
+  justify-content: center; /* 추가된 부분 */
+  align-items: center;
+  text-align: center;
   & h1 {
     font-size: 2.5rem;
   }
@@ -79,10 +80,12 @@ const Img = styled.img`
   object-fit: cover;
 `;
 const SignalForm = styled.div`
-  width: 80vw;
+  width: 80%;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
+  margin: 0 auto;
 `;
 const SignalIcon = styled.div`
   width: 100px;
@@ -94,13 +97,34 @@ const SignalIcon = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+const SignalNicknameContainer = styled.div`
+  width: auto;
+  height: 50px;
+  position: absolute;
+  left: 11%;
+  top: 0;
+  color: black;
+  display: flex;
+  align-items: center;
+`;
+
+const SignalTo = styled.h2`
+  white-space: pre-line;
+`;
+
+const SignalNickname = styled.h2`
+  font-weight: bold;
+  display: inline;
+`;
+
 const SignalTextarea = styled.textarea`
   /* SignalForm width - gap - BtnWidth */
   width: 100%;
   height: 20vh;
   box-sizing: border-box; /* 내용이 박스 안쪽에 위치하도록 설정 */
   resize: none; /* 사용자 크기 조절 비활성화 */
-  padding: 20px 30px 20px 170px;
+  padding: 60px 30px 20px 170px;
   font-size: 16px; /* 글꼴 크기 설정 */
   vertical-align: top; /* 텍스트를 상단으로 정렬합니다. */
   background-color: #ddd;
@@ -245,10 +269,15 @@ export function Signal() {
           <SignalIcon>
             <Img src={selectIcon} />
           </SignalIcon>
+          <SignalNicknameContainer>
+            <SignalTo>
+              To.&nbsp;<SignalNickname>zzZ</SignalNickname>
+            </SignalTo>
+          </SignalNicknameContainer>
           <SignalTextarea
             type="text"
             name="signal"
-            placeholder="Type some signal.."
+            placeholder="Type a signal..."
           />
         </SignalForm>
         <SignalBtn>Send A Signal!</SignalBtn>

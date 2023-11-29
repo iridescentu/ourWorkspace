@@ -26,17 +26,13 @@ const PopupNavBar = styled.div`
   cursor: grab;
 `;
 const Logo = styled.div`
-  width: 100px;
+  width: 100%;
   height: 100%;
   display: flex;
   color: white;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
 `;
 const LogoImg = styled.div`
   width: 1.5rem;
@@ -48,10 +44,11 @@ const LogoImg = styled.div`
 `;
 const XBtn = styled.button`
   position: absolute;
-  right: 0;
-  top: 0;
-  width: 30px;
-  height: 100%;
+  right: 2px;
+  top: 2px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 `;
 const PopupHome = styled.div`
   background-color: darkgray;

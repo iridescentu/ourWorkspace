@@ -58,66 +58,51 @@ const Alerts = styled.div`
     isAlertsVisible ? { opacity: 1 } : { opacity: 0 }};
   width: 300px;
   height: 300px;
+  border-top: 3px solid gray;
+  border-left: 3px solid gray;
+  border-bottom: 3px solid rgb(27, 36, 71);
+  border-right: 3px solid rgb(27, 36, 71);
   background-color: white;
-  border-radius: 20px;
-  box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
-  & div {
-    width: 100%;
-    height: 25px;
-    background-color: gray;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    &.warning {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      color: white;
-      margin-left: 50px;
-    }
-    &.circle {
-      width: 15px;
-      height: 15px;
-      background-color: darkred;
-      border-radius: 100%;
-      margin-right: 5px;
-    }
-    &#yellow {
-      background-color: darkgoldenrod;
-    }
-    &#green {
-      background-color: darkgreen;
-      margin-right: 20px;
-    }
-  }
-  & p {
-    padding: 50px;
-    font-weight: 600;
-  }
-  & button {
-    color: white;
-    background-color: dodgerblue;
-    border: 0;
-    padding: 3px 15px;
-    font-weight: 700;
-    border-radius: 20px;
-    font-size: 13px;
-    letter-spacing: 1px;
-    cursor: pointer;
-    margin-top: 50px;
-    margin-left: 40px;
-  }
 `;
-const StyledOutlet = styled(Outlet)``;
+const AlertsTopBar = styled.div`
+  width: 100%;
+  height: 30px;
+  background-color: rgb(27, 36, 71);
+  position: relative;
+`;
+const AlertsLogo = styled.div`
+  width: 100%;
+  height: 100%;
+  font-size: 21px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const XBtn = styled.button`
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+`;
+const AlertsContent = styled.div`
+  background-color: darkgray;
+  width: 100%;
+  height: calc(100% - 30px);
+  padding: 30px;
+`;
+const AlertsText = styled.p`
+  font-weight: 600;
+`;
+const AlertsBtn = styled.button``;
+
 export function UniverseWindow() {
   // 해당 경로일 때 스타일링을 위해
   const location = useLocation();
@@ -185,24 +170,26 @@ export function UniverseWindow() {
 
         {isAlertsVisible && (
           <Alerts>
-            <div>
-              <div className="warning">
-                <h2>
-                  <Icon icon="ic:round-warning" />
-                  Warning
-                </h2>
-              </div>
-              <div className="circle"></div>
-              <div className="circle" id="yellow"></div>
-              <div className="circle" id="green"></div>
-            </div>
-            <p>Logout 하면 Home으로 갑니다 그렇다면 확인 아니면 취소~</p>
-            <button onClick={handleConfirm}>Confirm</button>
-            <button onClick={handleCancel}>Cancel</button>
+            <AlertsTopBar>
+              <AlertsLogo>
+                <Icon icon="ic:round-warning" />
+                <p>Warning</p>
+              </AlertsLogo>
+              <XBtn>X</XBtn>
+            </AlertsTopBar>
+            <AlertsContent>
+              <AlertsText>
+                Warning
+                <br />
+                Are you sure you want to log out?
+              </AlertsText>
+              <AlertsBtn onClick={handleConfirm}>Confirm</AlertsBtn>
+              <AlertsBtn onClick={handleCancel}>Cancel</AlertsBtn>
+            </AlertsContent>
           </Alerts>
         )}
       </Container>
-      <StyledOutlet />
+      <Outlet />
     </>
   );
 }

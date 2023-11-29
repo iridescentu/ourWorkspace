@@ -5,8 +5,6 @@ import Alien1 from "./IconImage/Alien1.png";
 import Rocket from "./IconImage/Rocket.png";
 import Meteor from "./IconImage/Meteor.png";
 import Sun from "./IconImage/Sun.png";
-import { useEffect } from "react";
-import { useRef } from "react";
 import { UniverseModal } from "./UniverseModal";
 import { useState } from "react";
 import { useMemo } from "react";
@@ -120,37 +118,6 @@ const Img = styled.img`
   cursor: pointer;
 `;
 export function Universe() {
-  // position fetch
-  // 실제 ImgBox의 top과 left값과 전송하는 top과 left값이 맞는 확인 필요
-  const imgBoxRefs = useRef([]);
-  useEffect(() => {
-    imgBoxRefs.current.forEach((boxRef, index) => {
-      if (boxRef && boxRef.current) {
-        const { top, left } = boxRef.current.getBoundingClientRect();
-        console.log(`ImgBox ${index} - Top: ${top}, Left: ${left}`);
-        sendDataToBackend({ top, left }); // 백엔드로 데이터를 전송하는 함수 호출
-      }
-    });
-  }, []);
-
-  // 백엔드로 데이터를 전송하는 함수
-  const sendDataToBackend = (data) => {
-    fetch("YOUR_BACKEND_API_URL", {
-      method: "POST", // GET 또는 POST 방식 선택
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data), // 전송할 데이터 형태에 맞게 수정
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Data sent to backend:", data);
-      })
-      .catch((error) => {
-        console.error("Error sending data to backend:", error);
-      });
-  };
-
   const [modalOpen, setModalOpen] = useState(false);
   const imagePositions = useMemo(() => {
     return Array.from({ length: 12 }, () => ({

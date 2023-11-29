@@ -18,7 +18,7 @@ const BinContainer = styled.div`
   border-radius: 10px;
   width: 90vw;
   height: 40vh; // 나중에 삭제하기 (내용물에 따라 높이가 늘어나거나 줄어들도록 하기 위해)
-  background-color: navy;
+  background-color: rgba(26, 26, 26, 0.7);
 `;
 
 const BinContent = styled.div`
@@ -27,7 +27,7 @@ const BinContent = styled.div`
   border-radius: 10px;
   display: flex;
   align-items: center;
-  background-color: blue;
+  /* background-color: blue; */
 `;
 
 const MyPostAvatarIcon = styled.img`
