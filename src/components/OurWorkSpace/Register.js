@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom"; // 추가
 
 const Container = styled.div`
   width: 100%;
-  /* NavBar 60px UniverseWindow 30px */
-  height: calc(100vh - 90px);
+  /* NavBar 60px*/
+  height: calc(100vh - 60px);
   color: white;
   display: flex;
   align-items: center;
@@ -79,12 +79,6 @@ const InnerRowBox = styled.div`
   align-items: center;
   gap: 0.7rem;
 `;
-
-// const RadioBox = styled.div`
-//   display: flex;
-//   gap: 1rem;
-// `;
-
 const StyledIcon = styled(Icon)`
   position: absolute;
   top: 2.7px;
@@ -106,6 +100,11 @@ const SignupBtn = styled.button`
   &:hover {
     background-color: #666;
   }
+`;
+const GenderBox = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 2rem;
 `;
 
 export function Register() {
@@ -236,41 +235,31 @@ export function Register() {
               />
             </InnerRowBox>
             <InnerRowBox onSubmit={handleSubmit}>
-              <Label>Gender</Label>
-              {/* <RadioBox> */}
-              {/* <Label className="radioLabel">Woman</Label> */}
-              <Label>
-                <Input
-                  className="genderInput"
-                  type="radio"
-                  name="gender"
-                  value="WOMAN" // 수정: 문자열 값으로 설정
-                  checked={gender === "WOMAN"}
-                  onChange={handleChange}
-                />
-                <span>Woman</span>
-              </Label>
-              {/* <Input
-                // className="genderInput"
-                type="text"
-                name="gender"
-                value={gender}
-                onChange={handleChange}
-                placeholder="Enter MAN or WOMAN"
-                 /> */}
-              {/* <Label className="radioLabel">Man</Label> */}
-              <Label>
-                <Input
-                  className="genderInput"
-                  type="radio"
-                  name="gender"
-                  value="MAN" // 수정: 문자열 값으로 설정
-                  checked={gender === "MAN"}
-                  onChange={handleChange}
-                />
-                <span>Man</span>
-              </Label>
-              {/* </RadioBox> */}
+              <Label>Gender</Label>{" "}
+              <GenderBox>
+                <Label>
+                  <Input
+                    className="genderInput"
+                    type="radio"
+                    name="gender"
+                    value="WOMAN" // 수정: 문자열 값으로 설정
+                    checked={gender === "WOMAN"}
+                    onChange={handleChange}
+                  />
+                  Woman
+                </Label>
+                <Label>
+                  <Input
+                    className="genderInput"
+                    type="radio"
+                    name="gender"
+                    value="MAN" // 수정: 문자열 값으로 설정
+                    checked={gender === "MAN"}
+                    onChange={handleChange}
+                  />
+                  Man
+                </Label>
+              </GenderBox>
             </InnerRowBox>
           </NameAndGenderBox>
           <Box>
@@ -327,7 +316,7 @@ export function Register() {
             />
           </Box>
           <Box>
-            <Label>E-mail</Label>{" "}
+            <Label>E-mail</Label>
             <Input
               type="text"
               name="email"

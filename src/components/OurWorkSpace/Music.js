@@ -7,7 +7,7 @@ const Container = styled.div`
   width: 560px;
   /* Youtube video 16:9, PopupNavBar height 30px */
   height: calc(315px + 30px);
-  border-top: 3px solid gray;
+  border-top: 3px solid #ddd;
   border-left: 3px solid gray;
   border-bottom: 3px solid rgb(27, 36, 71);
   border-right: 3px solid rgb(27, 36, 71);

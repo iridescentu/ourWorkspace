@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import AboutUsIcon from "./IconImage/AboutUs.png";
 import { useEffect, useState } from "react";
+import { Icon } from "@iconify/react";
 
 const Container = styled.div`
   width: 300px;
   height: 300px;
-  border-top: 3px solid gray;
+  border-top: 3px solid #ddd;
   border-left: 3px solid gray;
   border-bottom: 3px solid rgb(27, 36, 71);
   border-right: 3px solid rgb(27, 36, 71);
@@ -25,17 +26,15 @@ const PopupNavBar = styled.div`
   cursor: grab;
 `;
 const Logo = styled.div`
-  width: 100px;
+  width: 100%;
   height: 100%;
   display: flex;
-  color: white;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
 `;
 const LogoImg = styled.div`
   width: 1.5rem;
@@ -47,10 +46,15 @@ const LogoImg = styled.div`
 `;
 const XBtn = styled.button`
   position: absolute;
-  right: 0;
-  top: 0;
-  width: 30px;
-  height: 100%;
+  right: 3px;
+  top: 3px;
+  width: 23px;
+  height: 23px;
+  cursor: pointer;
+  & .xIcon {
+    width: 100%;
+    height: 100%;
+  }
 `;
 const PopupHome = styled.div`
   background-color: darkgray;
@@ -60,25 +64,17 @@ const PopupHome = styled.div`
   padding: 30px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
-`;
-const Title = styled.h2`
-  background-color: pink;
   justify-content: center;
   align-items: center;
-  display: flex;
+  gap: 30px;
+`;
+const Title = styled.h3`
+  background-color: pink;
 `;
 const Content = styled.p`
   background-color: gold;
   /* p 태그의 text는 크기에 상관없이 글자가 튀어져 나감 때문에 word-wrap의 break-word 속성 부여 */
   word-wrap: break-word;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  font-weight: bold;
-`;
-const Btn = styled.button`
-  cursor: pointer;
 `;
 export function AboutUs({ onAboutUsHide }) {
   // PopupNavBar로 드래그 하기 위해
@@ -126,7 +122,9 @@ export function AboutUs({ onAboutUsHide }) {
               </LogoImg>
               <p>About Us</p>
             </Logo>
-            <XBtn onClick={onAboutUsHide}>X</XBtn>
+            <XBtn onClick={onAboutUsHide}>
+              <Icon className="xIcon" icon="pixelarticons:close" />
+            </XBtn>
           </PopupNavBar>
           <PopupHome>
             <Title>About Us</Title>
@@ -136,7 +134,6 @@ export function AboutUs({ onAboutUsHide }) {
                 Hyejeong Yeom
               </p>
             </Content>
-            <Btn>Button</Btn>
           </PopupHome>
         </PopupBox>
       </Container>

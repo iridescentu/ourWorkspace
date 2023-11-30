@@ -2,11 +2,12 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import SettingIcon from "./IconImage/Setting.png";
 import { useTheme } from "./ThemeContext";
+import { Icon } from "@iconify/react";
 
 const Container = styled.div`
   width: 300px;
   height: 400px;
-  border-top: 3px solid gray;
+  border-top: 3px solid #ddd;
   border-left: 3px solid gray;
   border-bottom: 3px solid rgb(27, 36, 71);
   border-right: 3px solid rgb(27, 36, 71);
@@ -29,10 +30,12 @@ const Logo = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  color: white;
   align-items: center;
   justify-content: center;
   gap: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
 `;
 const LogoImg = styled.div`
   width: 1.5rem;
@@ -44,11 +47,15 @@ const LogoImg = styled.div`
 `;
 const XBtn = styled.button`
   position: absolute;
-  right: 2px;
-  top: 2px;
-  width: 25px;
-  height: 25px;
+  right: 3px;
+  top: 3px;
+  width: 23px;
+  height: 23px;
   cursor: pointer;
+  & .xIcon {
+    width: 100%;
+    height: 100%;
+  }
 `;
 const PopupHome = styled.div`
   background-color: darkgray;
@@ -124,7 +131,7 @@ export function Setting({ onSettingHide }) {
   const { changeTheme } = useTheme();
   const handleThemeChangeToDefault = () => {
     changeTheme(
-      `${process.env.PUBLIC_URL}/Logo03.png`,
+      `${process.env.PUBLIC_URL}/Logo_de.png`,
       "rgb(27,36,71)",
       "white",
       'url("https://openseauserdata.com/files/e96084d648812c87be57cb30661e685a.gif")'
@@ -132,7 +139,7 @@ export function Setting({ onSettingHide }) {
   };
   const handleThemeChangeToBlack = () => {
     changeTheme(
-      `${process.env.PUBLIC_URL}/Logo01.png`,
+      `${process.env.PUBLIC_URL}/Logo_bk.png`,
       "black",
       "white",
       'url("https://cdnb.artstation.com/p/assets/images/images/054/768/341/original/pxsprite-dreamspace-chaos.gif?1665334885")'
@@ -140,7 +147,7 @@ export function Setting({ onSettingHide }) {
   };
   const handleThemeChangeToPurple = () => {
     changeTheme(
-      `${process.env.PUBLIC_URL}/Logo03.png`,
+      `${process.env.PUBLIC_URL}/Logo_pl.png`,
       "rgb(82,57,135)",
       "white",
       'url("https://i.pinimg.com/originals/0f/d3/fc/0fd3fcc6ba35a9015aa7f0017d96a079.gif")'
@@ -148,7 +155,7 @@ export function Setting({ onSettingHide }) {
   };
   const handleThemeChangeToGreen = () => {
     changeTheme(
-      `${process.env.PUBLIC_URL}/Logo02.png`,
+      `${process.env.PUBLIC_URL}/Logo_bk.png`,
       "rgb(34,50,48)",
       "white",
       'url("https://i.pinimg.com/originals/43/e9/16/43e9164cfe2537bb9d6746b4d053d032.gif")'
@@ -166,7 +173,9 @@ export function Setting({ onSettingHide }) {
               </LogoImg>
               <p>Setting</p>
             </Logo>
-            <XBtn onClick={onSettingHide}>X</XBtn>
+            <XBtn onClick={onSettingHide}>
+              <Icon className="xIcon" icon="pixelarticons:close" />
+            </XBtn>
           </PopupNavBar>
           <PopupHome>
             <Title>Choose your theme color!</Title>

@@ -245,8 +245,8 @@ export function login(memberLoginDto) {
     })
     .then((data) => {
       console.log("서버 응답 데이터:", data); // 여기서 데이터 확인
-      const userId = data.id; // 로그인 성공 시 사용자 아이디를 추출합니다.
-      return { userId }; // 사용자 아이디를 객체로 감싸서 반환합니다.
+      // const userId = data.id; // 로그인 성공 시 사용자 아이디를 추출합니다.
+      return { userId: data.data.id }; // 사용자 아이디를 객체로 감싸서 반환합니다.
     })
     .catch((error) => {
       console.error("로그인 실패", error);

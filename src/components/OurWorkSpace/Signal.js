@@ -268,7 +268,7 @@ export function Signal() {
           </SignalIcon>
           <SignalNicknameContainer>
             <SignalTo>
-              To.&nbsp;<SignalNickname>nickname</SignalNickname>
+              To.&nbsp;<SignalNickname>Nickname</SignalNickname>
             </SignalTo>
           </SignalNicknameContainer>
           <SignalTextarea

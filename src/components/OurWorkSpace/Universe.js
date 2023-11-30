@@ -14,6 +14,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Keyboard, Pagination, Navigation } from "swiper/modules";
+import "./Swiper.css";
 
 const SignalBtnAnimation = keyframes`
   0%{
@@ -117,6 +118,7 @@ const Img = styled.img`
   object-fit: cover;
   cursor: pointer;
 `;
+
 export function Universe() {
   const [modalOpen, setModalOpen] = useState(false);
   const imagePositions = useMemo(() => {
@@ -129,8 +131,9 @@ export function Universe() {
     setModalOpen(true);
   };
 
+  // img가 12개가 넘어갈 때 새로운 슬라이드 추가
   const slides = useMemo(() => {
-    const slideCount = Math.ceil(imagePositions.length / 12); // 12개 이상의 이미지 박스는 새로운 슬라이드로
+    const slideCount = Math.ceil(imagePositions.length / 12);
     const slidesArray = [];
 
     for (let i = 0; i < slideCount; i++) {
@@ -203,6 +206,7 @@ export function Universe() {
         navigation={true}
         modules={[Keyboard, Pagination, Navigation]}
         className="mySwiper"
+        noSwiping={true}
       >
         <SwiperSlide>
           <Container>

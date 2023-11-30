@@ -110,7 +110,6 @@ const PostContainer = styled.div`
 
 const CheckboxContainer = styled.div`
   width: 3vw;
-
   background-color: red;
   opacity: 0.7;
   display: flex;
@@ -151,6 +150,7 @@ const NicknameContainer = styled.h2`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: black;
 `;
 
 const MessageContainer = styled.h3`
@@ -172,16 +172,77 @@ const DateContainer = styled.h4`
 `;
 
 export function Archive() {
-  const [checked, setChecked] = useState(false);
+  // const [checked, setChecked] = useState(false);
 
-  const PlanetIconUrl =
-    "https://source.boringavatars.com/beam/60/zzZ?colors=1F1F20,2B4C7E,567EBB,606D80,DCE0E6";
+  const [postCheckMap, setPostCheckMap] = useState({});
+
+  const handleCheckboxChange = (postId) => {
+    setPostCheckMap((prevMap) => ({
+      ...prevMap,
+      [postId]: !prevMap[postId],
+    }));
+  };
+
+  // ...
+
+  const posts = [
+    // your array of post data
+    // each post object should have a unique identifier, e.g., postId
+    {
+      postId: 1,
+      checked: postCheckMap[1] || false,
+      PlanetIconUrl:
+        "https://source.boringavatars.com/beam/60/zzZ?colors=1F1F20,2B4C7E,567EBB,606D80,DCE0E6",
+      Nickname: "User1",
+      Message: "첫 번째 포스트입니다. 어디까지 써야 할지 몰라요.",
+      Date: "2023.11.29",
+    },
+    {
+      postId: 2,
+      checked: postCheckMap[2] || false,
+      PlanetIconUrl:
+        "https://source.boringavatars.com/beam/60/Kimdahye?colors=1F1F20,2B4C7E,567EBB,606D80,DCE0E6",
+      Nickname: "User2",
+      Message: "두 번째 포스트입니다. 어디까지 써야 할지 몰라요.",
+      Date: "2023.11.29",
+    },
+    {
+      postId: 3,
+      checked: postCheckMap[3] || false,
+      PlanetIconUrl:
+        "https://source.boringavatars.com/beam/60/chaeyoung?colors=1F1F20,2B4C7E,567EBB,606D80,DCE0E6",
+      Nickname: "User3",
+      Message: "세 번째 포스트입니다. 어디까지 써야 할지 몰라요.",
+      Date: "2023.11.29",
+    },
+    {
+      postId: 4,
+      checked: postCheckMap[4] || false,
+      PlanetIconUrl:
+        "https://source.boringavatars.com/beam/60/hyejeong?colors=1F1F20,2B4C7E,567EBB,606D80,DCE0E6",
+      Nickname: "User4",
+      Message: "네 번째 포스트입니다. 어디까지 써야 할지 몰라요.",
+      Date: "2023.11.29",
+    },
+    {
+      postId: 5,
+      checked: postCheckMap[5] || false,
+      PlanetIconUrl:
+        "https://source.boringavatars.com/beam/60/yoonjihee?colors=1F1F20,2B4C7E,567EBB,606D80,DCE0E6",
+      Nickname: "User5",
+      Message: "다섯 번째 포스트입니다. 어디까지 써야 할지 몰라요.",
+      Date: "2023.11.29",
+    },
+  ];
+
+  // const PlanetIconUrl =
+  //   "https://source.boringavatars.com/beam/60/zzZ?colors=1F1F20,2B4C7E,567EBB,606D80,DCE0E6";
 
   return (
     <>
       <Container>
         <FilterOverlay />
-        <PostContainer>
+        {/* <PostContainer>
           <CheckboxContainer>
             <CheckboxInput
               type="checkbox"
@@ -320,7 +381,27 @@ export function Archive() {
             할지 몰루겠네요
           </MessageContainer>
           <DateContainer>2023.11.29</DateContainer>
-        </PostContainer>
+        </PostContainer> */}
+
+        {posts.map((post) => (
+          <PostContainer key={post.postId}>
+            <CheckboxContainer>
+              <CheckboxInput
+                type="checkbox"
+                checked={post.checked}
+                onChange={() => handleCheckboxChange(post.postId)}
+              />
+            </CheckboxContainer>
+            <ProfileContainer>
+              <PlanetIconContainer>
+                <PlanetIcon src={post.PlanetIconUrl} alt="Avatar" />
+              </PlanetIconContainer>
+              <NicknameContainer>{post.Nickname}</NicknameContainer>
+            </ProfileContainer>
+            <MessageContainer>{post.Message}</MessageContainer>
+            <DateContainer>{post.Date}</DateContainer>
+          </PostContainer>
+        ))}
       </Container>
     </>
   );

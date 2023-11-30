@@ -12,7 +12,7 @@ export function ThemeProvider({ children }) {
   // 기본 테마
   // NavBar
   const [navBarLogoImage, setNavBarLogoImage] = useState(
-    `${process.env.PUBLIC_URL}/Logo03.png`
+    `${process.env.PUBLIC_URL}/Logo_de.png`
   );
   const [navBarBackgroundColor, setNavBarBackgroundColor] =
     useState("rgb(27,36,71)");

@@ -1,0 +1,95 @@
+.swiper-button-prev:after {
+  content: url("https://api.iconify.design/pixelarticons/chevron-left.svg");
+}
+.swiper-button-next:after {
+  content: url("https://api.iconify.design/pixelarticons/chevron-right.svg");
+}
+/* prev btn, next btn 크기 */
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(2) translateY(-8px);
+}
+.swiper-button-next:after {
+  transform: scale(2) translate(0.5px, -8px);
+}
+/* 마지막 nav btn */
+.swiper-button-prev.swiper-button-disabled {
+  opacity: 0.35;
+  cursor: auto;
+  pointer-events: none;
+}
+/* prev btn 위치 */
+.swiper-button-prev {
+  left: 15px;
+  right: auto;
+}
+/* next btn 위치 */
+.swiper-button-next {
+  right: 15px;
+  left: auto;
+}
+/* prev btn, next btn styling */
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+/* pagination 위치 */
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: var(--swiper-pagination-bottom, 8px);
+  top: var(--swiper-pagination-top, auto);
+  left: 0;
+  width: 100%;
+}
+/* pagination 안의 dot 위치 */
+.swiper-pagination {
+  position: absolute;
+  text-align: center;
+  transition: 300ms opacity;
+  transform: translate3d(0, 0, 0);
+  z-index: 10;
+}
+/* dot styling */
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 50%;
+  background: #ddd;
+  opacity: 0.5;
+}
+/* target dot styling */
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #ddd;
+}
+
+/*  dot 간격 */
+.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets
+  .swiper-pagination-bullet {
+  margin: 0 10px;
+}
+/* cursor pointer */
+.swiper-pagination-clickable .swiper-pagination-bullet {
+  cursor: pointer;
+}

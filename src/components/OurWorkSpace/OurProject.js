@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import OurProjectIcon from "./IconImage/OurProject.png";
 import { useEffect, useState } from "react";
+import { Icon } from "@iconify/react";
 
 const Container = styled.div`
   width: 300px;
   height: 300px;
-  border-top: 3px solid gray;
+  border-top: 3px solid #ddd;
   border-left: 3px solid gray;
   border-bottom: 3px solid rgb(27, 36, 71);
   border-right: 3px solid rgb(27, 36, 71);
@@ -25,20 +26,15 @@ const PopupNavBar = styled.div`
   cursor: grab;
 `;
 const Logo = styled.div`
-  width: 100px;
+  width: 100%;
   height: 100%;
   display: flex;
-  color: white;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-  & p {
-    width: 100%;
-  }
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
 `;
 
 const LogoImg = styled.div`
@@ -51,10 +47,15 @@ const LogoImg = styled.div`
 `;
 const XBtn = styled.button`
   position: absolute;
-  right: 0;
-  top: 0;
-  width: 30px;
-  height: 100%;
+  right: 3px;
+  top: 3px;
+  width: 23px;
+  height: 23px;
+  cursor: pointer;
+  & .xIcon {
+    width: 100%;
+    height: 100%;
+  }
 `;
 const PopupHome = styled.div`
   background-color: darkgray;
@@ -68,24 +69,13 @@ const PopupHome = styled.div`
 `;
 const Title = styled.h2`
   background-color: pink;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 const Content = styled.p`
   background-color: gold;
-  /* p 태그의 text는 크기에 상관없이 글자가 튀어져 나감 때문에 word-wrap의 break-word 속성 부여 */
-  word-wrap: break-word;
-  display: flex;
-  /* align-items: center;
-  justify-content: center; */
-  text-align: center;
   font-size: 15px;
   font-weight: bold;
 `;
-const Btn = styled.button`
-  cursor: pointer;
-`;
+
 export function OurProject({ onOurProjectHide }) {
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({
@@ -130,7 +120,9 @@ export function OurProject({ onOurProjectHide }) {
               </LogoImg>
               <p>Our Project</p>
             </Logo>
-            <XBtn onClick={onOurProjectHide}>X</XBtn>
+            <XBtn onClick={onOurProjectHide}>
+              <Icon className="xIcon" icon="pixelarticons:close" />
+            </XBtn>
           </PopupNavBar>
           <PopupHome>
             <Title>Our Project</Title>
@@ -140,7 +132,6 @@ export function OurProject({ onOurProjectHide }) {
               frontend, we developed the website using React, while Java served
               as the backend language.
             </Content>
-            <Btn>Button</Btn>
           </PopupHome>
         </PopupBox>
       </Container>

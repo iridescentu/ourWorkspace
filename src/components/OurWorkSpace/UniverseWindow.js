@@ -2,8 +2,6 @@ import { useState } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
-import { Navigate } from "react-router-dom";
-import { Login } from "./Login";
 
 const Container = styled.div`
   width: 100%;
@@ -60,7 +58,7 @@ const Alerts = styled.div`
     isAlertsVisible ? { opacity: 1 } : { opacity: 0 }};
   width: 300px;
   height: 300px;
-  border-top: 3px solid gray;
+  border-top: 3px solid #ddd;
   border-left: 3px solid gray;
   border-bottom: 3px solid rgb(27, 36, 71);
   border-right: 3px solid rgb(27, 36, 71);
@@ -81,29 +79,54 @@ const AlertsLogo = styled.div`
   width: 100%;
   height: 100%;
   font-size: 21px;
+  font-weight: bold;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
+  & .waringIcon {
+    color: gold;
+  }
 `;
 const XBtn = styled.button`
   position: absolute;
-  right: 2px;
-  top: 2px;
-  width: 25px;
-  height: 25px;
+  right: 3px;
+  top: 3px;
+  width: 23px;
+  height: 23px;
   cursor: pointer;
+  & .xIcon {
+    width: 100%;
+    height: 100%;
+  }
 `;
 const AlertsContent = styled.div`
   background-color: darkgray;
   width: 100%;
   height: calc(100% - 30px);
-  padding: 30px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  /* text를 박스 크기에 맞게 늘림 */
+  /* text-align: justify; */
+  font-size: 15px;
 `;
 const AlertsText = styled.p`
   font-weight: 600;
+  text-align: center;
+  line-height: 1.7;
 `;
-const AlertsBtn = styled.button``;
+const AlertsBtn = styled.button`
+  cursor: pointer;
+  color: white;
+  background-color: rgb(27, 36, 71);
+  padding: 5px 10px;
+  border-radius: 5px;
+`;
 
 export function UniverseWindow() {
   // 해당 경로일 때 스타일링을 위해
@@ -151,9 +174,7 @@ export function UniverseWindow() {
     <>
       {/* {!login ? (
         <Navigate to="/universe/login" />
-      ) : (
-        <Login setLogin={setLogin} />
-      )} */}
+      ) : ( */}
       <Container>
         <Topbar>
           <Tabs>
@@ -166,7 +187,7 @@ export function UniverseWindow() {
             <Search>
               <SearchInput placeholder="Search by Nickname" />
               <SearchBtn to="/universe/search">
-                <StyledIcon icon="pixelarticons:search" />
+                <Icon className="XIcon" icon="pixelarticons:search" />
               </SearchBtn>
             </Search>
             <MyAccount>
@@ -182,23 +203,24 @@ export function UniverseWindow() {
           <Alerts>
             <AlertsTopBar>
               <AlertsLogo>
-                <Icon icon="ic:round-warning" />
-                <p>Warning</p>
+                <Icon className="waringIcon" icon="ic:round-warning" />
+                <p>Alert</p>
               </AlertsLogo>
-              <XBtn>X</XBtn>
+              <XBtn onClick={handleCancel}>
+                <Icon className="xIcon" icon="pixelarticons:close" />
+              </XBtn>
             </AlertsTopBar>
             <AlertsContent>
               <AlertsText>
-                Warning
-                <br />
-                Are you sure you want to log out?
+                When you log out,<br></br>you will return to home screen.
+                <br></br>Are you sure you want to log out?
               </AlertsText>
-              <AlertsBtn onClick={handleConfirm}>Confirm</AlertsBtn>
-              <AlertsBtn onClick={handleCancel}>Cancel</AlertsBtn>
+              <AlertsBtn onClick={handleConfirm}>Yes</AlertsBtn>
             </AlertsContent>
           </Alerts>
         )}
       </Container>
+      {/* )} */}
       <Outlet />
     </>
   );

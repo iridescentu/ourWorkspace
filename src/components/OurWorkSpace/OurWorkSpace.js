@@ -14,6 +14,7 @@ import { ThemeProvider } from "./ThemeContext";
 import { Dashboard } from "./Dashboard";
 import { Search } from "./Search";
 import { Signal } from "./Signal";
+import { Error } from "./Error";
 
 export function OurWorkSpace() {
   // NavBar toggleFullScreen Btn 눌렀을 때 FullScreen
@@ -47,6 +48,7 @@ export function OurWorkSpace() {
                 <Route index element={<Screen />} />
                 {/* ☆ universe에 user={user} setUser={setUser} 추가*/}
                 {/* <Route path="universe" element={<Navigate to="/universe/login" />}> */}
+                <Route path="register" element={<Register />} />
                 <Route
                   path="universe"
                   element={<UniverseWindow user={user} setUser={setUser} />}
@@ -54,7 +56,7 @@ export function OurWorkSpace() {
                   <Route index element={<Universe />} />
                   <Route path="login" element={<Login />} />
                   <Route path="logout" element={<Logout />} />
-                  <Route path="register" element={<Register />} />
+
                   <Route path="archive" element={<Archive />} />
                   <Route path="bin" element={<Bin />} />
                   {/* ☆ dashboard에 user={user} 추가*/}
