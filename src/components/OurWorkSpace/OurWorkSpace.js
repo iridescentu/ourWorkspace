@@ -34,7 +34,7 @@ export function OurWorkSpace() {
     }
     setIsFullScreen(!isFullScreen);
   };
-
+  const [targetId, setTargetId] = useState(null); //targetId 상태 생성
   return (
     <>
       <ThemeProvider>
@@ -51,7 +51,14 @@ export function OurWorkSpace() {
                 <Route path="register" element={<Register />} />
                 <Route
                   path="universe"
-                  element={<UniverseWindow user={user} setUser={setUser} />}
+                  element={
+                    <UniverseWindow
+                      user={user}
+                      setUser={setUser}
+                      targetId={targetId} // targetId를 UniverseWindow 컴포넌트에 전달
+                      setTargetId={setTargetId}
+                    />
+                  }
                 >
                   <Route index element={<Universe />} />
                   <Route path="login" element={<Login />} />
@@ -65,6 +72,8 @@ export function OurWorkSpace() {
                   <Route path="signal" element={<Signal />} />
                 </Route>
               </Route>
+              {/* 주소 틀렸을 때 Error Page */}
+              <Route path="*" element={<Error />} />
             </Routes>
           </FullScreen>
         </BrowserRouter>

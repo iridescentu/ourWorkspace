@@ -218,47 +218,32 @@ export function signup(memberDto) {
     },
     body: JSON.stringify(memberDto),
   }).then((response) => response.json());
-  // .then((data) => {
-  //   console.log("회원 가입 성공", data);
-  //   return data;
-  // })
-  // .catch((error) => {
-  //   console.error("회원 가입 실패", error);
-  //   return { error: "회원 가입 실패" };
-  // });
 }
 
 // login
 export function login(memberLoginDto) {
-  return fetch(`http://localhost:8081/universe/member/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(memberLoginDto),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("로그인 실패");
-      }
-      return response.json();
+  return (
+    fetch(`http://localhost:8081/universe/member/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(memberLoginDto),
     })
-    .then((data) => {
-      console.log("서버 응답 데이터:", data); // 여기서 데이터 확인
-      // const userId = data.id; // 로그인 성공 시 사용자 아이디를 추출합니다.
-      return { userId: data.data.id }; // 사용자 아이디를 객체로 감싸서 반환합니다.
-    })
-    .catch((error) => {
-      console.error("로그인 실패", error);
-      return { error: "로그인 실패" };
-    });
-
-  // .then((data) => {
-  //   console.log("로그인 성공", data);
-  //   return data;
-  // })
-  // .catch((error) => {
-  //   console.error("로그인 실패", error);
-  //   return { error: "로그인 실패" };
-  // });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("로그인 실패");
+        }
+        return response.json();
+      })
+      // .then((data) => {
+      //   console.log("서버 응답 데이터:", data); // 여기서 데이터 확인
+      //   // const userId = data.id; // 로그인 성공 시 사용자 아이디를 추출합니다.
+      //   return { userId: data.data.id }; // 사용자 아이디를 객체로 감싸서 반환합니다.
+      // })//이것 때문에 이동하지 못하고 오류가 나고 있음.
+      .catch((error) => {
+        console.error("로그인 실패", error);
+        return { error: "로그인 실패" };
+      })
+  );
 }

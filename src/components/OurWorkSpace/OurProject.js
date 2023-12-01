@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 
 const Container = styled.div`
   width: 300px;
-  height: 300px;
+  height: 350px;
   border-top: 3px solid #ddd;
   border-left: 3px solid gray;
   border-bottom: 3px solid rgb(27, 36, 71);
@@ -65,22 +65,31 @@ const PopupHome = styled.div`
   padding: 30px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 `;
-const Title = styled.h2`
-  background-color: pink;
+const Title = styled.h3`
+  /* background-color: pink; */
+  font-size: 1.5rem;
+  margin-top: -15px;
 `;
 const Content = styled.p`
-  background-color: gold;
+  /* background-color: gold; */
   font-size: 15px;
   font-weight: bold;
+  display: flex;
+  text-align: justify;
+  padding: 3%;
+  padding-top: 1%;
+  line-height: 21px;
 `;
 
 export function OurProject({ onOurProjectHide }) {
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({
-    top: window.innerHeight / 2 - 150,
-    left: window.innerWidth / 2 - 150,
+    top: window.innerHeight / 2 - 50,
+    left: window.innerWidth / 2 + 70,
   });
 
   const mouseDown = (e) => {
@@ -125,7 +134,7 @@ export function OurProject({ onOurProjectHide }) {
             </XBtn>
           </PopupNavBar>
           <PopupHome>
-            <Title>Our Project</Title>
+            <Title>About Our Project</Title>
             <Content>
               This project is a web page with the concept of space and retro. We
               made efforts to design the desktop interface, and for the

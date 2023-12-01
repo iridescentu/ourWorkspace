@@ -1,4 +1,6 @@
 import styled, { keyframes } from "styled-components";
+import { Icon } from "@iconify/react";
+import ModalTestImg from "./IconImage/Rocket.png";
 
 const fadeIn = keyframes`
   from {
@@ -11,7 +13,10 @@ const fadeIn = keyframes`
   }
 `;
 const Container = styled.div`
-  color: black;
+  border-top: 3px solid #ddd;
+  border-left: 3px solid gray;
+  border-bottom: 3px solid rgb(27, 36, 71);
+  border-right: 3px solid rgb(27, 36, 71);
   position: fixed;
   top: 50%;
   left: 50%;
@@ -34,20 +39,53 @@ const Backdrop = styled.div`
 `;
 const ModalBar = styled.div`
   width: 100%;
-  height: 10%;
-  background-color: black;
+  height: 40px;
+  background-color: rgb(27, 36, 71);
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
+  color: white;
 `;
-const ImgBox = styled.div``;
-const Img = styled.img``;
-const Btn = styled.button``;
-const Content = styled.p`
+const ImgBox = styled.div`
+  width: 40px;
+  height: 100%;
+  margin-left: 2%;
+`;
+const Img = styled.img`
   width: 100%;
   height: 100%;
+  object-fit: cover;
+`;
+const ModalFrom = styled.h2`
+  width: 100%;
+  height: 100%;
+  font-size: 24px;
+  font-weight: bold;
+  & .userId {
+    font-size: 20px;
+    font-weight: 400;
+  }
+`;
+const Btn = styled.button`
+  cursor: pointer;
+  &.closeBtn {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    width: 25px;
+    height: 25px;
+
+    & .xIcon {
+      width: 100%;
+      height: 100%;
+    }
+  }
+`;
+const Content = styled.p`
+  width: 100%;
+  height: calc(100% - 30px);
   padding: 5%;
+  background-color: darkgray;
 `;
 const Title = styled.h1``;
 const Text = styled.p`
@@ -64,10 +102,13 @@ export function UniverseModal({ closeModal }) {
       <Container>
         <ModalBar>
           <ImgBox>
-            <Img />
+            <Img src={ModalTestImg} alt="universeIcon" />
           </ImgBox>
+          <ModalFrom>
+            Signal from " <span className="userId">ghkt2535</span> "
+          </ModalFrom>
           <Btn className="closeBtn" onClick={closeModal}>
-            닫기
+            <Icon className="xIcon" icon="pixelarticons:close" />
           </Btn>
         </ModalBar>
         <Content>
@@ -82,7 +123,6 @@ export function UniverseModal({ closeModal }) {
             했는데 언제 해줄지 모르겠다. 내가 아는 채영이는 가상 세계 인물이고
             집에 가서 컴퓨터를 켜야 현실 세계로 들어가는 애 같다.
           </Text>
-          <Btn className="likeBtn">좋아요</Btn>
           <Btn className="favoriteBtn">즐찾</Btn>
         </Content>
       </Container>

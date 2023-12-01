@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 
 const Container = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 270px;
+  height: 280px;
   border-top: 3px solid #ddd;
   border-left: 3px solid gray;
   border-bottom: 3px solid rgb(27, 36, 71);
@@ -69,18 +69,31 @@ const PopupHome = styled.div`
   gap: 30px;
 `;
 const Title = styled.h3`
-  background-color: pink;
+  /* background-color: pink; */
+  font-size: 1.5rem;
+  margin-top: -15%;
 `;
-const Content = styled.p`
-  background-color: gold;
-  /* p 태그의 text는 크기에 상관없이 글자가 튀어져 나감 때문에 word-wrap의 break-word 속성 부여 */
-  word-wrap: break-word;
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  line-height: 25px;
 `;
+
+const Jihee = styled.p``;
+const Dahye = styled.p``;
+const Chaeyoung = styled.p``;
+const Hyejeong = styled.p``;
+
 export function AboutUs({ onAboutUsHide }) {
   // PopupNavBar로 드래그 하기 위해
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({
-    top: window.innerHeight / 2 - 150,
+    top: window.innerHeight / 2 - 250,
     left: window.innerWidth / 2 - 150,
     // ( top: 50%;, left: 50% === /2 ) => 같은 메커니즘: 가운데 오게 하고,
     // ( transform: translate(-50%,-50%) === -150px ) => 같은 메커니즘: container가 300px이기 때문에
@@ -127,12 +140,12 @@ export function AboutUs({ onAboutUsHide }) {
             </XBtn>
           </PopupNavBar>
           <PopupHome>
-            <Title>About Us</Title>
+            <Title>Team Members</Title>
             <Content>
-              <p>
-                Jihee Yoon<br></br>Dahye Kim<br></br>ChaeYoung Go<br></br>
-                Hyejeong Yeom
-              </p>
+              <Jihee>Jihee Yoon</Jihee>
+              <Dahye>Dahye Kim</Dahye>
+              <Chaeyoung>ChaeYoung Go</Chaeyoung>
+              <Hyejeong>Hyejeong Yeom</Hyejeong>
             </Content>
           </PopupHome>
         </PopupBox>

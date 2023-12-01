@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
+// import { Navigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -62,7 +63,7 @@ const Alerts = styled.div`
   border-left: 3px solid gray;
   border-bottom: 3px solid rgb(27, 36, 71);
   border-right: 3px solid rgb(27, 36, 71);
-  background-color: white;
+  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.4);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -126,6 +127,14 @@ const AlertsBtn = styled.button`
   background-color: rgb(27, 36, 71);
   padding: 5px 10px;
   border-radius: 5px;
+`;
+
+const AlertBtns = styled.button`
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  border: none;
+  gap: 15px;
 `;
 
 export function UniverseWindow() {
@@ -215,12 +224,15 @@ export function UniverseWindow() {
                 When you log out,<br></br>you will return to home screen.
                 <br></br>Are you sure you want to log out?
               </AlertsText>
-              <AlertsBtn onClick={handleConfirm}>Yes</AlertsBtn>
+              <AlertBtns>
+                <AlertsBtn onClick={handleConfirm}>Yes</AlertsBtn>
+                <AlertsBtn onClick={handleCancel}>No</AlertsBtn>
+              </AlertBtns>
             </AlertsContent>
           </Alerts>
         )}
       </Container>
-      {/* )} */}
+      {/* // )} */}
       <Outlet />
     </>
   );

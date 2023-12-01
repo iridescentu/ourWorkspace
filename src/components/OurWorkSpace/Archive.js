@@ -6,14 +6,15 @@ const Container = styled.div`
   /* NavBar 60px UniverseWindow 30px */
   height: calc(100vh - 90px);
   color: white;
-  /* padding-top: 15px;
-  padding-left: 5%; */
+  padding-top: 15px;
+  padding-left: 2%;
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
 `;
+
 const FilterOverlay = styled.div`
   position: absolute;
   top: 0;
@@ -96,13 +97,30 @@ const FilterOverlay = styled.div`
 //   );
 // }
 
+const ArchiveTitle = styled.div`
+  display: flex;
+  padding-top: 1%;
+  padding-bottom: 3%;
+`;
+
+const ArchiveContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  width: 96vw;
+  height: 70vh; // 나중에 삭제하기 (내용물에 따라 높이가 늘어나거나 줄어들도록 하기 위해)
+  background-color: rgba(26, 26, 26, 0.7);
+`;
+
 const PostContainer = styled.div`
   display: flex;
   /* justify-content: center;
   align-items: center; */
   flex-direction: row;
   border-radius: 10px;
-  width: 95vw;
+  width: 96vw;
   height: 7vh; // 나중에 삭제하기 (내용물에 따라 높이가 늘어나거나 줄어들도록 하기 위해)
   background-color: navy;
   opacity: 0.7;
@@ -163,7 +181,7 @@ const MessageContainer = styled.h3`
 `;
 
 const DateContainer = styled.h4`
-  width: 6vw;
+  width: 7vw;
   background-color: violet;
   opacity: 0.7;
   display: flex;
@@ -242,7 +260,11 @@ export function Archive() {
     <>
       <Container>
         <FilterOverlay />
-        {/* <PostContainer>
+        <ArchiveTitle>
+          <h1>Archive</h1>
+        </ArchiveTitle>
+        <ArchiveContainer>
+          {/* <PostContainer>
           <CheckboxContainer>
             <CheckboxInput
               type="checkbox"
@@ -383,25 +405,26 @@ export function Archive() {
           <DateContainer>2023.11.29</DateContainer>
         </PostContainer> */}
 
-        {posts.map((post) => (
-          <PostContainer key={post.postId}>
-            <CheckboxContainer>
-              <CheckboxInput
-                type="checkbox"
-                checked={post.checked}
-                onChange={() => handleCheckboxChange(post.postId)}
-              />
-            </CheckboxContainer>
-            <ProfileContainer>
-              <PlanetIconContainer>
-                <PlanetIcon src={post.PlanetIconUrl} alt="Avatar" />
-              </PlanetIconContainer>
-              <NicknameContainer>{post.Nickname}</NicknameContainer>
-            </ProfileContainer>
-            <MessageContainer>{post.Message}</MessageContainer>
-            <DateContainer>{post.Date}</DateContainer>
-          </PostContainer>
-        ))}
+          {posts.map((post) => (
+            <PostContainer key={post.postId}>
+              <CheckboxContainer>
+                <CheckboxInput
+                  type="checkbox"
+                  checked={post.checked}
+                  onChange={() => handleCheckboxChange(post.postId)}
+                />
+              </CheckboxContainer>
+              <ProfileContainer>
+                <PlanetIconContainer>
+                  <PlanetIcon src={post.PlanetIconUrl} alt="Avatar" />
+                </PlanetIconContainer>
+                <NicknameContainer>{post.Nickname}</NicknameContainer>
+              </ProfileContainer>
+              <MessageContainer>{post.Message}</MessageContainer>
+              <DateContainer>{post.Date}</DateContainer>
+            </PostContainer>
+          ))}
+        </ArchiveContainer>
       </Container>
     </>
   );

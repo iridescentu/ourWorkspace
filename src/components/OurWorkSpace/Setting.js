@@ -77,7 +77,7 @@ const Btn = styled.button`
   cursor: pointer;
   border: 0;
   color: white;
-  padding: 50px 0;
+  padding: 60px 0;
   &.defaultTheme {
     background-color: rgb(27, 36, 71);
     border-top-left-radius: 50%;
@@ -98,8 +98,8 @@ const Btn = styled.button`
 export function Setting({ onSettingHide }) {
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({
-    top: window.innerHeight / 2 - 150,
-    left: window.innerWidth / 2 - 150,
+    top: window.innerHeight / 2 - 250,
+    left: window.innerWidth / 2 + 250,
   });
   const mouseDown = (e) => {
     // 기본 drag 동작 방지
@@ -184,16 +184,16 @@ export function Setting({ onSettingHide }) {
                 className="defaultTheme"
                 onClick={handleThemeChangeToDefault}
               >
-                Default
+                {/* Default */}
               </Btn>
               <Btn className="blackTheme" onClick={handleThemeChangeToBlack}>
-                To black
+                {/* To black */}
               </Btn>
               <Btn className="purpleTheme" onClick={handleThemeChangeToPurple}>
-                To purple
+                {/* To purple */}
               </Btn>
               <Btn className="greenTheme" onClick={handleThemeChangeToGreen}>
-                To Green
+                {/* To Green */}
               </Btn>
             </BtnBox>
           </PopupHome>

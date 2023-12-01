@@ -135,6 +135,10 @@ export function Login({ setLogin }) {
         userData.data // data가 null이 아닌지 확인
       ) {
         const loginId = userData.data.loginId; // loginId를 추출
+
+        //타 컴포넌트에서 정보를 필요로 할 때 이것을 이용해서 불러오기 가능
+        // localStorage에 사용자 정보 저장 등
+        localStorage.setItem("loginUserData", JSON.stringify(userData.data));
         // console.log("로그인 성공, 사용자 id:", id);
         navigate(`/universe/${loginId}`);
         // console.log("로그인 성공, 사용자 id:", id);
@@ -144,86 +148,11 @@ export function Login({ setLogin }) {
       } else {
         console.error("로그인 실패:", userData.error);
       }
-
-      // if (
-      //   userData &&
-      //   userData.resultCode === "SUCCESS" &&
-      //   userData.data &&
-      //   userData.data.targetId
-      // ) {
-      //   const targetId = userData.data.targetId;
-      //   const contentData = await getAllContent(targetId);
-      //   console.log("Content Data:", contentData);
-      //   navigate(`/universe/${targetId}`);
-      // } else {
-      //   console.error("로그인 실패:", userData.error);
-      // }
     } catch (error) {
       console.error("로그인 처리 중 오류 발생:", error);
       return { error: "로그인 실패" };
     }
   };
-  //{ setLogin }
-  // export function Login({ setLogin }) {
-  //   const [showPassword, setShowPassword] = useState(false);
-  //   const togglePasswordVisible = () => {
-  //     setShowPassword(!showPassword);
-  //   };
-
-  //   // const [loginId, setLoginId] = useState("");
-  //   // const [password, setPassword] = useState("");
-  //   // const [userLogin, setUserLogin] = useState(null);
-  //   // const [loggingIn, setLoggingIn] = useState(false);
-  //   // const { loginState, setLoginState } = useContext(contentsContext);
-  //   const navigate = useNavigate();
-  //   const [user, setUser] = useState({ loginId: "", Password: "" });
-
-  //   const handleChange = (e) => {
-  //     const { name, value } = e.target;
-  //     setUser({ ...user, [name]: value });
-  //   };
-  //   const handleSubmit = async (e) => {
-  //     e.preventDefault();
-  //     try {
-  //       const memberLoginDto = {
-  //         loginId: user.loginId, // 'userId'를 'loginId'로 변경
-  //         password: user.Password,
-  //       };
-
-  //       // 로그인 처리 로직
-  //       const userData = await login(memberLoginDto);
-  //       console.log("userData:", userData);
-  //       // // 로그인 처리 로직
-  //       // const response = await login(memberLoginDto);
-
-  //       if (
-  //         userData &&
-  //         userData.resultCode === "SUCCESS" &&
-  //         userData.data &&
-  //         userData.data.targetId
-  //       ) {
-  //         const targetId = userData.data.targetId;
-
-  //         // 여기서 getAllContent 함수를 호출하여 컨텐츠를 받아옵니다.
-  //         const contentData = await getAllContent(targetId);
-
-  //         // 받아온 컨텐츠를 state에 저장하거나 필요한 작업을 수행합니다.
-  //         console.log("Content Data:", contentData);
-
-  //         //로그인 성공 시 로그인 상태를 true로 변경
-  //         // setLogin(true);
-
-  //         // 예: 사용자를 홈 페이지로 리다이렉트
-  //         navigate(`/universe/${targetId}`);
-  //       } else {
-  //         // 로그인 실패 시 처리
-  //         console.error("로그인 실패:", userData.error);
-  //       }
-  //       // 예외 발생 시 전체 에러 객체를 출력
-  //     } catch (error) {
-  //       console.error("에러:", error);
-  //     }
-  //   };
 
   return (
     <>
