@@ -3,12 +3,16 @@ package com.ows.owsSecurity.exception;
 public class InvalidInputException extends RuntimeException {
 
 	private String fieldName;
-	private String message;
+//	private String message;
 	
 	public InvalidInputException(String fieldName, String message) {
-		super();
-		this.fieldName = fieldName;
-		this.message = message;
+		   
+		super(message);
+	    this.fieldName = fieldName;
+		
+//		super();
+//		this.fieldName = fieldName;
+//		this.message = message;
 	}
 
 	public String getFieldName() {
@@ -19,12 +23,12 @@ public class InvalidInputException extends RuntimeException {
 		this.fieldName = fieldName;
 	}
 
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	
+//	public String getMessage() {
+//		return message;
+//	}
+//
+//	public void setMessage(String message) {
+//		this.message = message;
+//	}
+//	
 }

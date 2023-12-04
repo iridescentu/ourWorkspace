@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.ows.owsSecurity.common.status.Gender;
+import com.ows.owsSecurity.member.model.Member;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -44,21 +45,35 @@ public class MemberDto {
 	@Email
 	private String email;
 
+	private String targetId; // 새로 추가한 부분
+	
+	
 	public MemberDto() {
 		super();
 	}
-
-	public MemberDto( long id, String name, String gender, String birthDate, String nickName, String loginId, String password, String email) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.gender = gender;
-		this.birthDate = birthDate;
-		this.nickName = nickName;
-		this.loginId = loginId;
-		this.password = password;
-		this.email = email;
+	
+	public MemberDto(Member member) {
+	    this.id = member.getId();
+	    this.name = member.getName();
+	    this.gender = member.getGender().name();
+	    this.birthDate = member.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	    this.nickName = member.getNickName();
+	    this.loginId = member.getLoginId();
+	    this.password = member.getPassword();
+	    this.email = member.getEmail();
 	}
+
+//	public MemberDto( long id, String name, String gender, String birthDate, String nickName, String loginId, String password, String email, Member member) {
+//		super();
+//		this.id = id;
+//		this.name = name;
+//		this.gender = gender;
+//		this.birthDate = birthDate;
+//		this.nickName = nickName;
+//		this.loginId = loginId;
+//		this.password = password;
+//		this.email = email;
+//	}
 
 	public String getName() {
 		return name;
@@ -127,6 +142,9 @@ public class MemberDto {
 		this.email = email;
 	}
 
+    public void setTargetId(String targetId) {
+        this.targetId = targetId;
+    }
 
 
 }

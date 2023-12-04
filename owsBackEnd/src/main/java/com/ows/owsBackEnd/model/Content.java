@@ -28,13 +28,16 @@ public class Content {
     @Column(name = "hidden")
     private Boolean hidden = false; // 숨김 상태를 나타내는 필드, 기본값은 false (숨김 상태 아님)
     
-    //content의 top, left 값을 받아온다
-    @Column
-    private double top;
-    
-    @Column(name = "`left`")
-    private double left;
+////    content의 top, left 값을 받아온다
+//    @Column
+//    private double top;
+//    
+//    @Column(name = "`left`")
+//    private double left;
 
+    @Column(columnDefinition = "INT")
+    private double index; // 이미지의 인덱스 값
+    
     @Column
 	private String authorId; // content 작성자
     
@@ -57,17 +60,17 @@ public class Content {
         super();
     }
 
-public Content(long id, String loginId, String nickName, String text, String image, Boolean hidden, double top,
-		double left, String authorId, String targetId) {
-	super();
+public Content(long id, String loginId, String nickName, String text, String image, Boolean hidden, double index,  String authorId, String targetId) {
+	super(); //double top,	double left,
 	this.id = id; //엔티티의 ID 설정
 	this.loginId = loginId; // 로그인 아이디 설정 
 	this.nickName = nickName; ; // 닉네임 설정
 	this.text = text; // 텍스트 내용 설정
 	this.image = image;  // 이미지 URL 설정
 	this.hidden = hidden;  // 숨김 상태 설정
-	this.top = top; // content의 위치정보(top)
-	this.left = left; // content의 위치정보(left)
+	this.index = index;
+//	this.top = top; // content의 위치정보(top)
+//	this.left = left; // content의 위치정보(left)
 	this.authorId = authorId;
 	this.targetId = targetId;
 	//this.archives = archives;(//List<Archive> archives)
@@ -133,25 +136,34 @@ public void setHidden(Boolean hidden) {
 	this.hidden = hidden;
 }
 
-// 위치정보 Top getter
-public double getTop() {
-	return top;
+
+// index 필드의 getter 및 setter
+public double getIndex() {
+    return index;
 }
 
-// 위치정보 Top setter
-public void setTop(double top) {
-	this.top = top;
+public void setIndex(double index) {
+    this.index = index;
 }
-
-// 위치정보 Left getter
-public double getLeft() {
-	return left;
-}
-
-//위치정보 Left setter
-public void setLeft(double left) {
-	this.left = left;
-}
+//// 위치정보 Top getter
+//public double getTop() {
+//	return top;
+//}
+//
+//// 위치정보 Top setter
+//public void setTop(double top) {
+//	this.top = top;
+//}
+//
+//// 위치정보 Left getter
+//public double getLeft() {
+//	return left;
+//}
+//
+////위치정보 Left setter
+//public void setLeft(double left) {
+//	this.left = left;
+//}
 
 public String getAuthorId() {
 	return authorId;

@@ -9,6 +9,12 @@ import com.ows.owsSecurity.member.dto.MemberLoginDto;
 import com.ows.owsSecurity.member.model.Member;
 import com.ows.owsSecurity.member.repository.MemberRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jakarta.transaction.Transactional;
 
 
@@ -16,6 +22,7 @@ import jakarta.transaction.Transactional;
 @Service
 public class MemberService {
 
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	private final MemberRepository memberRepository;
 	@Autowired
 	public MemberService(MemberRepository memberRepository) {
@@ -48,14 +55,34 @@ public class MemberService {
 		memberRepository.save(member);
 		return "회원가입이 완료되었습니다.";
 	}
-	
-	public String login(MemberLoginDto memberLoginDto) {
-		Member member = memberRepository.findByLoginId(memberLoginDto.getLoginId());
-        if (member != null && member.getPassword().matches(memberLoginDto.getPassword())) {
-        	return "로그인이 완료되었습니다!!!";
-//            return member.getLoginId();
-        } else {
-            throw new InvalidInputException("loginId", "ID 또는 Password가 올바르지 않습니다");
-        }
+
+	public MemberDto login(MemberLoginDto memberLoginDto) {
+	    Member member = memberRepository.findByLoginId(memberLoginDto.getLoginId());
+	    if (member != null && member.getPassword().matches(memberLoginDto.getPassword())) {
+	        return new MemberDto(member); // 로그인 성공 시 사용자 정보를 MemberDto로 변환하여 반환
+	    } else {
+	        throw new InvalidInputException("loginId", "ID 또는 Password가 올바르지 않습니다");
+	    }
 	}
+//	public MemberDto login(MemberLoginDto memberLoginDto) {
+//	    Member member = memberRepository.findByLoginId(memberLoginDto.getLoginId());
+//	    if (member != null && member.getPassword().matches(memberLoginDto.getPassword())) {
+//	        return new MemberDto(member); // 로그인 성공 시 사용자 정보를 MemberDto로 변환하여 반환
+//	    } else {
+//	        throw new InvalidInputException("loginId", "ID 또는 Password가 올바르지 않습니다");
+//	    }
+//	}
+	
+//	public String login(MemberLoginDto memberLoginDto) {
+//		Member member = memberRepository.findByLoginId(memberLoginDto.getLoginId());
+//		 log.info("Fetched member: {}", member);  // member 객체 확인
+//		    log.info("Input loginId: {}", memberLoginDto.getLoginId());  // 입력된 loginId 확인
+//		if (member != null && member.getPassword().matches(memberLoginDto.getPassword())) {
+//    	return "로그인이 완료되었습니다!!!";
+//            return member.getLoginId();
+//        } else {
+//            throw new InvalidInputException("loginId", "ID 또는 Password가 올바르지 않습니다");
+//        }
+//	}
+
 }

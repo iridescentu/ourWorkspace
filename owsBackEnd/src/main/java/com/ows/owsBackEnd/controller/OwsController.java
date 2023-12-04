@@ -46,8 +46,9 @@ public class OwsController {
     }
     
     //content 저장
-    @PostMapping("/content")
-    public ResponseEntity<Content> saveContent(@RequestBody Content content) {
+    @PostMapping("/content/{targetId}")
+    public ResponseEntity<Content> saveContent(@RequestBody Content content, @PathVariable String targetId) {
+//    public ResponseEntity<Content> saveContent(@RequestBody Content content) {
     	content.setAuthorId(content.getAuthorId());
         content.setTargetId(content.getTargetId());
         return new ResponseEntity<Content>(owsService.saveContent(content), HttpStatus.CREATED);

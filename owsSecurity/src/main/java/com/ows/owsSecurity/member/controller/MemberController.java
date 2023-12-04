@@ -1,9 +1,12 @@
 package com.ows.owsSecurity.member.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,13 +42,41 @@ public class MemberController {
 				HttpStatus.CREATED);
 	}
 	
-	@PostMapping("login")
-    public ResponseEntity<BaseResponse<Void>> login(@RequestBody @Valid MemberLoginDto memberLoginDto) {
-        return new ResponseEntity<>(new BaseResponse<Void>(
-        		ResultCode.SUCCESS.name(), 
-        		null, 
-        		memberService.login(memberLoginDto)), 
-        		HttpStatus.OK) ;
-    }
+//	@PostMapping("login")
+//	public ResponseEntity<BaseResponse<MemberDto>> login(@RequestBody @Valid MemberLoginDto memberLoginDto) {
+//	    MemberDto memberDto = memberService.login(memberLoginDto); // 로그인 시 반환된 사용자 정보
+//	    return new ResponseEntity<>(new BaseResponse<MemberDto>(
+//	            ResultCode.SUCCESS.name(), 
+//	            memberDto, // 사용자 정보를 응답에 담음
+//	            null), 
+//	            HttpStatus.OK) ;
+//	}
 
+//	@PostMapping("login")
+//    public ResponseEntity<BaseResponse<Void>> login(@RequestBody @Valid MemberLoginDto memberLoginDto) {
+//		return new ResponseEntity<>(new BaseResponse<Void>(
+//       		ResultCode.SUCCESS.name(), 
+//       		null, 
+//       		memberService.login(memberLoginDto)), 
+//      		HttpStatus.OK) ;
+//	}
+
+	@PostMapping("login")
+	public ResponseEntity<BaseResponse<MemberDto>> login(@RequestBody @Valid MemberLoginDto memberLoginDto) {
+	    MemberDto memberDto = memberService.login(memberLoginDto);
+
+	    if (memberDto != null) {
+	        // 로그인 성공 시, targetId를 응답에 추가
+	        memberDto.setTargetId(memberDto.getLoginId());
+	        return new ResponseEntity<>(new BaseResponse<MemberDto>(
+	                ResultCode.SUCCESS.name(),
+	                memberDto,
+	                null),
+	                HttpStatus.OK);
+	    } else {
+	        // 로그인 실패 시
+	        return new ResponseEntity<>(new BaseResponse<>(ResultCode.ERROR.name(), null, "로그인 실패"), HttpStatus.BAD_REQUEST);
+	    }
+	}
 }
+

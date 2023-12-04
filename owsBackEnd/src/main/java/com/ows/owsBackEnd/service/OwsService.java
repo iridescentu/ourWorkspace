@@ -91,14 +91,5 @@ public interface OwsService {
     // 관리자 권한으로 Bin에서 모든 항목을 전체 영구 삭제한다 (전체 삭제) (Bin, Content, Archive DB에서도 완전한 삭제)
     void deleteAllBinsAdmin();
 
-	
-
-
-
-
-
-
-
-	
 
 }
