@@ -13,12 +13,29 @@ export async function getAllContent(targetId) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
+    // JSON 데이터를 읽어와서 data에 저장
     const data = await response.json();
-    return data;
+
+    // 각 컨텐츠에 대해 임의의 위치 정보를 추가
+    const contentWithPositions = data.map((content) => ({
+      ...content,
+      position: {
+        top: `${Math.floor(Math.random() * 45)}%`,
+        left: `${Math.floor(Math.random() * 60)}%`,
+      },
+    }));
+
+    return contentWithPositions;
   } catch (error) {
     console.error("Error fetching content:", error);
     throw error;
   }
+  //   const data = await response.json();
+  //   return data;
+  // } catch (error) {
+  //   console.error("Error fetching content:", error);
+  //   throw error;
+  // }
 }
 // export function getAllContent(targetId) {
 //   return fetch(`http://localhost:8080/universe/content/${targetId}`, {
@@ -39,8 +56,8 @@ export function getMyContentsByAuthorId(authorId) {
 }
 
 // Content 저장 (사용자)
-export function saveContent(content) {
-  return fetch(`http://localhost:8080/universe/content`, {
+export function saveContent(content, targetId) {
+  return fetch(`http://localhost:8080/universe/content/${targetId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

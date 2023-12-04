@@ -65,9 +65,19 @@ const PopupHome = styled.div`
   padding: 30px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  /* align-items: center; */
   gap: 30px;
 `;
-const Title = styled.h3``;
+const Title = styled.h3`
+  font-size: 1.5rem;
+  margin-top: -15px;
+  border-radius: 5px;
+  border-bottom: 3px solid rgb(27, 36, 71);
+  border-right: 3px solid rgb(27, 36, 71);
+  padding: 1%;
+`;
 const BtnBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -178,7 +188,7 @@ export function Setting({ onSettingHide }) {
             </XBtn>
           </PopupNavBar>
           <PopupHome>
-            <Title>Choose your theme color!</Title>
+            <Title>Choose your color</Title>
             <BtnBox>
               <Btn
                 className="defaultTheme"

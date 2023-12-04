@@ -8,6 +8,7 @@ const Container = styled.div`
   width: 100%;
   height: 30px;
   display: flex;
+  background-color: rgb(27, 36, 71);
 `;
 const Topbar = styled.div`
   width: 100%;
@@ -23,36 +24,46 @@ const Tabs = styled.div`
   text-align: center;
 `;
 // const Tab = styled(NavLink)``; 함수 안에 써줌
-const MyAccount = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: green;
-`;
-const DashboardNavLink = styled(NavLink)`
-  background-color: red;
-  text-decoration: none;
-  color: black;
-`;
-const StyledIcon = styled(Icon)`
-  font-size: 1.3rem;
-`;
-
 const Search = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: blue;
+  gap: 3%;
+  background-color: rgb(27, 36, 71);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
 `;
-const SearchInput = styled.input``;
+const SearchInput = styled.input`
+  width: 75%;
+  height: 75%;
+`;
 const SearchBtn = styled(NavLink)`
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
+  color: white;
+  /* SearchInput height 75% */
+  height: 75%;
+`;
+const MyAccount = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(27, 36, 71);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+`;
+const DashboardNavLink = styled(NavLink)`
+  width: 100%;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
+  font-weight: bold;
+`;
+const StyledIcon = styled(Icon)`
+  font-size: 1.3rem;
 `;
 const Alerts = styled.div`
   opacity: ${({ isAlertsVisible }) =>
@@ -141,13 +152,17 @@ export function UniverseWindow() {
   // 해당 경로일 때 스타일링을 위해
   const location = useLocation();
   const Tab = styled(NavLink)`
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     width: 20%;
     background-color: ${({ to }) =>
       location.pathname === to ? "rgb(27, 36, 71)" : "white"};
     color: ${({ to }) => (location.pathname === to ? "white" : "black")};
-    font-weight: ${({ to }) => (location.pathname === to ? 600 : 400)};
-
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+    font-weight: ${({ to }) => (location.pathname === to ? 900 : 400)};
+    box-shadow: ${({ to }) =>
+      location.pathname === to
+        ? "inset 0 0 10px rgba(255, 255, 255, 0.2)"
+        : "inset 0 0 10px rgba(0, 0, 0, 0.8)"};
     text-decoration: none;
     /* 박스 폰트 정렬 */
     padding-top: 3px;
@@ -155,7 +170,7 @@ export function UniverseWindow() {
       /* 폰트까지 opacity 적용됨 */
       /* opacity: 0.5; */
       /* rgba로 배경에만 opacity 부여 */
-      background-color: rgba(27, 36, 71, 0.8);
+      background-color: rgba(255, 255, 255, 0.2);
       cursor: pointer;
       font-weight: 600;
       color: white;
@@ -196,13 +211,13 @@ export function UniverseWindow() {
             <Search>
               <SearchInput placeholder="Search by Nickname" />
               <SearchBtn to="/universe/search">
-                <Icon className="XIcon" icon="pixelarticons:search" />
+                <StyledIcon icon="pixelarticons:search" />
               </SearchBtn>
             </Search>
             <MyAccount>
               <DashboardNavLink to="/universe/dashboard">
                 <StyledIcon icon="pixelarticons:user" />
-                Eyhadk님
+                "loginId" 님
               </DashboardNavLink>
             </MyAccount>
           </Tabs>

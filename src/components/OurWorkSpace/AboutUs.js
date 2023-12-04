@@ -72,6 +72,12 @@ const Title = styled.h3`
   /* background-color: pink; */
   font-size: 1.5rem;
   margin-top: -15%;
+  border-radius: 5px;
+  /* border-top: 3px solid #ddd;
+  border-left: 3px solid gray; */
+  border-bottom: 3px solid rgb(27, 36, 71);
+  border-right: 3px solid rgb(27, 36, 71);
+  padding: 1%;
 `;
 const Content = styled.div`
   display: flex;
@@ -82,6 +88,13 @@ const Content = styled.div`
   font-weight: bold;
   font-size: 1.1rem;
   line-height: 25px;
+  border-radius: 5px;
+  /* border-top: 3px solid #ddd;
+  border-left: 3px solid gray; */
+  border-bottom: 3px solid rgb(27, 36, 71);
+  border-right: 3px solid rgb(27, 36, 71);
+  padding-left: 10%;
+  padding-right: 10%;
 `;
 
 const Jihee = styled.p``;

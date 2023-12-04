@@ -159,6 +159,7 @@ const MySiganl = styled.div`
   height: 200px;
   border-radius: 20px;
   margin-top: 3%;
+  /* padding: 5%; */
   position: relative;
   &::after {
     content: "";
@@ -173,34 +174,70 @@ const MySiganl = styled.div`
     border-top: 0;
     margin-left: -25px;
   }
-  display: grid;
+  display: flex;
+  gap: 1%;
+  padding: 1%;
+`;
+const MySignalInfo = styled.div`
+  color: black;
+  font-weight: bold;
+  &.iconAndTime {
+    width: 120px;
+    height: 100%;
+    border: 2px dotted #ddd;
+  }
+  &.toAndText {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
 `;
 const MySignalImgBox = styled.div`
-  background-color: red;
+  width: 120px;
+  height: 120px;
 `;
-const MySignalImg = styled.img``;
+const MySignalImg = styled.img`
+  width: 100%;
+  object-fit: cover;
+`;
 const MySignalTime = styled.p`
-  background-color: purple;
+  width: 100%;
+  height: 100%;
+  border-top: 2px dotted #ddd;
+  text-align: center;
 `;
 const MySignalText = styled.p`
-  background-color: blue;
+  width: 100%;
+  height: 100%;
   overflow-y: scroll;
 `;
 const MySignalTo = styled.h3`
-  background-color: green;
+  font-size: 1.5rem;
+  & .targetId {
+  }
 `;
 export function Dashboard() {
   const [userData, setUserData] = useState(null);
 
+  // 로컬 스토리지에서 저장된 사용자 정보 불러오기(226~234)
   useEffect(() => {
-    // 로컬 스토리지에서 저장된 사용자 정보 불러오기
     const storedUser = localStorage.getItem("loginUserData");
 
     if (storedUser) {
       const parsedUserData = JSON.parse(storedUser);
+      //console.log(parsedUserData.loginId);
       setUserData(parsedUserData);
     }
   }, []);
+
+  // 글 작성 상태
+  const [isContentWritten, setIsContentWritten] = useState(false);
+  const handleContentWirte = () => {
+    setIsContentWritten(true);
+  };
 
   return (
     <>
@@ -244,34 +281,72 @@ export function Dashboard() {
         <PostContainer>
           <h1>My Posts</h1>
           <MySiganl>
-            <MySignalImgBox>
-              <MySignalImg src={ProfileTestImg} alt="MySignalImage" />
-            </MySignalImgBox>
-            <MySignalTime>2023-12-01</MySignalTime>
-            <MySignalTo>To. 다혜 누나 ghkt2535</MySignalTo>
-            <MySignalText>
-              다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜
-              누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
-              행복한 하루 되세요^^
-            </MySignalText>
+            <MySignalInfo className="iconAndTime">
+              <MySignalImgBox>
+                <MySignalImg src={ProfileTestImg} alt="MySignalImage" />
+              </MySignalImgBox>
+              <MySignalTime>2023-12-01 AM 09:07</MySignalTime>
+            </MySignalInfo>
+            <MySignalInfo className="toAndText">
+              <MySignalTo>
+                To. <span className="targetId">"targetId"</span>
+              </MySignalTo>
+              <MySignalText>
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                다혜 누나 행복한 하루 되세요^^
+              </MySignalText>
+            </MySignalInfo>
           </MySiganl>
-          <MySiganl></MySiganl>
-          <MySiganl></MySiganl>
-          <MySiganl></MySiganl>
-          <MySiganl></MySiganl>
-          <MySiganl></MySiganl>
+
+          {isContentWritten ? (
+            <>
+              <MySiganl>
+                <MySignalInfo className="iconAndTime">
+                  <MySignalImgBox>
+                    <MySignalImg src={ProfileTestImg} alt="MySignalImage" />
+                  </MySignalImgBox>
+                  <MySignalTime>2023-12-01 AM 09:07</MySignalTime>
+                </MySignalInfo>
+                <MySignalInfo className="toAndText">
+                  <MySignalTo>
+                    To. <span className="targetId">"targetId"</span>
+                  </MySignalTo>
+                  <MySignalText>
+                    다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루
+                    되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한
+                    하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
+                    행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜
+                    누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                    다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루
+                    되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한
+                    하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
+                    행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜
+                    누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                    다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루
+                    되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한
+                    하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜 누나
+                    행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^ 다혜
+                    누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루 되세요^^
+                    다혜 누나 행복한 하루 되세요^^ 다혜 누나 행복한 하루
+                    되세요^^
+                  </MySignalText>
+                </MySignalInfo>
+              </MySiganl>
+            </>
+          ) : null}
         </PostContainer>
       </Container>
     </>

@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 
 const Container = styled.div`
-  width: 300px;
-  height: 350px;
+  width: 320px;
+  height: 360px;
   border-top: 3px solid #ddd;
   border-left: 3px solid gray;
   border-bottom: 3px solid rgb(27, 36, 71);
@@ -73,6 +73,10 @@ const Title = styled.h3`
   /* background-color: pink; */
   font-size: 1.5rem;
   margin-top: -15px;
+  border-radius: 5px;
+  border-bottom: 3px solid rgb(27, 36, 71);
+  border-right: 3px solid rgb(27, 36, 71);
+  padding: 1%;
 `;
 const Content = styled.p`
   /* background-color: gold; */
@@ -83,6 +87,11 @@ const Content = styled.p`
   padding: 3%;
   padding-top: 1%;
   line-height: 21px;
+  border-radius: 5px;
+  border-bottom: 3px solid rgb(27, 36, 71);
+  border-right: 3px solid rgb(27, 36, 71);
+  padding-left: 10%;
+  padding-right: 10%;
 `;
 
 export function OurProject({ onOurProjectHide }) {

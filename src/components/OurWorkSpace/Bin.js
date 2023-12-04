@@ -5,18 +5,19 @@ const Container = styled.div`
   width: 100vw;
   /* NavBar 60px UniverseWindow 30px */
   height: calc(100vh - 90px);
-  color: white;
+  /* color: white; */
   padding-top: 15px;
   padding-left: 2%;
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
   /* align-items: center;
   justify-content: center; */
 `;
 
 const FilterOverlay = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -28,7 +29,7 @@ const FilterOverlay = styled.div`
 `;
 
 const BinTitle = styled.div`
-  display: flex;
+  color: white;
   padding-top: 1%;
   padding-bottom: 3%;
 `;
@@ -40,8 +41,8 @@ const BinContainer = styled.div`
   justify-content: center;
   border-radius: 10px;
   width: 96vw;
-  height: 70vh; // 나중에 삭제하기 (내용물에 따라 높이가 늘어나거나 줄어들도록 하기 위해)
-  background-color: rgba(26, 26, 26, 0.7);
+  /* height: 70vh; */
+  /* background-color: rgba(26, 26, 26, 0.7); */
 `;
 
 const PostContainer = styled.div`
@@ -51,15 +52,21 @@ const PostContainer = styled.div`
   flex-direction: row;
   border-radius: 10px;
   width: 96vw;
-  height: 7vh; // 나중에 삭제하기 (내용물에 따라 높이가 늘어나거나 줄어들도록 하기 위해)
-  background-color: navy;
-  opacity: 0.7;
+  height: 25vh;
+  background-color: darkgray;
+  /* opacity: 0.7; */
+  margin-bottom: 2%;
+  border-radius: 10px;
+  border-top: 3px solid #ddd;
+  border-left: 3px solid gray;
+  border-bottom: 3px solid rgb(27, 36, 71);
+  border-right: 3px solid rgb(27, 36, 71);
 `;
 
 const CheckboxContainer = styled.div`
   width: 3vw;
-  background-color: red;
-  opacity: 0.7;
+  /* background-color: red;
+  opacity: 0.7; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,16 +78,16 @@ const CheckboxInput = styled.input`
 
 const ProfileContainer = styled.div`
   width: 15vw;
-  background-color: purple;
+  /* background-color: purple; */
   display: flex;
   flex-direction: row;
-  opacity: 0.7;
+  /* opacity: 0.7; */
 `;
 
 const PlanetIconContainer = styled.div`
   width: 5vw;
-  background-color: orange;
-  opacity: 0.7;
+  /* background-color: orange;
+  opacity: 0.7; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -93,8 +100,8 @@ const PlanetIcon = styled.img`
 
 const NicknameContainer = styled.h2`
   width: 10vw;
-  background-color: yellow;
-  opacity: 0.7;
+  /* background-color: yellow;
+  opacity: 0.7; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -103,17 +110,20 @@ const NicknameContainer = styled.h2`
 
 const MessageContainer = styled.h3`
   width: 71vw;
-  background-color: green;
-  opacity: 0.7;
+  /* background-color: green;
+  opacity: 0.7; */
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: justify;
+  overflow-y: scroll;
+  padding: 1%;
 `;
 
 const DateContainer = styled.h4`
   width: 7vw;
-  background-color: violet;
-  opacity: 0.7;
+  /* background-color: violet;
+  opacity: 0.7; */
   display: flex;
   justify-content: center;
   align-items: center;

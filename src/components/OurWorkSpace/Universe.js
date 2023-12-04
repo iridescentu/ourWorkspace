@@ -6,15 +6,16 @@ import Rocket from "./IconImage/Rocket.png";
 import Meteor from "./IconImage/Meteor.png";
 import Sun from "./IconImage/Sun.png";
 import { UniverseModal } from "./UniverseModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMemo } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Keyboard, Pagination, Navigation } from "swiper/modules";
 import "./Swiper.css";
+import { getAllContent } from "./api";
 
 const SignalBtnAnimation = keyframes`
   0%{
@@ -120,77 +121,42 @@ const Img = styled.img`
 `;
 
 export function Universe() {
+  // 일단 수정 부분 Line 123 ~ Line 126
+  const { loginId } = useParams();
+  const { targetId } = useParams();
+  const [contentList, setContentList] = useState(null);
+  const [modalContent, setModalContent] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const imagePositions = useMemo(() => {
-    return Array.from({ length: 12 }, () => ({
-      top: `${Math.floor(Math.random() * 45)}%`,
-      left: `${Math.floor(Math.random() * 60)}%`,
-    }));
-  }, []);
-  const handleImageClick = () => {
+  // const imagePositions = useMemo(() => {
+  //   return Array.from({ length: 12 }, () => ({
+  //     top: `${Math.floor(Math.random() * 45)}%`,
+  //     left: `${Math.floor(Math.random() * 60)}%`,
+  //   }));
+  // }, []);
+  console.log(loginId);
+  // 일단 수정 부분 (Line 136 ~ Line 149)
+  useEffect(() => {
+    // targetId에 해당하는 전체 Content를 가져오는 함수
+    const fetchData = async () => {
+      try {
+        const data = await getAllContent(loginId);
+        setContentList(data || []); // data가 falsy일 경우 빈 배열로 설정
+        console.log("Content data:", data);
+        // setContentList(data);
+      } catch (error) {
+        console.error("Error fetching content:", error);
+      }
+    };
+    // console.log(getAllContent(loginId));
+    fetchData(); // 비동기 함수이므로 fetchData를 호출해서 데이터를 먼저 받아온 후에 다음 로직을 수행
+  }, [loginId]);
+
+  const handleImageClick = (content) => {
+    console.log("Clicked Image Content:", content); // 확인을 위해 추가
+    console.log("Clicked Image Text:", content.text);
+    setModalContent(content);
     setModalOpen(true);
   };
-
-  // img가 12개가 넘어갈 때 새로운 슬라이드 추가
-  const slides = useMemo(() => {
-    const slideCount = Math.ceil(imagePositions.length / 12);
-    const slidesArray = [];
-
-    for (let i = 0; i < slideCount; i++) {
-      const start = i * 12;
-      const end = Math.min((i + 1) * 12, imagePositions.length);
-      const slideImages = imagePositions.slice(start, end);
-
-      slidesArray.push(
-        <SwiperSlide key={`slide-${i}`}>
-          <Container>
-            <FilterOverlay />
-            <MyUniverse>
-              {slideImages.map((position, index) => (
-                <UniverseSection key={start + index}>
-                  <ImgBox
-                    onClick={handleImageClick}
-                    style={{ top: position.top, left: position.left }}
-                  >
-                    <Img
-                      src={Earth}
-                      alt={`universeSignalIcon${start + index}`}
-                    />
-                  </ImgBox>
-                </UniverseSection>
-              ))}
-              <Signal>
-                <p className="signalCount">12</p>
-                <p>New Signals have been detected !</p>
-                <SignalNavLink to={"/universe/signal"}>
-                  Send a Signal
-                </SignalNavLink>
-              </Signal>
-              {slideImages.map((position, index) => (
-                <UniverseSection key={start + index}>
-                  <ImgBox
-                    onClick={handleImageClick}
-                    style={{ top: position.top, left: position.left }}
-                  >
-                    <Img
-                      src={Uranus}
-                      alt={`universeSignalIcon${start + index}`}
-                    />
-                  </ImgBox>
-                </UniverseSection>
-              ))}
-            </MyUniverse>
-          </Container>
-          {modalOpen && (
-            <UniverseModal closeModal={() => setModalOpen(false)} />
-          )}
-        </SwiperSlide>
-      );
-    }
-
-    return slidesArray;
-  }, [imagePositions, handleImageClick, modalOpen]);
-
   return (
     <>
       <Swiper
@@ -212,40 +178,88 @@ export function Universe() {
           <Container>
             <FilterOverlay />
             <MyUniverse>
-              {imagePositions.slice(0, 6).map((position, index) => (
+              {contentList?.map((content, index) => (
+                <UniverseSection key={index}>
+                  <ImgBox
+                    onClick={() => handleImageClick(content)}
+                    style={{
+                      top:
+                        content.position && content.position.top
+                          ? content.position.top
+                          : 0, // 기본값 0으로 설정
+                      left:
+                        content.position && content.position.left
+                          ? content.position.left
+                          : 0, // 기본값 0으로 설정
+                    }}
+                  >
+                    {/* {imagePositions.slice(0, 6).map((position, index) => (
                 <UniverseSection key={index}>
                   <ImgBox
                     onClick={handleImageClick}
                     style={{ top: position.top, left: position.left }}
-                  >
-                    <Img src={Alien1} alt={`universeSignalIcon${index}`} />
+                  > */}
+                    {/* <Img src={Alien1} alt={`universeSignalIcon${index}`} /> */}
+                    <Img
+                      src={content.image} // 이미지 경로를 백엔드에서 받은 데이터에서 가져오도록 수정
+                      alt={`universeSignalIcon${index}`}
+                      onError={(e) => {
+                        console.error("Error loading image:", e);
+                      }}
+                    />
                   </ImgBox>
                 </UniverseSection>
               ))}
               <Signal>
-                <p className="signalCount">12</p>
+                <p className="signalCount">{contentList?.length}</p>
                 <p>New Signals have been detected !</p>
                 <SignalNavLink to={"/universe/signal"}>
                   Send a Signal
                 </SignalNavLink>
               </Signal>
-              {imagePositions.slice(0, 6).map((position, index) => (
+              {/* {contentList?.map((content, index) => (
+                <UniverseSection key={index}>
+                  <ImgBox
+                    onClick={() => handleImageClick(content)}
+                    style={{
+                      top:
+                        content.position && content.position.top
+                          ? content.position.top
+                          : 0, // 기본값 0으로 설정
+                      left:
+                        content.position && content.position.left
+                          ? content.position.left
+                          : 0, // 기본값 0으로 설정
+                    }}
+                  > */}
+              {/* {imagePositions.slice(0, 6).map((position, index) => (
                 <UniverseSection key={index}>
                   <ImgBox
                     onClick={handleImageClick}
                     style={{ top: position.top, left: position.left }}
-                  >
-                    <Img src={Uranus} alt={`universeSignalIcon${index}`} />
-                  </ImgBox>
-                </UniverseSection>
-              ))}
+                  > */}
+              {/* <Img
+                      src={content.image} // 이미지 경로를 백엔드에서 받은 데이터에서 가져오도록 수정
+                      alt={`universeSignalIcon${index}`}
+                      onError={(e) => {
+                        console.error("Error loading image:", e);
+                      }}
+                    /> */}
+              {/* <Img src={Uranus} alt={`universeSignalIcon${index}`} /> */}
+              {/* </ImgBox> */}
+              {/* </UniverseSection> */}
+              {/* ))} */}
             </MyUniverse>
           </Container>
           {modalOpen && (
-            <UniverseModal closeModal={() => setModalOpen(false)} />
+            // <UniverseModal closeModal={() => setModalOpen(false)} />
+            <UniverseModal
+              closeModal={() => setModalOpen(false)}
+              content={modalContent}
+            />
           )}
         </SwiperSlide>
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <Container>
             <FilterOverlay />
             <MyUniverse>
@@ -318,7 +332,7 @@ export function Universe() {
           {modalOpen && (
             <UniverseModal closeModal={() => setModalOpen(false)} />
           )}
-        </SwiperSlide>
+        </SwiperSlide> */}
       </Swiper>
     </>
   );

@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { Icon } from "@iconify/react";
 import ModalTestImg from "./IconImage/Rocket.png";
-
+import React, { useEffect, useState } from "react";
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -95,7 +95,7 @@ const Text = styled.p`
   }
 `;
 
-export function UniverseModal({ closeModal }) {
+export function UniverseModal({ closeModal, content }) {
   return (
     <>
       <Backdrop />
@@ -105,7 +105,8 @@ export function UniverseModal({ closeModal }) {
             <Img src={ModalTestImg} alt="universeIcon" />
           </ImgBox>
           <ModalFrom>
-            Signal from " <span className="userId">ghkt2535</span> "
+            Signal from " <span className="userId">{content.authorId}</span> "
+            {/* ghkt2535 */}
           </ModalFrom>
           <Btn className="closeBtn" onClick={closeModal}>
             <Icon className="xIcon" icon="pixelarticons:close" />
@@ -113,17 +114,20 @@ export function UniverseModal({ closeModal }) {
         </ModalBar>
         <Content>
           <Title>
-            From. 닉네임
+            {/* From. 닉네임 */}
+            from. {content.nickName}
             <br />
-            입력시간(날짜,시각)
+            {/* 입력시간(날짜,시각) */}
+            {content.timestamp}
           </Title>
           <Text>
-            저는 내용입니다. 고채영은 메이플을 좋아한다. 롤도 좋아하고
+            {/* 저는 내용입니다. 고채영은 메이플을 좋아한다. 롤도 좋아하고
             발로란트를 가장 많이 하는 것 같다. 나랑 좀보이드도 같이 해주기로
             했는데 언제 해줄지 모르겠다. 내가 아는 채영이는 가상 세계 인물이고
-            집에 가서 컴퓨터를 켜야 현실 세계로 들어가는 애 같다.
+            집에 가서 컴퓨터를 켜야 현실 세계로 들어가는 애 같다. */}
+            {content.text}
           </Text>
-          <Btn className="favoriteBtn">즐찾</Btn>
+          <Btn className="favoriteBtn">즐겨찾기</Btn>
         </Content>
       </Container>
     </>

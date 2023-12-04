@@ -21,10 +21,8 @@ export function OurWorkSpace() {
   const handle = useFullScreenHandle();
   const [isFullScreen, setIsFullScreen] = useState(false);
 
-  //☆
   // user 상태를 useState로 정의
   const [user, setUser] = useState(null);
-  //☆
 
   const toggleFullScreen = () => {
     if (isFullScreen) {
@@ -61,6 +59,10 @@ export function OurWorkSpace() {
                   }
                 >
                   <Route index element={<Universe />} />
+                  {/* 일단 수정 부분 (Line 64 ~ Line 65) */}
+                  <Route path=":loginId" element={<Universe />} />
+                  <Route path="targetId" element={<Universe />} />
+
                   <Route path="login" element={<Login />} />
                   <Route path="logout" element={<Logout />} />
 
@@ -74,6 +76,7 @@ export function OurWorkSpace() {
               </Route>
               {/* 주소 틀렸을 때 Error Page */}
               <Route path="*" element={<Error />} />
+              {/* <Route path="universe/loginIdDB정보" element={<Error />} /> */}
             </Routes>
           </FullScreen>
         </BrowserRouter>

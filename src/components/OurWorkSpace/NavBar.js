@@ -34,7 +34,6 @@ const StyledNavLink = styled(NavLink)`
   cursor: pointer;
 `;
 const LogoImgBox = styled.div`
-  padding-top: 10px;
   width: 60px;
 `;
 const LogoImg = styled.img`
@@ -50,7 +49,7 @@ const NavItemSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 5%;
   & figure {
     width: 20px;
     height: 20px;
