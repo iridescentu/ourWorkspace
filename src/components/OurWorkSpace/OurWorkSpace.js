@@ -15,14 +15,16 @@ import { Dashboard } from "./Dashboard";
 import { Search } from "./Search";
 import { Signal } from "./Signal";
 import { Error } from "./Error";
+import { UserProvider, useUser } from "./UserContext";
+import { useNavigate } from "react-router-dom";
 
 export function OurWorkSpace() {
   // NavBar toggleFullScreen Btn 눌렀을 때 FullScreen
   const handle = useFullScreenHandle();
   const [isFullScreen, setIsFullScreen] = useState(false);
-
-  // user 상태를 useState로 정의
+  // // user 상태를 useState로 정의
   const [user, setUser] = useState(null);
+  // const { user, targetId, updateUser, updateTargetId } = useUser(); // UserContext를 통해 user와 targetId 상태를 가져옴
 
   const toggleFullScreen = () => {
     if (isFullScreen) {
@@ -38,46 +40,61 @@ export function OurWorkSpace() {
       <ThemeProvider>
         <BrowserRouter>
           <FullScreen handle={handle}>
-            <Routes>
-              <Route
-                path="/"
-                element={<NavBar toggleFullScreen={toggleFullScreen} />}
-              >
-                <Route index element={<Screen />} />
-                {/* ☆ universe에 user={user} setUser={setUser} 추가*/}
-                {/* <Route path="universe" element={<Navigate to="/universe/login" />}> */}
-                <Route path="register" element={<Register />} />
+            <UserProvider>
+              <Routes>
                 <Route
-                  path="universe"
-                  element={
-                    <UniverseWindow
-                      user={user}
-                      setUser={setUser}
-                      targetId={targetId} // targetId를 UniverseWindow 컴포넌트에 전달
-                      setTargetId={setTargetId}
-                    />
-                  }
+                  path="/"
+                  element={<NavBar toggleFullScreen={toggleFullScreen} />}
                 >
-                  <Route index element={<Universe />} />
-                  {/* 일단 수정 부분 (Line 64 ~ Line 65) */}
-                  <Route path=":loginId" element={<Universe />} />
-                  <Route path="targetId" element={<Universe />} />
+                  <Route index element={<Screen />} />
+                  {/* ☆ universe에 user={user} setUser={setUser} 추가*/}
+                  {/* <Route path="universe" element={<Navigate to="/universe/login" />}> */}
+                  <Route path="register" element={<Register />} />
+                  <Route
+                    path="universe"
+                    element={
+                      <UniverseWindow
+                      // user={user}
+                      // setUser={updateUser} // updateUser 함수를 통해 user 상태 업데이트
+                      // targetId={targetId} // targetId 상태 사용
+                      // setTargetId={updateTargetId}
+                      // updateTargetId 함수를 통해 targetId 상태 업데이트
+                      />
+                    }
+                  >
+                    <Route index element={<Universe targetId={targetId} />} />
+                    {/* 일단 수정 부분 (Line 64 ~ Line 65) */}
+                    <Route path=":loginId" element={<Universe />} />
+                    {/* <Route path=":loginId" element={<Universe />} /> */}
+                    {/* <Route
+                    path=":loginId"
+                    element={<Universe loginId={loginId} />}
+                  /> */}
 
-                  <Route path="login" element={<Login />} />
-                  <Route path="logout" element={<Logout />} />
+                    {/* <Route path="targetId" element={<Universe />} /> */}
 
-                  <Route path="archive" element={<Archive />} />
-                  <Route path="bin" element={<Bin />} />
-                  {/* ☆ dashboard에 user={user} 추가*/}
-                  <Route path="dashboard" element={<Dashboard user={user} />} />
-                  <Route path="search" element={<Search />} />
-                  <Route path="signal" element={<Signal />} />
+                    <Route path="login" element={<Login />} />
+                    <Route path="logout" element={<Logout />} />
+
+                    <Route path="archive" element={<Archive />} />
+                    <Route path="bin" element={<Bin />} />
+                    {/* ☆ dashboard에 user={user} 추가*/}
+                    <Route
+                      path="dashboard"
+                      element={<Dashboard user={user} />}
+                    />
+                    <Route path="search" element={<Search />} />
+                    <Route
+                      path="/universe/signal/:targetId"
+                      element={<Signal targetId={targetId} />}
+                    />
+                  </Route>
                 </Route>
-              </Route>
-              {/* 주소 틀렸을 때 Error Page */}
-              <Route path="*" element={<Error />} />
-              {/* <Route path="universe/loginIdDB정보" element={<Error />} /> */}
-            </Routes>
+                {/* 주소 틀렸을 때 Error Page */}
+                <Route path="*" element={<Error />} />
+                {/* <Route path="universe/loginIdDB정보" element={<Error />} /> */}
+              </Routes>
+            </UserProvider>
           </FullScreen>
         </BrowserRouter>
       </ThemeProvider>

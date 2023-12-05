@@ -43,13 +43,14 @@ const ModalBar = styled.div`
   background-color: rgb(27, 36, 71);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   color: white;
 `;
 const ImgBox = styled.div`
-  width: 40px;
+  width: 35px;
   height: 100%;
-  margin-left: 2%;
+  margin-left: 1%;
 `;
 const Img = styled.img`
   width: 100%;
@@ -57,6 +58,10 @@ const Img = styled.img`
   object-fit: cover;
 `;
 const ModalFrom = styled.h2`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   width: 100%;
   height: 100%;
   font-size: 24px;
@@ -70,7 +75,7 @@ const Btn = styled.button`
   cursor: pointer;
   &.closeBtn {
     position: absolute;
-    right: 7px;
+    right: 8px;
     top: 7px;
     width: 25px;
     height: 25px;
@@ -81,6 +86,36 @@ const Btn = styled.button`
     }
   }
 `;
+
+const twinklingAnimation = keyframes`
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.5; }
+`;
+
+const Tooltip = styled.span`
+  display: ${(props) => (props.show ? "inline" : "none")};
+  flex-direction: row;
+  white-space: nowrap;
+  position: absolute;
+  top: 40px; /* 툴팁이 버튼 하단에 나타나도록 설정 */
+  right: 5%;
+  font-size: 10px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 5px;
+  border-radius: 3px;
+`;
+
+const FavoriteBtn = styled.span`
+  position: absolute;
+  right: 5%;
+  font-size: 30px;
+  color: ${(props) => (props.filled ? "yellow" : "black")};
+  cursor: pointer;
+  animation: ${(props) => (props.filled ? twinklingAnimation : "none")} 1s 1;
+`;
+
 const Content = styled.p`
   width: 100%;
   height: calc(100% - 30px);
@@ -90,12 +125,71 @@ const Content = styled.p`
 const Title = styled.h1``;
 const Text = styled.p`
   /* opacity: 0; */
+  width: 36vw;
+  height: 20vh;
+  /* background-color: green;
+  opacity: 0.7; */
+  display: flex;
+  position: absolute;
+  top: 37%;
+  left: 4.7%;
+  justify-content: center;
+  align-items: center;
+  text-align: justify;
+  overflow-y: scroll;
+  padding: 1%;
+  border-top: 5px solid #ddd;
+  border-left: 5px solid gray;
+  border-bottom: 5px solid rgb(27, 36, 71);
+  border-right: 5px solid rgb(27, 36, 71);
   &.visible {
     opacity: 1;
   }
 `;
 
 export function UniverseModal({ closeModal, content }) {
+  const [favorite, setFavorite] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  useEffect(() => {
+    // 모달이 열릴 때마다 favorite 상태를 초기화
+    setFavorite(false);
+  }, [content]); // content가 변경될 때마다 useEffect가 실행
+
+  const handleFavorite = () => {
+    console.log("즐겨찾기 버튼이 클릭되었습니다!");
+    setFavorite(!favorite);
+    setShowTooltip(false);
+  };
+
+  // 수정 여기부터
+  // const handleFavorite = async () => {
+  //   try {
+  //     // fetch를 사용하여 서버로 요청을 보냅니다.
+  //     const response = await fetch("/api/updateFavoriteStatus", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ postId: content.id, favorite: !favorite }),
+  //     });
+
+  //     if (response.ok) {
+  //       // 서버로부터의 응답에 따라 상태를 업데이트할 수 있습니다.
+  //       const data = await response.json();
+  //       if (data.success) {
+  //         // 서버 응답이 성공일 때만 favorite 상태를 업데이트합니다.
+  //         setFavorite(!favorite);
+  //         setShowTooltip(false);
+  //       } else {
+  //         console.error("서버에서 즐겨찾기 상태 업데이트 실패");
+  //       }
+  //     } else {
+  //       console.error("서버 응답 실패", response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error("서버 통신 중 에러 발생", error);
+  //   }
+  // };
   return (
     <>
       <Backdrop />
@@ -105,8 +199,10 @@ export function UniverseModal({ closeModal, content }) {
             <Img src={ModalTestImg} alt="universeIcon" />
           </ImgBox>
           <ModalFrom>
+            {/* <ImgBox>
+              <Img src={ModalTestImg} alt="universeIcon" />
+            </ImgBox> */}
             Signal from " <span className="userId">{content.authorId}</span> "
-            {/* ghkt2535 */}
           </ModalFrom>
           <Btn className="closeBtn" onClick={closeModal}>
             <Icon className="xIcon" icon="pixelarticons:close" />
@@ -114,20 +210,23 @@ export function UniverseModal({ closeModal, content }) {
         </ModalBar>
         <Content>
           <Title>
-            {/* From. 닉네임 */}
-            from. {content.nickName}
+            From. {content.nickName}
             <br />
-            {/* 입력시간(날짜,시각) */}
             {content.timestamp}
           </Title>
-          <Text>
-            {/* 저는 내용입니다. 고채영은 메이플을 좋아한다. 롤도 좋아하고
-            발로란트를 가장 많이 하는 것 같다. 나랑 좀보이드도 같이 해주기로
-            했는데 언제 해줄지 모르겠다. 내가 아는 채영이는 가상 세계 인물이고
-            집에 가서 컴퓨터를 켜야 현실 세계로 들어가는 애 같다. */}
-            {content.text}
-          </Text>
-          <Btn className="favoriteBtn">즐겨찾기</Btn>
+          <Text>{content.text}</Text>
+          {/* <Btn className="favoriteBtn">즐겨찾기</Btn> */}
+          <FavoriteBtn
+            filled={favorite}
+            onClick={handleFavorite}
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+          >
+            <Icon icon="pixelarticons:moon-stars" />
+            <Tooltip show={showTooltip}>
+              {favorite ? "즐겨찾기 해제" : "즐겨찾기"}
+            </Tooltip>
+          </FavoriteBtn>
         </Content>
       </Container>
     </>

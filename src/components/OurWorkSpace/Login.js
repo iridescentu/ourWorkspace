@@ -1,15 +1,16 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { login } from "./api";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import { getAllContent } from "./api";
+import { UserContext } from "./UserContext";
 
 const Container = styled.div`
   width: 100vw;
-  /* NavBar 60px */
-  height: calc(100vh - 60px);
+  /* NavBar 60px UniverseWindow 30px */
+  height: calc(100vh - 90px);
   color: white;
   display: flex;
   align-items: center;
@@ -106,6 +107,7 @@ const RegisterTxt = styled.div`
 `;
 export function Login({ setLogin }) {
   const [showPassword, setShowPassword] = useState(false);
+  const { updateUser } = useContext(UserContext);
   const togglePasswordVisible = () => {
     setShowPassword(!showPassword);
   };
@@ -120,6 +122,17 @@ export function Login({ setLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 비밀번호 형식 검사
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+    if (!passwordRegex.test(user.Password)) {
+      alert(
+        "비밀번호 형식이 올바르지 않습니다.\n영문 대소문자, 숫자, 특수문자를 포함한 8~20자리로 입력해주세요."
+      );
+      return;
+    }
+
     try {
       const memberLoginDto = {
         loginId: user.loginId,
@@ -134,23 +147,34 @@ export function Login({ setLogin }) {
         userData.resultCode === "SUCCESS" &&
         userData.data // data가 null이 아닌지 확인
       ) {
-        const loginId = userData.data.loginId; // loginId를 추출
-
+        const targetId = userData.data.loginId;
+        // const loginId = userData.data.loginId; // loginId를 추출
+        setUser(userData.data);
+        console.log(userData.data);
         //타 컴포넌트에서 정보를 필요로 할 때 이것을 이용해서 불러오기 가능
         // localStorage에 사용자 정보 저장 등
         localStorage.setItem("loginUserData", JSON.stringify(userData.data));
+        updateUser(userData.data);
         // console.log("로그인 성공, 사용자 id:", id);
-        navigate(`/universe/${loginId}`);
+        navigate(`/universe/${targetId}`);
         // console.log("로그인 성공, 사용자 id:", id);
         // const targetId = userData.data.loginId; // 사용자의 loginId를 targetId로 설정
         // navigate(`/universe/${targetId}`);
         // const targetId = userData.data.loginId; // 사용자의 loginId를 targetId로 설정
+        alert("로그인이 성공되었습니다.");
       } else {
         console.error("로그인 실패:", userData.error);
+        alert("아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해 주세요.");
       }
     } catch (error) {
       console.error("로그인 처리 중 오류 발생:", error);
       return { error: "로그인 실패" };
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
     }
   };
 
@@ -173,6 +197,7 @@ export function Login({ setLogin }) {
             placeholder="Enter your Password."
             name="Password"
             onChange={handleChange}
+            onKeyPress={handleKeyPress}
           />
           <StyledIcon
             icon={

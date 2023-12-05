@@ -168,7 +168,7 @@ export function getAllBinsByUser(loginId) {
   }).then((response) => response.json());
 }
 
-// (사용자) contentID로 숨김처리 항목 선택하여 영구삭제(bin DB와 ContentDB에서 모두 삭제, archiveDB도 contentDB에 따라 자동적으로 삭제)
+// (사용자) contentID로 숨김처리 항목 선택하여 복구(bin DB와 ContentDB에서 모두 삭제, archiveDB도 contentDB에 따라 자동적으로 삭제)
 export function restoreContentByIdUser(contentId, loginId) {
   return fetch(
     `http://localhost:8080/universe/bin/restore/${contentId}/${loginId}`,
@@ -178,7 +178,7 @@ export function restoreContentByIdUser(contentId, loginId) {
   ).then((response) => response.text());
 }
 
-//(사용자) 숨김처리 항목 전체 조회하여 영구 삭제
+//(사용자)  contentID로 숨김처리 항목 선택하여 영구 삭제
 export function permanentlyDeleteContentUser(contentId, loginId) {
   return fetch(`http://localhost:8080/universe/bin/${contentId}/${loginId}`, {
     method: "DELETE",
@@ -186,7 +186,7 @@ export function permanentlyDeleteContentUser(contentId, loginId) {
 }
 
 //(사용자) 숨김처리 항목 전체 조회하여 영구 삭제
-export function delteAllBinsUser(loginId) {
+export function deleteAllBinsUser(loginId) {
   return fetch(`http://localhost:8080/universe/bin/all/${loginId}`, {
     method: "DELETE",
   }).then((response) => response.text());
@@ -209,6 +209,7 @@ export function restoreContentByIdAdmin(contentId) {
     }
   ).then((response) => response.text());
 }
+
 // contentID로 숨김처리 항목 선택하여 영구삭제(관리자)
 // bin DB와 ContentDB에서 모두 삭제, archiveDB도 contentDB에 따라 자동적으로 삭제
 export function permanentlyDeleteContentAdmin(contentId) {
@@ -264,3 +265,33 @@ export function login(memberLoginDto) {
       })
   );
 }
+
+// universemodal 즐겨찾기
+// const handleFavorite = async () => {
+//   try {
+//     // fetch를 사용하여 서버로 요청을 보냅니다.
+//     const response = await fetch("/api/updateFavoriteStatus", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ postId: content.id, favorite: !favorite }),
+//     });
+
+//     if (response.ok) {
+//       // 서버로부터의 응답에 따라 상태를 업데이트할 수 있습니다.
+//       const data = await response.json();
+//       if (data.success) {
+//         // 서버 응답이 성공일 때만 favorite 상태를 업데이트합니다.
+//         setFavorite(!favorite);
+//         setShowTooltip(false);
+//       } else {
+//         console.error("서버에서 즐겨찾기 상태 업데이트 실패");
+//       }
+//     } else {
+//       console.error("서버 응답 실패", response.status);
+//     }
+//   } catch (error) {
+//     console.error("서버 통신 중 에러 발생", error);
+//   }
+// };

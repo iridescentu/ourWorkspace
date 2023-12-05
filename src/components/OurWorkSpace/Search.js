@@ -35,28 +35,23 @@ const SearchTitle = styled.div`
 `;
 
 const SearchContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // 가로로 세 개
+  grid-template-rows: repeat(2, auto); // 세로로 두 개
+  gap: 20px; // 각 그리드 아이템 사이의 간격
+  border-radius: 15px;
   width: 96vw;
-  /* height: 70vh;
-  background-color: rgba(26, 26, 26, 0.7); */
 `;
 
 const PostContainer = styled.div`
   display: flex;
-  /* justify-content: center;
-  align-items: center; */
-  flex-direction: row;
-  border-radius: 10px;
-  width: 96vw;
-  height: 25vh;
+  position: relative;
+  flex-direction: column;
+  width: 30vw; // 각 그리드 아이템의 너비 (가로로 세 개이므로 전체 너비의 30%)
+  height: 35vh; // 각 그리드 아이템의 높이 (세로로 두 개이므로 전체 높이의 50%)
   background-color: darkgray;
-  /* opacity: 0.7; */
   margin-bottom: 2%;
-  border-radius: 10px;
+  border-radius: 15px;
   border-top: 3px solid #ddd;
   border-left: 3px solid gray;
   border-bottom: 3px solid rgb(27, 36, 71);
@@ -64,12 +59,12 @@ const PostContainer = styled.div`
 `;
 
 const CheckboxContainer = styled.div`
-  width: 3vw;
+  display: flex;
+  position: absolute;
+  top: 7%;
+  right: 5%;
   /* background-color: red;
   opacity: 0.7; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const CheckboxInput = styled.input`
@@ -77,18 +72,21 @@ const CheckboxInput = styled.input`
 `;
 
 const ProfileContainer = styled.div`
-  width: 15vw;
-  /* background-color: purple; */
   display: flex;
+  position: absolute;
+  width: 25vw;
+  top: 5%;
+  left: 3%;
   flex-direction: row;
-  /* opacity: 0.7; */
+  /* background-color: purple;
+  opacity: 0.7; */
 `;
 
 const PlanetIconContainer = styled.div`
+  display: flex;
   width: 5vw;
   /* background-color: orange;
   opacity: 0.7; */
-  display: flex;
   justify-content: center;
   align-items: center;
 `;
@@ -99,7 +97,7 @@ const PlanetIcon = styled.img`
 `;
 
 const NicknameContainer = styled.h2`
-  width: 10vw;
+  width: 100%;
   /* background-color: yellow;
   opacity: 0.7; */
   display: flex;
@@ -109,15 +107,23 @@ const NicknameContainer = styled.h2`
 `;
 
 const MessageContainer = styled.h3`
-  width: 71vw;
+  width: 28vw;
+  height: 20vh;
   /* background-color: green;
   opacity: 0.7; */
   display: flex;
+  position: absolute;
+  top: 37%;
+  left: 3%;
   justify-content: center;
   align-items: center;
   text-align: justify;
   overflow-y: scroll;
   padding: 1%;
+  border-top: 5px solid #ddd;
+  border-left: 5px solid gray;
+  border-bottom: 5px solid rgb(27, 36, 71);
+  border-right: 5px solid rgb(27, 36, 71);
 `;
 
 const DateContainer = styled.h4`
@@ -125,8 +131,11 @@ const DateContainer = styled.h4`
   /* background-color: violet;
   opacity: 0.7; */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  top: 28%;
+  left: 5%;
+  /* justify-content: center;
+  align-items: center; */
 `;
 
 export function Search() {

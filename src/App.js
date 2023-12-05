@@ -1,3 +1,4 @@
+import { Loading } from "./components/OurWorkSpace/Loading";
 import { OurWorkSpace } from "./components/OurWorkSpace/OurWorkSpace";
 import { createGlobalStyle } from "styled-components";
 
@@ -19,6 +20,7 @@ export default function App() {
     <>
       <GlobalStyle />
       <OurWorkSpace />
+      {/* <Loading /> */}
     </>
   );
 }

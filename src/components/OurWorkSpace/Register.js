@@ -107,23 +107,51 @@ const GenderBox = styled.div`
   gap: 2rem;
 `;
 
+const NicknameP = styled.p`
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 45.5%;
+  width: 16%;
+  /* background-color: red; */
+  font-size: 13px;
+  opacity: 0.5;
+`;
+
+const BirthP = styled.p`
+  display: flex;
+  position: absolute;
+  top: 42%;
+  left: 45.5%;
+  width: 16%;
+  /* background-color: red; */
+  font-size: 13px;
+  opacity: 0.5;
+`;
+
+const PwP = styled.p`
+  display: flex;
+  position: absolute;
+  top: 66%;
+  left: 45.5%;
+  width: 16%;
+  /* background-color: red; */
+  font-size: 13px;
+  opacity: 0.5;
+`;
+
+const EmailP = styled.p`
+  display: flex;
+  position: absolute;
+  top: 74.5%;
+  left: 45.5%;
+  width: 16%;
+  /* background-color: red; */
+  font-size: 13px;
+  opacity: 0.5;
+`;
+
 export function Register() {
-  // email domain 직접 입력 또는 자동 완성
-  // const [selectedDomain, setSelectedDomain] = useState("");
-  // const [inputValue, setInputValue] = useState("");
-  // const handleDomainChange = (e) => {
-  //   const value = e.target.value;
-  //   setSelectedDomain(value);
-  //   if (value !== "type") {
-  //     setInputValue(value);
-  //   } else {
-  //     setInputValue("");
-  //   }
-  // };
-  // const handleInputChange = (e) => {
-  //   setInputValue(e.target.value);
-  //   setSelectedDomain("type");
-  // };
   const navigate = useNavigate(); // 추가
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
@@ -165,8 +193,62 @@ export function Register() {
         break;
     }
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 유효성 검사 - 입력 필드가 비어있는지 확인
+    if (
+      !name ||
+      // !gender ||
+      !birthDate ||
+      !nickName ||
+      !loginId ||
+      !password ||
+      !email
+    ) {
+      alert("모든 필드를 입력해주세요.");
+      return;
+    }
+    // 성별 선택 여부 확인
+    if (gender !== "WOMAN" && gender !== "MAN") {
+      alert("성별을 선택해주세요.");
+      return;
+    }
+    // 날짜 형식 확인 (YYYY-MM-DD)
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateRegex.test(birthDate)) {
+      alert("유효한 날짜 형식(YYYY-MM-DD)으로 입력해주세요.");
+      return;
+    }
+
+    // 닉네임 형식 확인
+    const nicknameRegex = /^[a-zA-Z가-힣]{2,8}$/;
+    if (!nicknameRegex.test(nickName)) {
+      alert(
+        "닉네임 형식이 올바르지 않습니다.\n영문 또는 한글 2~8자 이내로 입력해주세요."
+      );
+      return;
+    }
+
+    // 닉네임 중복 확인
+    // 아이디 중복 확인
+
+    // 비밀번호 형식 확인
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+    if (!passwordRegex.test(password)) {
+      alert(
+        "비밀번호 형식이 올바르지 않습니다.\n영문 대소문자, 숫자, 특수문자를 모두 포함한 8~20자리로 입력해주세요."
+      );
+      return;
+    }
+    // 이메일 형식 확인
+    const emailRegex = /^[^\s@]+@[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("이메일 형식이 올바르지 않습니다.\n다시 입력해주세요.");
+    }
+
     const member = {
       name,
       gender,
@@ -208,8 +290,9 @@ export function Register() {
         if (data.resultCode === "SUCCESS") {
           // 회원가입이 성공하면 로그인 페이지로 이동
           navigate("/universe/login");
+          // 회원가입이 성공하면 알림창 표시
+          alert("회원가입이 성공하였습니다!");
         } else {
-          // 회원가입 실패 시 처리
           console.error("회원가입 실패:", data.message);
         }
       })
@@ -217,6 +300,13 @@ export function Register() {
         console.error("Error:", error);
       });
   };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  };
+
   return (
     <>
       <Container>
@@ -269,9 +359,10 @@ export function Register() {
               name="birthDate"
               value={birthDate}
               onChange={handleChange}
-              placeholder="ex) 1999-01-01"
+              placeholder="Enter your birthdate"
             />
           </Box>
+          <BirthP>ex. 1999-01-01</BirthP>
           <Box>
             <Label>Nickname</Label>
             <Input
@@ -282,6 +373,9 @@ export function Register() {
               placeholder="Enter your Nickname"
             />
           </Box>
+          <NicknameP>
+            Enter 2 to 8 characters excluding special characters
+          </NicknameP>
 
           <Box>
             <Label>ID</Label>
@@ -315,6 +409,10 @@ export function Register() {
               placeholder="Enter yout Password"
             />
           </Box>
+          <PwP>
+            Enter 8 to 20 characters<br></br>Including letters, numbers, and
+            special characters
+          </PwP>
           <Box>
             <Label>E-mail</Label>
             <Input
@@ -323,8 +421,10 @@ export function Register() {
               value={email}
               onChange={handleChange}
               placeholder="Enter your e-mail"
+              onKeyPress={handleKeyPress}
             />
           </Box>
+          <EmailP>ex. example@email.com</EmailP>
           <SignupBtn type="submit" onClick={handleSubmit}>
             Sign up
           </SignupBtn>

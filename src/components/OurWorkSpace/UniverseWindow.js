@@ -2,6 +2,8 @@ import { useState } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
+import { useParams } from "react-router-dom";
+import { useUser } from "./UserContext";
 // import { Navigate } from "react-router-dom";
 
 const Container = styled.div`
@@ -150,7 +152,6 @@ const AlertBtns = styled.button`
 
 export function UniverseWindow() {
   // 해당 경로일 때 스타일링을 위해
-  const location = useLocation();
   const Tab = styled(NavLink)`
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -176,17 +177,30 @@ export function UniverseWindow() {
       color: white;
     }
   `;
+  const { updateUser } = useUser();
+  const user = JSON.parse(localStorage.getItem("loginUserData"));
+  const location = useLocation();
+  const { targetId, loginId } = useParams();
+
+  console.log("user", user);
 
   // 경고창 확인 눌렀을 때 home으로 이동 취소 눌렀을 때 변화 x
   const navigate = useNavigate();
-  const [isAlertsVisible, setIsAlertsVisible] = useState(false);
 
+  const [isAlertsVisible, setIsAlertsVisible] = useState(false);
   // const [login, setLogin] = useState(false);
 
   const onClickLogout = () => {
     setIsAlertsVisible(true);
   };
+
   const handleConfirm = () => {
+    // localStorage에서 userData 가져오기
+    const storedUserData = JSON.parse(localStorage.getItem("loginUserData"));
+    // userData가 있다면 updateUser로 상태 업데이트
+    if (storedUserData) {
+      updateUser(storedUserData);
+    }
     navigate("/");
     setIsAlertsVisible(false);
   };
@@ -202,9 +216,9 @@ export function UniverseWindow() {
       <Container>
         <Topbar>
           <Tabs>
-            <Tab to="/universe">Universe</Tab>
-            <Tab to="/universe/archive">Archive</Tab>
-            <Tab to="/universe/bin">Bin</Tab>
+            <Tab to={`/universe/${user.loginId}`}>Universe</Tab>
+            <Tab to={`/universe/archive/${user.loginId}`}>Archive</Tab>
+            <Tab to={`/universe/bin/${user.loginId}`}>Bin</Tab>
             <Tab onClick={onClickLogout}>Logout</Tab>
           </Tabs>
           <Tabs className="control">
@@ -215,10 +229,12 @@ export function UniverseWindow() {
               </SearchBtn>
             </Search>
             <MyAccount>
-              <DashboardNavLink to="/universe/dashboard">
-                <StyledIcon icon="pixelarticons:user" />
-                "loginId" 님
-              </DashboardNavLink>
+              {user && (
+                <DashboardNavLink to="/universe/dashboard">
+                  <StyledIcon icon="pixelarticons:user" />
+                  {`${user.loginId}님`}
+                </DashboardNavLink>
+              )}
             </MyAccount>
           </Tabs>
         </Topbar>
