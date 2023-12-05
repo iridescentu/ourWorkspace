@@ -29,8 +29,8 @@ public class MemberDto {
 	
 	//영어 숫자 상관없이 2~8자까지, 특수문자, 한글 포함안되도록 
 	@NotBlank
-	@Pattern(regexp = "^[a-zA-Z0-9]{2,8}$",
-	message = "특수문자를 제외하고 영문 2~8자 이내로 입력해주세요")
+	@Pattern(regexp = "^[a-zA-Z0-9가-힣]{2,8}$",
+    message = "특수문자를 제외하고 영문 또는 한글 2~8자 이내로 입력해주세요")
 	private String nickName;
 	
 	@NotBlank
